@@ -302,7 +302,7 @@ export default function App() {
         </div>
 
         {/* Scroll indicator */}
-        <div className="hidden sm:flex absolute bottom-28 left-1/2 -translate-x-1/2 flex-col items-center gap-3">
+        <div className="absolute bottom-44 sm:bottom-28 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3">
           <span
             className="text-[10px] tracking-[0.4em] uppercase font-sans"
             style={{ color: "rgba(255,249,241,0.5)" }}
