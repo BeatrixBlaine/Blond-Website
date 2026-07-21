@@ -1,0 +1,18 @@
+@import './fonts.css';
+@import './tailwind.css';
+@import './theme.css';
+
+@keyframes scroll-down {
+  0%, 100% {
+    transform: translateY(0);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translateY(8px);
+    opacity: 1;
+  }
+}
+
+.animate-scroll-down {
+  animation: scroll-down 2s ease-in-out infinite;
+}
