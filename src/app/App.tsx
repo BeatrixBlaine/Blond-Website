@@ -862,7 +862,7 @@ export default function App() {
             <p className="text-sm font-sans" style={{ color: `rgba(255,249,241,0.28)` }}>
               © {new Date().getFullYear()} Blond the Bakery. All rights reserved.
             </p>
-            <div className="flex flex-wrap justify-center gap-6">
+            {/* <div className="flex flex-wrap justify-center gap-6">
               {NAV_LINKS.map((link) => (
                 <button
                   key={link.id}
@@ -875,7 +875,7 @@ export default function App() {
                   {link.label}
                 </button>
               ))}
-            </div>
+            </div> */}
           </div>
         </div>
       </footer>
