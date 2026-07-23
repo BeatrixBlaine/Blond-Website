@@ -718,7 +718,7 @@ export default function App() {
             </p>
           </div>
           <a
-            href="https://wa.me/6281802227775"
+            href={`https://wa.me/${import.meta.env.VITE_PHONE}`}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-3 border px-10 py-4 text-sm tracking-[0.2em] uppercase transition-all duration-300 font-sans"
