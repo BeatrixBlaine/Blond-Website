@@ -8,6 +8,7 @@ import danish2 from "@/imports/2.jpeg";
 import danish3 from "@/imports/3.jpeg";
 import danish4 from "@/imports/4.jpeg";
 import story from "@/imports/sarahicad.jpeg";
+import storefront from "@/imports/blondfront.png";
 
 const BRAND = "#9E8465";
 const BG = "#FFF9F1";
@@ -525,7 +526,7 @@ export default function App() {
             <div className="relative order-2 lg:order-1">
               <div className="aspect-[4/5] overflow-hidden">
                 <img
-                  src={story}
+                  src={storefront}
                   alt="Baker shaping croissant dough by hand at dawn"
                   className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
                   style={{ filter: "saturate(0.8) brightness(1.05)" }}
