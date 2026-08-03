@@ -9,6 +9,7 @@ import danish3 from "@/imports/3.jpeg";
 import danish4 from "@/imports/4.jpeg";
 import story from "@/imports/sarahicad.jpeg";
 import storefront from "@/imports/blondfront.png";
+import hero from "@/imports/Hero-full.png";
 
 const BRAND = "#9E8465";
 const BG = "#FFF9F1";
@@ -121,24 +122,32 @@ const FAQS = [
     a: "Yes! We offer pre-orders on selected items so you never miss your favourites. Check the Order section for the link to place your request. Orders are confirmed once we have replied.",
   },
   {
-    q: "What are your opening hours?",
-    a: "We are open Wednesday to Friday from 7:30 am to 4:00 pm, and Saturday to Sunday from 7:00 am to 5:00 pm. We are closed on Mondays and Tuesdays.",
+    q: "Do I have to queue for both takeaway and dine-in?",
+    a: "Yes, please. We have one cashier for both takeaway and dine-in, so everyone joins the same queue. If there's a wait, you're welcome to have a seat on the bench by the left side of the bakery while waiting your turn.",
   },
   {
-    q: "Are your croissants made fresh daily?",
-    a: "Absolutely. Every croissant is laminated and baked fresh each morning. We begin at dawn so the first batch hits the counter right as we open.",
+    q: "When is the best time to visit?",
+    a: "We open at 7.30 AM on weekdays and 7.00 AM on weekends. If you'd like to enjoy the widest pastry selection, we'd recommend visiting before 9:00 AM, as some pastries tend to sell out early.",
   },
   {
-    q: "Do you accommodate dietary restrictions?",
-    a: "Some of our items contain nuts, dairy, and gluten. Please reach out via our Instagram before visiting so we can guide you to the right options.",
+    q: "When is everything available?",
+    a: "Every day is a little different. Most of our full selection is usually on the shelves by 9:00-10.00 AM, though some pastries arrive earlier and others later, depending on the day's bake. if there's something you've been looking forward to, we'd always recommend coming earlier in the day.",
   },
   {
-    q: "How often does the loaf selection change?",
-    a: "Our loaves rotate daily — you might find coffee, strawberry, chocolate, or banana loaf depending on the day. Follow us on Instagram for daily updates.",
+    q: "What time do you usually sell out?",
+    a: "It really depends on the day! We bake in small batches and keep baking throughout the day, especially on weekends, so there's no fixed sell-out time. Saturdays and Sundays are our busiest days, and we often sell out before 5:00 PM. On weekdays, we usually still have a selection available until closing. If you're hoping for a quieter visit, Thursday is usually our calmest day.",
   },
   {
-    q: "Do you do catering or bulk orders?",
-    a: "We can accommodate select bulk orders for events. Please reach out at least 5 days in advance via the pre-order link to discuss availability and pricing.",
+    q: "Are you available on any delivery platforms?",
+    a: "Not at the moment. We're currently an in-store bakery, but we do take pre-orders through WhatsApp. As we're a small team, replies may take a little longer, especially during busy mornings. There may also be times when we temporarily pause online orders so we can focus on serving everyone in the bakery.",
+  },
+  {
+    q: "Are your pastries halal?",
+    a: "Yes. We use ingredients that are considered halal throughout our menu. While we're not halal certified, we don't use pork, lard, or alcohol in our pastries.",
+  },
+  {
+    q: "Are you pet-friendly?",
+    a: "Yes, we'd love to meet your furry friends. Pets are welcome in our outdoor area. As our bakery is quite small, we kindly ask that they stay outside the shop.",
   },
 ];
 
@@ -269,7 +278,8 @@ export default function App() {
         {/* Background photo */}
         <div className="absolute inset-0">
           <img
-            src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=1800&h=1200&fit=crop&auto=format"
+            // src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=1800&h=1200&fit=crop&auto=format"
+            src={hero}
             alt="Golden butter croissants fresh from the oven"
             className="w-full h-full object-cover"
           />
