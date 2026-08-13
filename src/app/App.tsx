@@ -7,6 +7,8 @@ import danish1 from "@/imports/1.jpeg";
 import danish2 from "@/imports/2.jpeg";
 import danish3 from "@/imports/3.jpeg";
 import danish4 from "@/imports/4.jpeg";
+import danish5 from "@/imports/tomatoconfit.jpeg";
+import danish6 from "@/imports/tomatoconfit2.jpeg";
 import story from "@/imports/sarahicad.jpeg";
 import storefront from "@/imports/blondfront.png";
 import hero from "@/imports/Hero-full.png";
@@ -113,7 +115,9 @@ const GALLERY_IMAGES = [
   { id: "1", src: danish1, alt: "danish1" },
   { id: "2", src: danish2, alt: "danish2" },
   { id: "3", src: danish3, alt: "danish3" },
-  { id: "4", src: danish4, alt: "danish4" }
+  { id: "4", src: danish4, alt: "danish4" },
+  { id: "5", src: danish5, alt: "danish5" },
+  { id: "6", src: danish6, alt: "danish6" },
 ];
 
 const FAQS = [
@@ -407,8 +411,23 @@ export default function App() {
       </section>
 
       {/* ── Menu ── */}
-      <section id="menu" className="py-28" style={{ backgroundColor: BG, borderTop: `1px solid ${r(0.1)}` }}>
-        <div className="max-w-7xl mx-auto px-6 lg:px-12">
+      <section id="menu" className="py-28 relative overflow-hidden" style={{ backgroundColor: BG, borderTop: `1px solid ${r(0.1)}` }}>
+
+        {/* Croissant background */}
+        <img
+          src={croissantIcon}
+          alt=""
+          aria-hidden="true"
+          className="absolute pointer-events-none select-none"
+          style={{
+            width: "550px",
+            right: "-120px",
+            top: "80px",
+            opacity: 0.06,
+            transform: "rotate(-12deg)",
+          }}
+        />
+        <div className="max-w-7xl mx-auto px-6 lg:px-12 relative z-10">
           <div
             className="mb-20 grid grid-cols-1 md:grid-cols-2 gap-6 items-end pb-10 border-b"
             style={{ borderColor: r(0.15) }}
