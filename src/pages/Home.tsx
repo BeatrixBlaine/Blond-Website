@@ -965,7 +965,7 @@ export default function Home({ cartItems }: HomeProps) {
       {cartItems.length > 0 && (
         <button
           onClick={() => {
-            navigate("/cart#your-order");
+            navigate("/cart");
           }}
           className="fixed bottom-6 right-6 z-50
                       flex items-center gap-3
