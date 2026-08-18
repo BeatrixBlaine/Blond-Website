@@ -235,32 +235,24 @@ export default function Cart({
 
   useEffect(() => {
     const handleScroll = () => {
-      if (orderSectionRef.current) {
-        const rect = orderSectionRef.current.getBoundingClientRect();
-        const isOrderSectionVisible = rect.top < window.innerHeight;
-        
-        if (isOrderSectionVisible && totalQuantity > 0) {
-          // Hide notification smoothly when order section is visible
-            hideNotification();
-        } else if (!isOrderSectionVisible && totalQuantity > 0) {
-          // Show notification when scrolled away from order section
-          setShowNotification(true);
-          
-          // Clear existing timeout
-          if (notificationTimeoutRef.current) {
-            clearTimeout(notificationTimeoutRef.current);
-          }
-          
-          // Set new timeout to fade away
-          notificationTimeoutRef.current = setTimeout(() => {
-            hideNotification();
-          }, 3000);
-        }
+      if (!orderSectionRef.current || totalQuantity === 0) return;
+
+      const rect = orderSectionRef.current.getBoundingClientRect();
+
+      const isOrderSectionVisible = rect.top < window.innerHeight;
+
+      if (isOrderSectionVisible) {
+        hideNotification();
+      } else {
+        setShowNotification(true);
       }
     };
 
     window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, [totalQuantity]);
 
   // Show notification when items are added
@@ -526,7 +518,7 @@ export default function Cart({
           <div className="my-16 border-t" style={{ borderColor: r(0.15) }} />
 
           {/* Your Order Section */}
-          <div ref={orderSectionRef}>
+          <div ref={orderSectionRef} className="scroll-mt-24" id="your-order">
             <h2 className="font-display text-5xl md:text-6xl mb-8" style={{ color: BRAND }}>
               Your Order
             </h2>
@@ -629,6 +621,16 @@ export default function Cart({
 
               </div>
             </div>
+
+            {/* Friendly Note */}
+            {cartItems.length > 0 && (
+              <p
+                className="text-sm font-sans font-light text-center mb-12"
+                style={{ color: r(0.65) }}
+              >
+                Almost there! Please scroll down to review your order and place it with us.
+              </p>
+            )}
 
             {cartItems.length === 0 ? (
             // Empty Cart

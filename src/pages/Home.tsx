@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import type { CartItem } from "@/pages/Cart";
 import {
   Menu,
   X,
@@ -8,6 +9,7 @@ import {
   ChevronDown,
   ExternalLink,
   Instagram,
+  ShoppingBag,
 } from "lucide-react";
 import { ImageWithFallback } from "@/app/components/figma/ImageWithFallback";
 import croissantIcon from "@/imports/IMG_1730.png";
@@ -185,7 +187,11 @@ function r(opacity: number) {
   return `rgba(158,132,101,${opacity})`;
 }
 
-export default function Home() {
+interface HomeProps {
+  cartItems: CartItem[];
+}
+
+export default function Home({ cartItems }: HomeProps) {
   const navigate = useNavigate();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -954,6 +960,45 @@ export default function Home() {
           </div>
         </div>
       </footer>
+
+      {/* ── Shopping Bag Notification ── */}
+      {cartItems.length > 0 && (
+        <button
+          onClick={() => {
+            navigate("/cart#your-order");
+          }}
+          className="fixed bottom-6 right-6 z-50
+                      flex items-center gap-3
+                      px-5 py-3
+                      shadow-lg
+                      rounded-full
+                      transition-all duration-300
+                      hover:opacity-90
+                      active:scale-95"
+          style={{
+            backgroundColor: BRAND,
+            color: BG,
+          }}
+        >
+          <ShoppingBag size={18} />
+
+          <span className="text-xs sm:text-sm tracking-[0.12em] uppercase font-sans">
+            Your Order
+          </span>
+
+          <span
+            className="flex items-center justify-center
+                      min-w-6 h-6 px-1
+                      rounded-full text-xs font-sans"
+            style={{
+              backgroundColor: BG,
+              color: BRAND,
+            }}
+          >
+            {cartItems.reduce((total, item) => total + item.quantity, 0)}
+          </span>
+        </button>
+      )}
     </div>
   );
 }
