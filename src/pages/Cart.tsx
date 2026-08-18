@@ -155,7 +155,15 @@ export default function Cart({
   // Form state
   const [customerName, setCustomerName] = useState("");
   const [orderDate, setOrderDate] = useState("");
+  const [pickupTime, setPickupTime] = useState("");
+
+  // Notification state
   const [showNotification, setShowNotification] = useState(true);
+  const [isFadingOut, setIsFadingOut] = useState(false);
+
+  // Adding Order state
+  const [addedProductId, setAddedProductId] = useState<string | null>(null);
+
   const orderSectionRef = useRef<HTMLDivElement>(null);
   const notificationTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -166,7 +174,65 @@ export default function Cart({
     return tomorrow.toISOString().split("T")[0];
   };
 
+  const isBakeryOpen = () => {
+  if (!orderDate) return true;
+
+  const selectedDate = new Date(orderDate + "T00:00:00");
+  const day = selectedDate.getDay();
+
+  // Sunday = 0
+  // Monday = 1
+  // Tuesday = 2
+  // Wednesday = 3
+  // Thursday = 4
+  // Friday = 5
+  // Saturday = 6
+
+  return day !== 1 && day !== 2;
+};
+
+  // Pickup Hour
+  const getAvailablePickupTimes = () => {
+  if (!orderDate) return [];
+
+  const selectedDate = new Date(orderDate + "T00:00:00");
+  const day = selectedDate.getDay();
+
+  const times: string[] = [];
+
+  // Wednesday - Friday
+  if (day >= 3 && day <= 5) {
+    for (let hour = 7; hour <= 16; hour++) {
+      if (hour === 7) {
+        times.push("07:30");
+      } else {
+        times.push(`${String(hour).padStart(2, "0")}:00`);
+      }
+    }
+  }
+
+  // Saturday - Sunday
+  if (day === 6 || day === 0) {
+    for (let hour = 7; hour <= 17; hour++) {
+      times.push(`${String(hour).padStart(2, "0")}:00`);
+    }
+  }
+
+  return times;
+};
+
   // Scroll event listener for notification
+  const hideNotification = () => {
+  if (isFadingOut) return;
+
+  setIsFadingOut(true);
+
+  setTimeout(() => {
+    setShowNotification(false);
+    setIsFadingOut(false);
+  }, 300);
+};
+
   useEffect(() => {
     const handleScroll = () => {
       if (orderSectionRef.current) {
@@ -174,8 +240,8 @@ export default function Cart({
         const isOrderSectionVisible = rect.top < window.innerHeight;
         
         if (isOrderSectionVisible && totalQuantity > 0) {
-          // Hide notification when order section is visible
-          setShowNotification(false);
+          // Hide notification smoothly when order section is visible
+            hideNotification();
         } else if (!isOrderSectionVisible && totalQuantity > 0) {
           // Show notification when scrolled away from order section
           setShowNotification(true);
@@ -187,7 +253,7 @@ export default function Cart({
           
           // Set new timeout to fade away
           notificationTimeoutRef.current = setTimeout(() => {
-            setShowNotification(false);
+            hideNotification();
           }, 3000);
         }
       }
@@ -235,6 +301,10 @@ export default function Cart({
     if (orderDate) {
       message += `Pickup Date: ${orderDate}\n`;
     }
+
+    if (pickupTime) {
+        message += `Pickup Time: ${pickupTime}\n`;
+    }
     
     if (customerName || orderDate) {
       message += "\nItems:\n";
@@ -264,8 +334,34 @@ export default function Cart({
     return;
   }
 
+  if (!isBakeryOpen()) {
+    alert(
+      "We're closed on Mondays and Tuesdays. Please select another pickup date."
+    );
+    return;
+  }
+
+  if (!pickupTime) {
+    alert("Please select a pickup time.");
+    return;
+  }
+
+
   window.open(getWhatsAppLink(), "_blank");
 };
+
+    // Add item animation
+    const handleAddItem = (productId: string) => {
+    onAddItem(productId);
+
+    // Show "Added" animation for this product
+    setAddedProductId(productId);
+
+    // Return to normal after 800ms
+    setTimeout(() => {
+        setAddedProductId(null);
+    }, 800);
+    };
 
   return (
     <div style={{ backgroundColor: BG, color: BRAND, minHeight: "100vh" }}>
@@ -301,21 +397,15 @@ export default function Cart({
       {/* Main Content */}
       <div className="pt-32 pb-20">
         <div className="max-w-4xl mx-auto px-6 lg:px-12">
-          {/* Heading */}
+          {/* Heading
           <div className="mb-16">
-            <p className="text-sm tracking-[0.3em] uppercase mb-3 font-sans" style={{ color: r(0.45) }}>
-              Artisan bakery
-            </p>
             <h1 className="font-display text-6xl md:text-7xl" style={{ color: BRAND }}>
               Pre-order
             </h1>
-          </div>
+          </div> */}
 
           {/* Menu Section */}
           <div className="mb-24">
-            <p className="text-sm tracking-[0.3em] uppercase mb-8 font-sans" style={{ color: r(0.45) }}>
-              What we bake
-            </p>
 
             {/* Croissants */}
             <div className="mb-20">
@@ -323,9 +413,6 @@ export default function Cart({
                 <h2 className="font-display text-5xl" style={{ color: BRAND }}>
                   Croissants
                 </h2>
-                <span className="text-base tracking-wide font-sans italic" style={{ color: r(0.7) }}>
-                  Laminated &amp; baked fresh daily
-                </span>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12">
                 {CROISSANT_COLS.map((col, ci) => (
@@ -350,9 +437,18 @@ export default function Cart({
                             </div>
                           </div>
                           <button
-                            onClick={() => onAddItem(item.productId)}
-                            className="flex-shrink-0 px-3 py-1 text-xs tracking-[0.15em] uppercase border transition-colors duration-300 font-sans mt-1"
-                            style={{ borderColor: BRAND, color: BRAND, backgroundColor: "transparent" }}
+                            onClick={() => handleAddItem(item.productId)}
+                            className="flex-shrink-0 w-16 py-1 text-xs tracking-[0.15em] uppercase border transition-all duration-300 font-sans mt-1"
+                            style={{
+                            borderColor:
+                                addedProductId === item.productId ? BRAND : BRAND,
+
+                            color:
+                                addedProductId === item.productId ? BG : BRAND,
+
+                            backgroundColor:
+                                addedProductId === item.productId ? BRAND : "transparent",
+                            }}
                             onMouseEnter={(e) => {
                               (e.currentTarget as HTMLElement).style.backgroundColor = BRAND;
                               (e.currentTarget as HTMLElement).style.color = BG;
@@ -362,7 +458,7 @@ export default function Cart({
                               (e.currentTarget as HTMLElement).style.color = BRAND;
                             }}
                           >
-                            Add
+                            {addedProductId === item.productId ? " ✓ " : "Add"}
                           </button>
                         </div>
                       );
@@ -396,9 +492,19 @@ export default function Cart({
                       </div>
                     </div>
                     <button
-                      onClick={() => onAddItem(item.productId)}
-                      className="flex-shrink-0 px-3 py-1 text-xs tracking-[0.15em] uppercase border transition-colors duration-300 font-sans mt-1"
-                      style={{ borderColor: BRAND, color: BRAND, backgroundColor: "transparent" }}
+                      onClick={() => handleAddItem(item.productId)}
+                      className="flex-shrink-0 w-16 py-1 text-xs tracking-[0.15em] uppercase border transition-all duration-300 font-sans mt-1"
+                      style={{
+                        borderColor:
+                            addedProductId === item.productId ? BRAND : BRAND,
+
+                        color:
+                            addedProductId === item.productId ? BG : BRAND,
+
+                        backgroundColor:
+                            addedProductId === item.productId ? BRAND : "transparent",
+
+                        }}
                       onMouseEnter={(e) => {
                         (e.currentTarget as HTMLElement).style.backgroundColor = BRAND;
                         (e.currentTarget as HTMLElement).style.color = BG;
@@ -408,7 +514,7 @@ export default function Cart({
                         (e.currentTarget as HTMLElement).style.color = BRAND;
                       }}
                     >
-                      Add
+                      {addedProductId === item.productId ? " ✓ " : "Add"}
                     </button>
                   </div>
                 ))}
@@ -427,7 +533,7 @@ export default function Cart({
 
             {/* Customer Info Form */}
             <div className="mb-12 p-6 border" style={{ borderColor: r(0.15), backgroundColor: r(0.02) }}>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {/* Name Field */}
                 <div>
                   <label className="block text-sm font-sans font-medium mb-2" style={{ color: BRAND }}>
@@ -457,7 +563,12 @@ export default function Cart({
                   <input
                     type="date"
                     value={orderDate}
-                    onChange={(e) => setOrderDate(e.target.value)}
+                    onChange={(e) => {
+                        setOrderDate(e.target.value);
+
+                        // Reset pickup time when date changes
+                        setPickupTime("");
+                        }}
                     min={getMinDate()}
                     className="w-full px-4 py-3 border font-sans text-sm focus:outline-none transition-colors"
                     style={{
@@ -468,7 +579,54 @@ export default function Cart({
                     onFocus={(e) => (e.currentTarget.style.borderColor = BRAND)}
                     onBlur={(e) => (e.currentTarget.style.borderColor = r(0.2))}
                   />
+
+                  {orderDate && !isBakeryOpen() && (
+                        <p
+                        className="text-sm mt-2 font-sans"
+                        style={{ color: "#b45309" }}
+                        >
+                        We're closed on Mondays and Tuesdays. Please choose another date.
+                        </p>
+                    )}
                 </div>
+                
+                {/* Pickup Time Field */}
+                <div>
+                <label
+                    className="block text-sm font-sans font-medium mb-2"
+                    style={{ color: BRAND }}
+                >
+                    Pickup Hour
+                </label>
+
+                <select
+                    value={pickupTime}
+                    onChange={(e) => setPickupTime(e.target.value)}
+                    disabled={!orderDate || !isBakeryOpen()}
+                    className="w-full px-4 py-3 border font-sans text-sm focus:outline-none transition-colors"
+                    style={{
+                    borderColor: r(0.2),
+                    backgroundColor: BG,
+                    color: BRAND,
+                    opacity: orderDate ? 1 : 0.5,
+                    }}
+                >
+                    <option value="">
+                    {!orderDate
+                        ? "Select date first"
+                        : !isBakeryOpen()
+                        ? "We're closed on this day"
+                        : "Select pickup time"}
+                    </option>
+
+                    {getAvailablePickupTimes().map((time) => (
+                    <option key={time} value={time}>
+                        {time}
+                    </option>
+                    ))}
+                </select>
+                </div>
+
               </div>
             </div>
 
@@ -489,7 +647,7 @@ export default function Cart({
                 onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.opacity = "1")}
               >
                 <ArrowLeft size={16} />
-                Return to Menu
+                Return to Home
               </button>
             </div>
           ) : (
@@ -589,7 +747,7 @@ export default function Cart({
 
                 <div className="p-4 mb-8" style={{ backgroundColor: r(0.04), border: `1px solid ${r(0.12)}` }}>
                   <p className="text-sm font-sans font-light leading-relaxed" style={{ color: r(0.85) }}>
-                    <span style={{ fontWeight: 600, color: BRAND }}>Note:</span> Prices and availability are subject to confirmation. You'll receive a confirmation message after placing your order.
+                    <span style={{ fontWeight: 600, color: BRAND }}>Note:</span> Prices exclude tax, and availability is subject to final confirmation. Don't worry, we will send you a confirmation message as soon as you place your order!
                   </p>
                 </div>
               </div>
@@ -619,12 +777,17 @@ export default function Cart({
         <div
           className="fixed bottom-6 right-6 z-40 cursor-pointer transition-all duration-300"
           style={{
-            animation: showNotification ? "fadeIn 0.3s ease-in" : "fadeOut 0.3s ease-out",
-          }}
+            animation: isFadingOut
+                ? "fadeOut 0.3s ease-out forwards"
+                : "fadeIn 0.3s ease-in",
+            }}
           onClick={() => {
-            orderSectionRef.current?.scrollIntoView({ behavior: "smooth" });
-            setShowNotification(false);
-          }}
+            orderSectionRef.current?.scrollIntoView({
+                behavior: "smooth",
+            });
+
+            hideNotification();
+            }}
           onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.transform = "scale(1.1)")}
           onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.transform = "scale(1)")}
         >
