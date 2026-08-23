@@ -413,55 +413,52 @@ export default function Cart({
                     {col.map((item, i) => {
                       const num = ci * 6 + i + 1;
                       return (
-                        <div key={item.productId} className="py-4 border-b flex items-start justify-between gap-3" style={{ borderColor: r(0.12) }}>
-                          <div className="flex items-start gap-3 flex-1">
+                        <div
+                          key={item.productId}
+                          className="py-4 border-b flex items-start justify-between gap-3"
+                          style={{ borderColor: r(0.12) }}
+                        >
+                          <div className="flex items-start gap-3 flex-1 min-w-0">
 
-                            {/* Sample Picture */}
                             {item.productId === "c-01" && (
                               <img
                                 src={classicCroissant}
                                 alt="Classic Butter Croissant"
-                                className="w-20 h-20 object-cover flex-shrink-0 rounded-lg"
+                                className="w-16 h-16 sm:w-20 sm:h-20 object-cover shrink-0 rounded-lg"
                               />
                             )}
 
-                            <span className="font-display text-sm mt-0.5 select-none flex-shrink-0 w-6 text-right" style={{ color: r(0.35) }}>
+                            <span
+                              className="font-display text-sm mt-0.5 select-none shrink-0 w-6 text-right"
+                              style={{ color: r(0.35) }}
+                            >
                               {String(num).padStart(2, "0")}
                             </span>
-                            <div>
-                              <p className="text-base font-sans font-medium leading-snug" style={{ color: BRAND }}>
+
+                            <div className="min-w-0">
+                              <p
+                                className="text-base font-sans font-medium leading-snug"
+                                style={{ color: BRAND }}
+                              >
                                 {item.name}
                               </p>
+
                               {item.desc && (
-                                <p className="text-sm font-sans font-light mt-1 leading-relaxed" style={{ color: r(0.82) }}>
+                                <p
+                                  className="text-sm font-sans font-light mt-1 leading-relaxed"
+                                  style={{ color: r(0.82) }}
+                                >
                                   {item.desc}
                                 </p>
                               )}
                             </div>
                           </div>
+
                           <button
                             onClick={() => handleAddItem(item.productId)}
-                            className="flex-shrink-0 w-16 py-1 text-xs tracking-[0.15em] uppercase border transition-all duration-300 font-sans mt-1"
-                            style={{
-                            borderColor:
-                                addedProductId === item.productId ? BRAND : BRAND,
-
-                            color:
-                                addedProductId === item.productId ? BG : BRAND,
-
-                            backgroundColor:
-                                addedProductId === item.productId ? BRAND : "transparent",
-                            }}
-                            onMouseEnter={(e) => {
-                              (e.currentTarget as HTMLElement).style.backgroundColor = BRAND;
-                              (e.currentTarget as HTMLElement).style.color = BG;
-                            }}
-                            onMouseLeave={(e) => {
-                              (e.currentTarget as HTMLElement).style.backgroundColor = "transparent";
-                              (e.currentTarget as HTMLElement).style.color = BRAND;
-                            }}
+                            className="shrink-0 w-16 py-1 text-xs tracking-[0.15em] uppercase border transition-all duration-300 font-sans mt-1"
                           >
-                            {addedProductId === item.productId ? " ✓ " : "Add"}
+                            {addedProductId === item.productId ? "✓" : "Add"}
                           </button>
                         </div>
                       );
