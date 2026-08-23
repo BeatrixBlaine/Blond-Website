@@ -4,6 +4,7 @@ import { ArrowLeft, Plus, Minus, Trash2, ExternalLink, ShoppingBag } from "lucid
 import { Product, PRODUCTS } from "@/data/products";
 import { ImageWithFallback } from "@/app/components/figma/ImageWithFallback";
 import blondLogo from "@/imports/IMG_1732__1_-1.png";
+import classicCroissant from "@/imports/classicCroissant.jpg";
 
 const BRAND = "#9E8465";
 const BG = "#FFF9F1";
@@ -388,7 +389,7 @@ export default function Cart({
 
       {/* Main Content */}
       <div className="pt-32 pb-20">
-        <div className="max-w-4xl mx-auto px-6 lg:px-12">
+        <div className="max-w-4xl lg:max-w-7xl mx-auto px-6 lg:px-12">
           {/* Heading
           <div className="mb-16">
             <h1 className="font-display text-6xl md:text-7xl" style={{ color: BRAND }}>
@@ -414,6 +415,16 @@ export default function Cart({
                       return (
                         <div key={item.productId} className="py-4 border-b flex items-start justify-between gap-3" style={{ borderColor: r(0.12) }}>
                           <div className="flex items-start gap-3 flex-1">
+
+                            {/* Sample Picture */}
+                            {item.productId === "c-01" && (
+                              <img
+                                src={classicCroissant}
+                                alt="Classic Butter Croissant"
+                                className="w-20 h-20 object-cover flex-shrink-0 rounded-lg"
+                              />
+                            )}
+
                             <span className="font-display text-sm mt-0.5 select-none flex-shrink-0 w-6 text-right" style={{ color: r(0.35) }}>
                               {String(num).padStart(2, "0")}
                             </span>
@@ -518,7 +529,7 @@ export default function Cart({
           <div className="my-16 border-t" style={{ borderColor: r(0.15) }} />
 
           {/* Your Order Section */}
-          <div ref={orderSectionRef} className="scroll-mt-24" id="your-order">
+          <div ref={orderSectionRef} className="max-w-4xl mx-auto px-6 lg:px-12 scroll-mt-24" id="your-order">
             <h2 className="font-display text-5xl md:text-6xl mb-8" style={{ color: BRAND }}>
               Your Order
             </h2>
