@@ -455,11 +455,30 @@ export default function Cart({
                           </div>
 
                           <button
-                            onClick={() => handleAddItem(item.productId)}
-                            className="shrink-0 w-16 py-1 text-xs tracking-[0.15em] uppercase border transition-all duration-300 font-sans mt-1"
-                          >
-                            {addedProductId === item.productId ? "✓" : "Add"}
-                          </button>
+                              onClick={() => handleAddItem(item.productId)}
+                              className="flex-shrink-0 w-16 py-1 text-xs tracking-[0.15em] uppercase border transition-all duration-300 font-sans mt-1"
+                              style={{
+                                borderColor:
+                                    addedProductId === item.productId ? BRAND : BRAND,
+
+                                color:
+                                    addedProductId === item.productId ? BG : BRAND,
+
+                                backgroundColor:
+                                    addedProductId === item.productId ? BRAND : "transparent",
+
+                                }}
+                              onMouseEnter={(e) => {
+                                (e.currentTarget as HTMLElement).style.backgroundColor = BRAND;
+                                (e.currentTarget as HTMLElement).style.color = BG;
+                              }}
+                              onMouseLeave={(e) => {
+                                (e.currentTarget as HTMLElement).style.backgroundColor = "transparent";
+                                (e.currentTarget as HTMLElement).style.color = BRAND;
+                              }}
+                            >
+                              {addedProductId === item.productId ? " ✓ " : "Add"}
+                            </button>
                         </div>
                       );
                     })}
