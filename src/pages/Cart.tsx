@@ -13,29 +13,33 @@ function r(opacity: number) {
   return `rgba(158,132,101,${opacity})`;
 }
 
-const CROISSANT_COLS: { name: string; desc: string; productId: string }[][] = [
+const CROISSANT_COLS: { name: string; desc: string; productId: string; image?: string }[][] = [
   [
-    { name: "Classic Butter Croissant", desc: "", productId: "c-01" },
-    { name: "Pain Au Chocolat", desc: "Filled with 52% dark chocolate.", productId: "c-02" },
+    { name: "Classic Butter Croissant", desc: "", productId: "c-01", image: classicCroissant},
+    { name: "Pain Au Chocolat", desc: "Filled with 52% dark chocolate.", productId: "c-02", image: classicCroissant },
     {
       name: "Cinnamon Bun",
       desc: "Croissant pastry baked in a muffin tin, rolled in cinnamon sugar and filled with cream cheese.",
       productId: "c-03",
+      image: classicCroissant,
     },
     {
       name: "Pistachio Almond Croissant",
       desc: "Twice-baked with pistachio and almond frangipane.",
       productId: "c-04",
+      image: classicCroissant,
     },
     {
       name: "Pistachio Almond Chocolatine",
       desc: "Twice-baked dark chocolate, pistachio, and almond frangipane.",
       productId: "c-05",
+      image: classicCroissant,
     },
     {
       name: "Almond Chocolatine",
       desc: "Twice baked with dark chocolate and almond frangipane, finished with toasted almond flakes.",
       productId: "c-06",
+      image: classicCroissant,
     },
   ],
   [
@@ -43,31 +47,37 @@ const CROISSANT_COLS: { name: string; desc: string; productId: string }[][] = [
       name: "Hazelnut Pain Suisse",
       desc: "Our signature pain Suisse, filled with homemade hazelnut chocolate, custard, and hazelnut paste.",
       productId: "c-07",
+      image: classicCroissant,
     },
     {
       name: "Banana & Cheddar Pain Suisse",
       desc: "Filled with caramelized banana, custard, and cheddar cheese.",
       productId: "c-08",
+      image: classicCroissant,
     },
     {
       name: "Apple & Cream Cheese",
       desc: "Cross-laminated pastry with slow-cooked apple compote and brown sugar.",
       productId: "c-09",
+      image: classicCroissant,
     },
     {
       name: "Mix Berries Flan",
       desc: "Filled with berry compote, custard, and crème fromage.",
       productId: "c-10",
+      image: classicCroissant,
     },
     {
       name: "Peanut Butter Pain Au Chocolat",
       desc: "Twice-baked with housemade salted peanut butter and dark chocolate.",
       productId: "c-11",
+      image: classicCroissant,
     },
     {
       name: "Egg Tart",
       desc: "Silky baked custard in a flaky croissant pastry.",
       productId: "c-12",
+      image: classicCroissant,
     },
   ],
   [
@@ -75,45 +85,53 @@ const CROISSANT_COLS: { name: string; desc: string; productId: string }[][] = [
       name: "Beef Special",
       desc: "Filled with beef bacon, béchamel, and parmesan cheese.",
       productId: "c-13",
+      image: classicCroissant,
     },
     {
       name: "Beef Parmesan",
       desc: "Twice-baked with smoked beef and parmesan cheese.",
       productId: "c-14",
+      image: classicCroissant,
     },
     {
       name: "Mushroom & Cheese Escargot",
       desc: "Slow-roasted mushrooms with garlic, parsley, and cheese.",
       productId: "c-15",
+      image: classicCroissant,
     },
     {
       name: "Creamy Spinach",
       desc: "Filled with spinach, leek, and savoury cream.",
       productId: "c-16",
+      image: classicCroissant,
     },
     {
       name: "Cheddar, Parmesan & Rosemary",
       desc: "Croissant pastry shaped into a circle, filled with cheddar and parmesan, finished with rosemary.",
       productId: "c-17",
+      image: classicCroissant,
     },
   ],
 ];
 
-const COOKIES: { name: string; desc: string; productId: string }[] = [
+const COOKIES: { name: string; desc: string; productId: string; image?: string }[] = [
   {
     name: "Peanut Butter Cookie",
     desc: "Our giant chocolate chip baked with house-made salted peanut butter.",
     productId: "ck-01",
+    image: classicCroissant,
   },
   {
     name: "Original Chocolate Chips with Maldon Salt",
     desc: "Classic chocolate chip cookie finished with Maldon Sea Salt.",
     productId: "ck-02",
+    image: classicCroissant,
   },
   {
     name: "Double Chocolate Cookies",
     desc: "Rich cocoa cookie with dark chocolate pieces.",
     productId: "ck-03",
+    image: classicCroissant,
   },
 ];
 
@@ -420,11 +438,18 @@ export default function Cart({
                         >
                           <div className="flex items-start gap-3 flex-1 min-w-0">
 
-                            {item.productId === "c-01" && (
+                            {item.image && (
                               <img
-                                src={classicCroissant}
-                                alt="Classic Butter Croissant"
-                                className="w-16 h-16 sm:w-20 sm:h-20 object-cover shrink-0 rounded-lg"
+                                src={item.image}
+                                alt={item.name}
+                                className="
+                                  w-20 h-20
+                                  sm:w-24 sm:h-24
+                                  md:w-28 md:h-28
+                                  object-cover
+                                  shrink-0
+                                  rounded-lg
+                                "
                               />
                             )}
 
@@ -496,6 +521,20 @@ export default function Cart({
                 {COOKIES.map((item, i) => (
                   <div key={item.productId} className="py-4 border-b flex items-start justify-between gap-3" style={{ borderColor: r(0.12) }}>
                     <div className="flex items-start gap-3 flex-1">
+                      {item.image && (
+                        <img
+                          src={item.image}
+                          alt={item.name}
+                          className="
+                            w-20 h-20
+                            sm:w-24 sm:h-24
+                            md:w-28 md:h-28
+                            object-cover
+                            shrink-0
+                            rounded-lg
+                          "
+                        />
+                      )}
                       <span className="font-display text-sm mt-0.5 select-none flex-shrink-0 w-6 text-right" style={{ color: r(0.35) }}>
                         {String(i + 1).padStart(2, "0")}
                       </span>
