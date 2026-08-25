@@ -386,10 +386,10 @@ export default function Home({ cartItems }: HomeProps) {
           >
             A small neighbourhood bakery.
           </p>
-          <div className="flex flex-wrap gap-3">
+          <div className="flex w-full sm:w-auto gap-3">
             <button
               onClick={() => scrollTo("menu")}
-              className="px-8 py-3 text-sm tracking-[0.15em] uppercase transition-all duration-300 font-sans"
+              className="flex-1 sm:flex-none px-8 py-3 text-sm tracking-[0.15em] uppercase transition-all duration-300 font-sans"
               style={{ backgroundColor: BRAND, color: BG }}
               onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.opacity = "0.85")}
               onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.opacity = "1")}
@@ -398,7 +398,7 @@ export default function Home({ cartItems }: HomeProps) {
             </button>
             <button
               onClick={() => scrollTo("order")}
-              className="border px-8 py-3 text-sm tracking-[0.15em] uppercase transition-all duration-300 font-sans"
+              className="flex-1 sm:flex-none border px-8 py-3 text-sm tracking-[0.15em] uppercase transition-all duration-300 font-sans"
               style={{ borderColor: "rgba(255,249,241,0.45)", color: "rgba(255,249,241,0.88)" }}
               onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.backgroundColor = "rgba(255,249,241,0.1)"; }}
               onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.backgroundColor = "transparent"; }}
@@ -864,102 +864,68 @@ export default function Home({ cartItems }: HomeProps) {
       </section>
 
       {/* ── Footer ── */}
-      <footer style={{ backgroundColor: BRAND }}>
-        <div className="max-w-7xl mx-auto px-6 lg:px-12 pt-16 pb-8">
-          <div
-            className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-16 pb-16 border-b"
-            style={{ borderColor: `rgba(255,249,241,0.18)` }}
-          >
-            {/* Brand — BLOND logo image in white */}
-            <div>
-              <div className="flex items-center gap-3 mb-5">
-                {/* <ImageWithFallback
-                  src={croissantIcon}
-                  alt="BLOND croissant icon"
-                  className="h-11 w-auto object-contain"
-                  style={{ filter: "brightness(0) invert(1)" }}
-                /> */}
-                <ImageWithFallback
-                  src={blondLogo}
-                  alt="BLOND"
-                  className="h-20 w-auto object-contain"
-                  style={{ filter: "brightness(0) invert(1)" }}
-                />
-              </div>
-              <p className="text-sm leading-relaxed font-sans font-light max-w-xs" style={{ color: `rgba(255,249,241,0.82)` }}>
-                Artisan croissants, cookies &amp; seasonal loaves. Made fresh
-                each morning, sold until gone.
-              </p>
+        <footer style={{ backgroundColor: BRAND }}>
+          <div className="max-w-7xl mx-auto px-6 lg:px-12 py-10 sm:py-14">
+
+            {/* Logo */}
+            <div className="flex justify-center sm:justify-start">
+              <ImageWithFallback
+                src={blondLogo}
+                alt="BLOND"
+                className="h-20 sm:h-20 md:h-24 w-auto object-contain"
+                style={{ filter: "brightness(0) invert(1)" }}
+              />
             </div>
 
-            {/* Hours */}
-            <div>
-              <p className="text-sm tracking-[0.2em] uppercase mb-5 font-sans" style={{ color: `rgba(255,249,241,0.4)` }}>
-                Hours
-              </p>
-              <div className="space-y-2.5">
-                {[
-                  { day: "Wed – Fri", hours: "7:30 am – 4:00 pm" },
-                  { day: "Sat – Sun", hours: "7:00 am – 5:00 pm" },
-                  { day: "Mon – Tue", hours: "Closed" },
-                ].map(({ day, hours }) => (
-                  <div key={day} className="flex justify-between gap-4">
-                    <span className="font-sans" style={{ color: `rgba(255,249,241,0.75)` }}>{day}</span>
-                    <span
-                      className="font-sans"
-                      style={{
-                        color: hours === "Closed" ? `rgba(255,249,241,0.28)` : `rgba(255,249,241,0.78)`,
-                        fontStyle: hours === "Closed" ? "italic" : "normal",
-                      }}
-                    >
-                      {hours}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
+            {/* Divider */}
+            <div
+              className="my-7 sm:my-10"
+              style={{
+                borderTop: "1px solid rgba(255,249,241,0.15)",
+              }}
+            />
 
-            {/* Social */}
-            <div>
-              <p className="text-sm tracking-[0.2em] uppercase mb-5 font-sans" style={{ color: `rgba(255,249,241,0.4)` }}>
-                Follow along
-              </p>
+            {/* Info */}
+            <div className="flex flex-col items-center text-center gap-5 sm:flex-row sm:justify-between sm:text-left">
+
+              {/* Hours */}
+              <div className="text-sm font-sans space-y-1">
+                <p style={{ color: "rgba(255,249,241,0.75)" }}>
+                  Wed – Fri · 7:30 am – 4:00 pm
+                </p>
+
+                <p style={{ color: "rgba(255,249,241,0.75)" }}>
+                  Sat – Sun · 7:00 am – 5:00 pm
+                </p>
+              </div>
+
+              {/* Instagram */}
               <a
                 href="https://instagram.com/blondthebakery"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2.5 transition-colors duration-200"
-                style={{ color: `rgba(255,249,241,0.6)` }}
-                onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = BG)}
-                onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = `rgba(255,249,241,0.6)`)}
+                className="inline-flex items-center gap-2 transition-opacity hover:opacity-60"
+                style={{ color: BG }}
               >
-                <Instagram size={18} />
-                <span className="font-sans">@blondthebakery</span>
-              </a>
-            </div>
-          </div>
+                <Instagram size={17} />
 
-          <div className="flex flex-col sm:flex-row justify-between items-center gap-5">
-            <p className="text-sm font-sans" style={{ color: `rgba(255,249,241,0.28)` }}>
-              © {new Date().getFullYear()} Blond the Bakery. All rights reserved.
+                <span className="text-sm font-sans">
+                  @blondthebakery
+                </span>
+              </a>
+
+            </div>
+
+            {/* Copyright */}
+            <p
+              className="mt-8 text-[11px] font-sans text-center sm:text-left"
+              style={{ color: "rgba(255,249,241,0.35)" }}
+            >
+              © {new Date().getFullYear()} Blond the Bakery
             </p>
-            {/* <div className="flex flex-wrap justify-center gap-6">
-              {NAV_LINKS.map((link) => (
-                <button
-                  key={link.id}
-                  onClick={() => scrollTo(link.id)}
-                  className="text-sm tracking-[0.12em] uppercase transition-colors duration-200 font-sans"
-                  style={{ color: `rgba(255,249,241,0.32)` }}
-                  onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = `rgba(255,249,241,0.7)`)}
-                  onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = `rgba(255,249,241,0.32)`)}
-                >
-                  {link.label}
-                </button>
-              ))}
-            </div> */}
+
           </div>
-        </div>
-      </footer>
+        </footer>
 
       {/* ── Shopping Bag Notification ── */}
       {cartItems.length > 0 && (
