@@ -430,6 +430,12 @@ export default function Cart({
                   <div key={ci} className="flex flex-col">
                     {col.map((item, i) => {
                       const num = ci * 6 + i + 1;
+
+                      const cartItem = items.find(
+                        (cartItem) => cartItem.productId === item.productId
+                      );
+
+                      const quantity = cartItem?.quantity ?? 0;
                       return (
                         <div
                           key={item.productId}
@@ -479,31 +485,37 @@ export default function Cart({
                             </div>
                           </div>
 
-                          <button
-                              onClick={() => handleAddItem(item.productId)}
-                              className="flex-shrink-0 w-16 py-1 text-xs tracking-[0.15em] uppercase border transition-all duration-300 font-sans mt-1"
-                              style={{
-                                borderColor:
-                                    addedProductId === item.productId ? BRAND : BRAND,
-
-                                color:
-                                    addedProductId === item.productId ? BG : BRAND,
-
-                                backgroundColor:
+                          <div className="flex flex-col items-center flex-shrink-0">
+                              <button
+                                onClick={() => handleAddItem(item.productId)}
+                                className="w-16 py-1 text-xs tracking-[0.15em] uppercase border transition-all duration-300 font-sans mt-1"
+                                style={{
+                                  borderColor: BRAND,
+                                  color: addedProductId === item.productId ? BG : BRAND,
+                                  backgroundColor:
                                     addedProductId === item.productId ? BRAND : "transparent",
-
                                 }}
-                              onMouseEnter={(e) => {
-                                (e.currentTarget as HTMLElement).style.backgroundColor = BRAND;
-                                (e.currentTarget as HTMLElement).style.color = BG;
-                              }}
-                              onMouseLeave={(e) => {
-                                (e.currentTarget as HTMLElement).style.backgroundColor = "transparent";
-                                (e.currentTarget as HTMLElement).style.color = BRAND;
-                              }}
-                            >
-                              {addedProductId === item.productId ? " ✓ " : "Add"}
-                            </button>
+                                onMouseEnter={(e) => {
+                                  (e.currentTarget as HTMLElement).style.backgroundColor = BRAND;
+                                  (e.currentTarget as HTMLElement).style.color = BG;
+                                }}
+                                onMouseLeave={(e) => {
+                                  (e.currentTarget as HTMLElement).style.backgroundColor = "transparent";
+                                  (e.currentTarget as HTMLElement).style.color = BRAND;
+                                }}
+                              >
+                                {addedProductId === item.productId ? "✓" : "Add"}
+                              </button>
+
+                              {quantity > 0 && (
+                                <span
+                                  className="text-[10px] mt-2 tracking-[0.12em] uppercase whitespace-nowrap"
+                                  style={{ color: r(0.55) }}
+                                >
+                                  In Bag · {quantity}
+                                </span>
+                              )}
+                            </div>
                         </div>
                       );
                     })}
@@ -518,7 +530,14 @@ export default function Cart({
                 Cookies
               </h2>
               <div className="flex flex-col">
-                {COOKIES.map((item, i) => (
+                {COOKIES.map((item, i) => {
+                  const cartItem = items.find(
+                    (cartItem) => cartItem.productId === item.productId
+                  );
+
+                  const quantity = cartItem?.quantity ?? 0;
+
+                  return (
                   <div key={item.productId} className="py-4 border-b flex items-start justify-between gap-3" style={{ borderColor: r(0.12) }}>
                     <div className="flex items-start gap-3 flex-1">
                       {item.image && (
@@ -549,33 +568,40 @@ export default function Cart({
                         )}
                       </div>
                     </div>
-                    <button
-                      onClick={() => handleAddItem(item.productId)}
-                      className="flex-shrink-0 w-16 py-1 text-xs tracking-[0.15em] uppercase border transition-all duration-300 font-sans mt-1"
-                      style={{
-                        borderColor:
-                            addedProductId === item.productId ? BRAND : BRAND,
-
-                        color:
-                            addedProductId === item.productId ? BG : BRAND,
-
-                        backgroundColor:
+                    <div className="flex flex-col items-center flex-shrink-0">
+                      <button
+                        onClick={() => handleAddItem(item.productId)}
+                        className="w-16 py-1 text-xs tracking-[0.15em] uppercase border transition-all duration-300 font-sans mt-1"
+                        style={{
+                          borderColor: BRAND,
+                          color: addedProductId === item.productId ? BG : BRAND,
+                          backgroundColor:
                             addedProductId === item.productId ? BRAND : "transparent",
-
                         }}
-                      onMouseEnter={(e) => {
-                        (e.currentTarget as HTMLElement).style.backgroundColor = BRAND;
-                        (e.currentTarget as HTMLElement).style.color = BG;
-                      }}
-                      onMouseLeave={(e) => {
-                        (e.currentTarget as HTMLElement).style.backgroundColor = "transparent";
-                        (e.currentTarget as HTMLElement).style.color = BRAND;
-                      }}
-                    >
-                      {addedProductId === item.productId ? " ✓ " : "Add"}
-                    </button>
+                        onMouseEnter={(e) => {
+                          (e.currentTarget as HTMLElement).style.backgroundColor = BRAND;
+                          (e.currentTarget as HTMLElement).style.color = BG;
+                        }}
+                        onMouseLeave={(e) => {
+                          (e.currentTarget as HTMLElement).style.backgroundColor = "transparent";
+                          (e.currentTarget as HTMLElement).style.color = BRAND;
+                        }}
+                      >
+                        {addedProductId === item.productId ? "✓" : "Add"}
+                      </button>
+
+                      {quantity > 0 && (
+                        <span
+                          className="text-[10px] mt-2 tracking-[0.12em] uppercase whitespace-nowrap"
+                          style={{ color: r(0.55) }}
+                        >
+                          In Bag · {quantity}
+                        </span>
+                      )}
+                    </div>
                   </div>
-                ))}
+                );
+                })}
               </div>
             </div>
           </div>
