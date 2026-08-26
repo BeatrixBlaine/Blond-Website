@@ -496,7 +496,7 @@ export default function Home({ cartItems }: HomeProps) {
           {/* Croissants */}
           <div className="mb-24">
             <div className="flex flex-wrap items-baseline gap-5 mb-12">
-              <h3 className="font-display text-5xl" style={{ color: BRAND }}>Croissants</h3>
+              <h3 className="font-display text-5xl" style={{ color: BRAND }}>Vienoisserrie</h3>
               <span className="text-base tracking-wide font-sans italic" style={{ color: r(0.7) }}>
                 Laminated &amp; baked fresh daily
               </span>

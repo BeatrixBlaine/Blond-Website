@@ -422,7 +422,7 @@ export default function Cart({
             <div className="mb-20">
               <div className="flex flex-wrap items-baseline gap-5 mb-10">
                 <h2 className="font-display text-5xl" style={{ color: BRAND }}>
-                  Croissants
+                  Vienoisserrie
                 </h2>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12">
