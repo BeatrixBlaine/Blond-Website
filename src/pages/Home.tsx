@@ -224,12 +224,15 @@ export default function Home({ cartItems }: HomeProps) {
     if (!isDragging.current || !galleryRef.current) return;
     e.preventDefault();
     const x = e.pageX - galleryRef.current.offsetLeft;
-    galleryRef.current.scrollLeft = scrollLeftRef.current - (x - startX.current) * 1.4;
+    galleryRef.current.scrollLeft = scrollLeftRef.current - (x - startX.current) * 2;
   };
   const onGalleryMouseUp = () => {
-    isDragging.current = false;
-    if (galleryRef.current) galleryRef.current.style.cursor = "grab";
-  };
+  isDragging.current = false;
+
+  if (galleryRef.current) {
+    galleryRef.current.style.cursor = "grab";
+  }
+};
 
   return (
     <div style={{ backgroundColor: BG, color: BRAND }}>
@@ -422,10 +425,11 @@ export default function Home({ cartItems }: HomeProps) {
           className="flex gap-4 px-6 lg:px-12 select-none"
           style={{
             overflowX: "auto",
-            scrollSnapType: "x mandatory",
+            overflowY: "hidden",
             cursor: "grab",
             scrollbarWidth: "none",
             msOverflowStyle: "none",
+            WebkitOverflowScrolling: "touch",
           }}
           onMouseDown={onGalleryMouseDown}
           onMouseMove={onGalleryMouseMove}
@@ -438,7 +442,6 @@ export default function Home({ cartItems }: HomeProps) {
               className="flex-shrink-0 overflow-hidden w-[45vw] sm:w-[240px] lg:w-[320px]"
               style={{
                 height: "clamp(200px, 52vw, 430px)",
-                scrollSnapAlign: "start",
                 backgroundColor: r(0.08),
               }}
             >
