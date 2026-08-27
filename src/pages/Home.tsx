@@ -435,10 +435,9 @@ export default function Home({ cartItems }: HomeProps) {
           {GALLERY_IMAGES.map((img) => (
             <div
               key={img.id}
-              className="flex-shrink-0 overflow-hidden"
+              className="flex-shrink-0 overflow-hidden w-[30vw] sm:w-[220px] lg:w-[320px]"
               style={{
-                width: 320,
-                height: 400,
+                height: "clamp(140px, 40vw, 400px)",
                 scrollSnapAlign: "start",
                 backgroundColor: r(0.08),
               }}
@@ -663,7 +662,8 @@ export default function Home({ cartItems }: HomeProps) {
       </section>
 
       {/* ── Address ── */}
-      <section id="address" className="py-28" style={{ backgroundColor: BG, borderTop: `1px solid ${r(0.1)}` }}>
+      <section id="address" className="py-28 relative overflow-hidden" style={{ backgroundColor: BG, borderTop: `1px solid ${r(0.1)}` }}>
+
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <div className="mb-16">
             <p className="text-sm tracking-[0.3em] uppercase mb-3 font-sans" style={{ color: r(0.45) }}>
@@ -822,7 +822,23 @@ export default function Home({ cartItems }: HomeProps) {
       </section>
 
       {/* ── FAQ ── */}
-      <section id="faq" className="py-28" style={{ backgroundColor: BG }}>
+      <section id="faq" className="py-28 relative overflow-hidden" style={{ backgroundColor: BG }}>
+
+      {/* Croissant background */}
+      <img
+        src={croissantIcon}
+        alt=""
+        aria-hidden="true"
+        className="absolute pointer-events-none select-none"
+        style={{
+          width: "550px",
+          left: "-120px",
+          bottom: "80px",
+          opacity: 0.06,
+          transform: "rotate(12deg)",
+        }}
+      />
+
         <div className="max-w-4xl mx-auto px-6 lg:px-12">
           <div className="mb-16">
             <p className="text-sm tracking-[0.3em] uppercase mb-3 font-sans" style={{ color: r(0.45) }}>
