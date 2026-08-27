@@ -15,7 +15,7 @@ function r(opacity: number) {
 
 const CROISSANT_COLS: { name: string; desc: string; productId: string; image?: string }[][] = [
   [
-    { name: "Classic Butter Croissant", desc: "", productId: "c-01", image: classicCroissant},
+    { name: "Traditional Butter Croissant", desc: "", productId: "c-01", image: classicCroissant},
     { name: "Pain Au Chocolat", desc: "Filled with 52% dark chocolate.", productId: "c-02", image: classicCroissant },
     {
       name: "Cinnamon Bun",
@@ -111,26 +111,26 @@ const CROISSANT_COLS: { name: string; desc: string; productId: string; image?: s
       productId: "c-17",
       image: classicCroissant,
     },
+    {
+      name: "Strawberry Shortcake",
+      desc: "Croissant pastry shaped into a circle, filled with cheddar and parmesan, finished with rosemary.",
+      productId: "c-18",
+      image: classicCroissant,
+    },
   ],
 ];
 
 const COOKIES: { name: string; desc: string; productId: string; image?: string }[] = [
   {
-    name: "Peanut Butter Cookie",
-    desc: "Our giant chocolate chip baked with house-made salted peanut butter.",
-    productId: "ck-01",
-    image: classicCroissant,
-  },
-  {
     name: "Original Chocolate Chips with Maldon Salt",
     desc: "Classic chocolate chip cookie finished with Maldon Sea Salt.",
-    productId: "ck-02",
+    productId: "ck-01",
     image: classicCroissant,
   },
   {
     name: "Double Chocolate Cookies",
     desc: "Rich cocoa cookie with dark chocolate pieces.",
-    productId: "ck-03",
+    productId: "ck-02",
     image: classicCroissant,
   },
 ];
