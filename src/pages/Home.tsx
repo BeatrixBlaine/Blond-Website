@@ -435,9 +435,9 @@ export default function Home({ cartItems }: HomeProps) {
           {GALLERY_IMAGES.map((img) => (
             <div
               key={img.id}
-              className="flex-shrink-0 overflow-hidden w-[30vw] sm:w-[220px] lg:w-[320px]"
+              className="flex-shrink-0 overflow-hidden w-[45vw] sm:w-[240px] lg:w-[320px]"
               style={{
-                height: "clamp(140px, 40vw, 400px)",
+                height: "clamp(200px, 52vw, 430px)",
                 scrollSnapAlign: "start",
                 backgroundColor: r(0.08),
               }}
