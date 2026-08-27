@@ -145,28 +145,28 @@ export const PRODUCTS: Product[] = [
     description: "Croissant pastry shaped into a circle, filled with cheddar and parmesan, finished with rosemary.",
     price: 40000,
   },
+  {
+    id: "c-18",
+    category: "croissants",
+    number: 17,
+    name: "Strawberry Shortcake",
+    description: "Croissant pastry shaped into a circle, filled with cheddar and parmesan, finished with rosemary.",
+    price: 58000,
+  },
   
   // Cookies
   {
     id: "ck-01",
     category: "cookies",
     number: 1,
-    name: "Peanut Butter Cookie",
-    description: "Our giant chocolate chip baked with house-made salted peanut butter.",
-    price: 49000,
-  },
-  {
-    id: "ck-02",
-    category: "cookies",
-    number: 2,
     name: "Original Chocolate Chips with Maldon Salt",
     description: "Classic chocolate chip cookie finished with Maldon Sea Salt.",
     price: 40000,
   },
   {
-    id: "ck-03",
+    id: "ck-02",
     category: "cookies",
-    number: 3,
+    number: 2,
     name: "Double Chocolate Cookies",
     description: "Rich cocoa cookie with dark chocolate pieces.",
     price: 39000,
