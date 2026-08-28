@@ -20,7 +20,7 @@ import danish3 from "@/imports/3.jpeg";
 import danish4 from "@/imports/4.jpeg";
 import danish5 from "@/imports/tomatoconfit.jpeg";
 import danish6 from "@/imports/tomatoconfit2.jpeg";
-import storefront from "@/imports/blondfront.png";
+import storefront from "@/imports/storefront12.jpeg";
 import hero from "@/imports/Hero-full.png";
 
 const BRAND = "#9E8465";
@@ -28,10 +28,9 @@ const BG = "#FFF9F1";
 
 const NAV_LINKS = [
   { label: "Home", id: "home" },
-  { label: "Menu", id: "menu" },
-  { label: "Story", id: "story" },
-  { label: "Address", id: "address" },
-  { label: "Order", id: "order" },
+  { label: "Our Story", id: "story" },
+  { label: "Pre-Order", id: "order" },
+  { label: "Our Menu", id: "menu" },
   { label: "FAQ", id: "faq" },
 ];
 
@@ -329,7 +328,7 @@ export default function Home({ cartItems }: HomeProps) {
       {/* ── Hero — full-bleed photo, editorial spread layout ── */}
       <section id="home" className="relative h-screen flex flex-col overflow-hidden">
         {/* Background photo */}
-        <div className="absolute inset-0">
+        {/* <div className="absolute inset-0">
           <img
             // src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=1800&h=1200&fit=crop&auto=format"
             src={hero}
@@ -337,7 +336,7 @@ export default function Home({ cartItems }: HomeProps) {
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-[#1a0c05]/55 via-[#1a0c05]/20 to-[#1a0c05]/75" />
-        </div>
+        </div> */}
 
         {/* Top bar — label row */}
         <div className="relative flex items-center justify-between px-6 lg:px-12 pt-8">
@@ -366,49 +365,80 @@ export default function Home({ cartItems }: HomeProps) {
         </div>
 
         {/* Scroll indicator */}
-        <div className="absolute bottom-44 sm:bottom-28 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3">
+        <div className="absolute bottom-[140px] sm:bottom-28 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 sm:gap-3">
           <span
-            className="text-[10px] tracking-[0.4em] uppercase font-sans"
-            style={{ color: "rgba(255,249,241,0.5)" }}
+            className="text-[9px] sm:text-[10px] tracking-[0.35em] sm:tracking-[0.4em] uppercase font-sans whitespace-nowrap"
+            style={{ fontWeight: 500, color: BRAND }}
           >
             Scroll Down
           </span>
 
           <span
-            className="w-px h-12 animate-scroll-line"
-            style={{ backgroundColor: "rgba(255,249,241,0.5)" }}
+            className="w-px h-8 sm:h-12 animate-scroll-line"
+            style={{ backgroundColor: "rgba(12, 12, 12, 0.5)" }}
           />
         </div>
 
-        {/* Bottom bar — subtitle left, CTAs right */}
-        <div className="relative flex flex-col sm:flex-row items-start sm:items-end justify-between gap-6 px-6 lg:px-12 pb-12">
+        {/* Bottom bar */}
+        <div className="relative flex flex-col sm:flex-row items-center sm:items-end justify-between gap-5 sm:gap-6 px-6 lg:px-12 pb-8 sm:pb-12">
+
+          {/* Subtitle */}
           <p
-           /* className="text-lg md:text-xl font-sans font-light leading-snug max-w-xs" */
-            className="text-base md:text-lg font-sans font-light leading-snug max-w-xs"
-            style={{ color: "rgba(255,249,241,0.78)" }}
+            className="text-center sm:text-left text-base md:text-lg font-sans font-light leading-snug max-w-xs"
+            style={{ fontWeight: 500, color: BRAND }}
           >
             A small neighbourhood bakery.
           </p>
-          <div className="flex w-full sm:w-auto gap-3">
-            <button
-              onClick={() => scrollTo("menu")}
-              className="flex-1 sm:flex-none px-8 py-3 text-sm tracking-[0.15em] uppercase transition-all duration-300 font-sans"
-              style={{ backgroundColor: BRAND, color: BG }}
-              onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.opacity = "0.85")}
-              onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.opacity = "1")}
-            >
-              View Menu
-            </button>
-            <button
-              onClick={() => scrollTo("order")}
-              className="flex-1 sm:flex-none border px-8 py-3 text-sm tracking-[0.15em] uppercase transition-all duration-300 font-sans"
-              style={{ borderColor: "rgba(255,249,241,0.45)", color: "rgba(255,249,241,0.88)" }}
-              onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.backgroundColor = "rgba(255,249,241,0.1)"; }}
-              onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.backgroundColor = "transparent"; }}
-            >
-              Pre-order
-            </button>
-          </div>
+
+          {/* CTAs */}
+          <div className="flex w-full sm:w-auto gap-2 sm:gap-3">
+
+          {/* Our Story */}
+          <button
+            onClick={() => scrollTo("story")}
+            className="flex-1 sm:flex-none px-3 sm:px-8 py-3 text-[9px] sm:text-sm tracking-[0.08em] sm:tracking-[0.15em] uppercase transition-all duration-300 font-sans whitespace-nowrap"
+            style={{ backgroundColor: BRAND, color: BG }}
+            onMouseEnter={(e) =>
+              ((e.currentTarget as HTMLElement).style.opacity = "0.85")
+            }
+            onMouseLeave={(e) =>
+              ((e.currentTarget as HTMLElement).style.opacity = "1")
+            }
+          >
+            Our Story
+          </button>
+
+          {/* View Menu */}
+          <button
+            onClick={() => scrollTo("menu")}
+            className="flex-1 sm:flex-none px-3 sm:px-8 py-3 text-[9px] sm:text-sm tracking-[0.08em] sm:tracking-[0.15em] uppercase transition-all duration-300 font-sans whitespace-nowrap"
+            style={{ backgroundColor: BRAND, color: BG }}
+            onMouseEnter={(e) =>
+              ((e.currentTarget as HTMLElement).style.opacity = "0.85")
+            }
+            onMouseLeave={(e) =>
+              ((e.currentTarget as HTMLElement).style.opacity = "1")
+            }
+          >
+            View Menu
+          </button>
+
+          {/* Pre-order */}
+          <button
+            onClick={() => scrollTo("order")}
+            className="flex-1 sm:flex-none px-3 sm:px-8 py-3 text-[9px] sm:text-sm tracking-[0.08em] sm:tracking-[0.15em] uppercase transition-all duration-300 font-sans whitespace-nowrap"
+            style={{ backgroundColor: BRAND, color: BG }}
+            onMouseEnter={(e) =>
+              ((e.currentTarget as HTMLElement).style.opacity = "0.85")
+            }
+            onMouseLeave={(e) =>
+              ((e.currentTarget as HTMLElement).style.opacity = "1")
+            }
+          >
+            Pre-order
+          </button>
+
+        </div>
         </div>
       </section>
 
@@ -458,6 +488,128 @@ export default function Home({ cartItems }: HomeProps) {
         </div>
       </section>
 
+      {/* ── Story ── */}
+      <section
+        id="story"
+        className="py-28"
+        style={{
+          backgroundColor: BG,
+          borderTop: `1px solid ${r(0.1)}`,
+        }}
+      >
+        <div className="max-w-7xl mx-auto px-6 lg:px-12">
+
+          {/* Photo + Story */}
+          <div className="grid grid-cols-1 lg:grid-cols-[0.9fr_1.1fr] gap-12 lg:gap-20 items-stretch">
+
+            {/* Photo */}
+            <div className="relative h-full">
+              <div className="overflow-hidden h-[280px] md:h-[500px] lg:h-full lg:min-h-[420px]">
+                <img
+                  src={storefront}
+                  alt="Baker shaping croissant dough by hand at dawn"
+                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+                  style={{ filter: "saturate(0.8) brightness(1.05)" }}
+                />
+              </div>
+            </div>
+
+            {/* Right Side */}
+            <div className="flex flex-col">
+
+              {/* Heading */}
+              <div className="mb-10 md:mb-12">
+                <p
+                  className="font-sans text-[11px] md:text-xs uppercase tracking-[0.35em] mb-4"
+                  style={{ color: r(0.45) }}
+                >
+                  Behind Blond
+                </p>
+
+                <h2
+                  className="font-display text-6xl md:text-7xl leading-[0.95]"
+                  style={{ color: BRAND }}
+                >
+                  Our Story
+                </h2>
+
+                <div
+                  className="mt-7 w-16 h-px"
+                  style={{ backgroundColor: r(0.35) }}
+                />
+              </div>
+
+              {/* Story Content */}
+              <div
+                className="space-y-7 md:space-y-8 leading-relaxed font-sans font-light text-sm md:text-[15px]"
+                style={{ color: r(0.9) }}
+              >
+                <p
+                  className="text-xl md:text-2xl leading-relaxed"
+                  style={{ fontWeight: 650, color: BRAND }}
+                >
+                  Blond started in 2025, as the beginning of a long-held dream of mine to life.
+                </p>
+
+                <p>
+                  I have always been passionate about baking and making things with my own hands.
+                  As a self-taught baker, I was always curious about learning, experimenting, and
+                  understanding the process behind what I made.
+                </p>
+
+                <p>
+                  After finishing my Master's degree in the UK, I decided to gain experience
+                  in the bakery industry, including an internship at one of the UK's oldest bakeries.
+                  Eventually, I followed my gut and brought that passion back to my hometown,
+                  Bandung, where Blond began with a focus on viennoiserie.
+                </p>
+
+                <p
+                  className="text-lg md:text-xl"
+                  style={{ fontWeight: 650, color: BRAND }}
+                >
+                  But more than anything, I love making things.
+                </p>
+
+                <p>
+                  I love the process, the details, and the pairing of different
+                  flavours and elements to create something beautiful. I think that
+                  love naturally found its way into Blond too. From the pastries to
+                  the small space I slowly put together, just as I imagined it.
+                </p>
+
+                <p>
+                  Our pastries go through a long process in the small kitchen at Blond
+                  that you see every day. From our laminated dough to the smallest
+                  elements that go into each pastry, everything is made from scratch
+                  with care and patience.
+                </p>
+
+                <p
+                  className="text-lg md:text-xl"
+                  style={{ fontWeight: 650, color: BRAND }}
+                >
+                  What started as something I did by myself has
+                  slowly grown into a small and passionate team.
+                </p>
+
+                <p>
+                  Today, Blond is made possible by many hands.
+                  Everyone plays their own important part, often working late at
+                  night and early in the morning to bring each pastry to life.
+                </p>
+
+                <p>
+                  Behind every pastry is a process, a collection of small details,
+                  and a team dedicated to making it.
+                </p>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ── Menu ── */}
       <section id="menu" className="py-28 relative overflow-hidden" style={{ backgroundColor: BG, borderTop: `1px solid ${r(0.1)}` }}>
 
@@ -481,9 +633,6 @@ export default function Home({ cartItems }: HomeProps) {
             style={{ borderColor: r(0.15) }}
           >
             <div>
-              <p className="text-sm tracking-[0.3em] uppercase mb-4 font-sans" style={{ color: r(0.45) }}>
-                What we bake
-              </p>
               <h2 className="font-display text-6xl md:text-7xl leading-tight" style={{ color: BRAND }}>
                 Our Menu
               </h2>
@@ -499,9 +648,6 @@ export default function Home({ cartItems }: HomeProps) {
           <div className="mb-24">
             <div className="flex flex-wrap items-baseline gap-5 mb-12">
               <h3 className="font-display text-5xl" style={{ color: BRAND }}>Vienoisserrie</h3>
-              <span className="text-base tracking-wide font-sans italic" style={{ color: r(0.7) }}>
-                Laminated &amp; baked fresh daily
-              </span>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12">
               {CROISSANT_COLS.map((col, ci) => (
@@ -536,129 +682,50 @@ export default function Home({ cartItems }: HomeProps) {
             </div>
           </div>
 
-          {/* Cookies + Loaves */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-            <div>
-              <h3
-                className="font-display text-5xl mb-10 pb-4 border-b"
-                style={{ color: BRAND, borderColor: r(0.15) }}
-              >
-                Cookies
-              </h3>
-              <div className="flex flex-col">
-                {COOKIES.map((item, i) => (
-                  <div key={item.name} className="py-4 border-b" style={{ borderColor: r(0.12) }}>
-                    <div className="flex items-start gap-3">
-                      <span
-                        className="font-display text-sm mt-0.5 select-none flex-shrink-0 w-6 text-right"
-                        style={{ color: r(0.35) }}
+          {/* Cookies */}
+          <div>
+            <h3
+              className="font-display text-5xl mb-10 pb-4 border-b"
+              style={{ color: BRAND, borderColor: r(0.15) }}
+            >
+              Cookies
+            </h3>
+
+            <div className="flex flex-col">
+              {COOKIES.map((item, i) => (
+                <div
+                  key={item.name}
+                  className="py-4 border-b"
+                  style={{ borderColor: r(0.12) }}
+                >
+                  <div className="flex items-start gap-3">
+                    <span
+                      className="font-display text-sm mt-0.5 select-none flex-shrink-0 w-6 text-right"
+                      style={{ color: r(0.35) }}
+                    >
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+
+                    <div>
+                      <p
+                        className="text-base font-sans font-medium leading-snug"
+                        style={{ color: BRAND }}
                       >
-                        {String(i + 1).padStart(2, "0")}
-                      </span>
-                      <div>
-                        <p className="text-base font-sans font-medium leading-snug" style={{ color: BRAND }}>
-                          {item.name}
+                        {item.name}
+                      </p>
+
+                      {item.desc && (
+                        <p
+                          className="text-sm font-sans font-light mt-1 leading-relaxed"
+                          style={{ color: r(0.82) }}
+                        >
+                          {item.desc}
                         </p>
-                        {item.desc && (
-                          <p className="text-sm font-sans font-light mt-1 leading-relaxed" style={{ color: r(0.82) }}>
-                            {item.desc}
-                          </p>
-                        )}
-                      </div>
+                      )}
                     </div>
                   </div>
-                ))}
-              </div>
-            </div>
-
-            <div>
-              <h3
-                className="font-display text-5xl mb-10 pb-4 border-b"
-                style={{ color: BRAND, borderColor: r(0.15) }}
-              >
-                Seasonal Loaves
-              </h3>
-              <div className="py-4">
-                <p className="font-display text-2xl italic mb-4" style={{ color: BRAND }}>
-                  Daily Loaves
-                </p>
-                <p className="font-sans font-light leading-relaxed mb-4" style={{ color: r(0.88) }}>
-                  Our loaf selection changes daily and may include coffee,
-                  strawberry, chocolate, and banana. Each loaf is made in small
-                  batches — quantities are limited.
-                </p>
-                <p className="text-sm font-sans tracking-wider uppercase" style={{ color: r(0.4) }}>
-                  Follow us on Instagram for daily updates
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── Story ── */}
-      <section id="story" className="py-28" style={{ backgroundColor: BG, borderTop: `1px solid ${r(0.1)}` }}>
-        <div className="max-w-7xl mx-auto px-6 lg:px-12">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
-            <div className="relative order-2 lg:order-1">
-              <div className="aspect-[4/5] overflow-hidden">
-                <img
-                  src={storefront}
-                  alt="Baker shaping croissant dough by hand at dawn"
-                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
-                  style={{ filter: "saturate(0.8) brightness(1.05)" }}
-                />
-              </div>
-              <div
-                className="absolute -bottom-5 -right-5 w-32 h-32 -z-10 hidden lg:block"
-                style={{ backgroundColor: r(0.1) }}
-              />
-              <div
-                className="absolute -top-5 -left-5 w-20 h-20 border -z-10 hidden lg:block"
-                style={{ borderColor: r(0.2) }}
-              />
-            </div>
-
-            <div className="order-1 lg:order-2">
-              <p className="text-sm tracking-[0.3em] uppercase mb-5 font-sans" style={{ color: r(0.45) }}>
-                Our story
-              </p>
-              <h2 className="font-display text-6xl md:text-7xl leading-tight mb-10" style={{ color: BRAND }}>
-                Made with<br /><em>patience.</em>
-              </h2>
-              <div className="space-y-5 leading-relaxed font-sans font-light" style={{ color: r(0.9) }}>
-                <p>
-                  BLOND began as a quiet obsession — late evenings experimenting
-                  with laminated doughs, testing fold counts, adjusting butter
-                  temperatures by the degree. What started in a home kitchen
-                  became something we couldn't keep to ourselves.
-                </p>
-                <p>
-                  Every croissant takes 72 hours from start to finish. We
-                  believe the best baking is slow baking — unhurried,
-                  intentional, and honest. No shortcuts. No compromises on
-                  ingredients.
-                </p>
-                <p>
-                  We're a small team, baking to order and selling what we can
-                  make well. That means a limited menu, controlled quantities,
-                  and everything made from scratch each morning.
-                </p>
-              </div>
-              <div className="mt-10 flex gap-12 pt-10 border-t" style={{ borderColor: r(0.15) }}>
-                {[
-                  { stat: "72h", label: "Per croissant" },
-                  { stat: "100%", label: "From scratch" },
-                  { stat: "Daily", label: "Fresh baked" },
-                ].map(({ stat, label }) => (
-                  <div key={stat}>
-                    <p className="font-display text-4xl" style={{ color: BRAND }}>{stat}</p>
-                    <p className="text-sm tracking-wider uppercase mt-1 font-sans" style={{ color: r(0.45) }}>
-                      {label}
-                    </p>
-                  </div>
-                ))}
-              </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
@@ -669,11 +736,8 @@ export default function Home({ cartItems }: HomeProps) {
 
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <div className="mb-16">
-            <p className="text-sm tracking-[0.3em] uppercase mb-3 font-sans" style={{ color: r(0.45) }}>
-              Find us
-            </p>
-            <h2 className="font-display text-6xl md:text-7xl" style={{ color: BRAND }}>
-              Visit BLOND
+            <h2 className="font-display text-4xl md:text-5xl" style={{ color: BRAND }}>
+              COMING TO<br />OUR BAKERY
             </h2>
           </div>
 
