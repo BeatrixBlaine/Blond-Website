@@ -365,7 +365,7 @@ export default function Home({ cartItems }: HomeProps) {
         </div>
 
         {/* Scroll indicator */}
-        <div className="absolute bottom-[165px] sm:bottom-28 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 sm:gap-3">
+        <div className="absolute bottom-[160px] sm:bottom-28 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 sm:gap-3">
           <span
             className="text-[9px] sm:text-[10px] tracking-[0.35em] sm:tracking-[0.4em] uppercase font-sans whitespace-nowrap"
             style={{ fontWeight: 500, color: BRAND }}
@@ -420,7 +420,7 @@ export default function Home({ cartItems }: HomeProps) {
               ((e.currentTarget as HTMLElement).style.opacity = "1")
             }
           >
-            View Menu
+            Our Menu
           </button>
 
           {/* Pre-order */}
@@ -731,13 +731,79 @@ export default function Home({ cartItems }: HomeProps) {
         </div>
       </section>
 
+      {/* ── Order ── */}
+      <section id="order" className="py-28 relative overflow-hidden" style={{ backgroundColor: BRAND }}>
+        <div
+          className="absolute inset-0 opacity-[0.05] pointer-events-none"
+          style={{
+            backgroundImage:
+              "repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(255,249,241,0.6) 39px,rgba(255,249,241,0.6) 40px),repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(255,249,241,0.6) 39px,rgba(255,249,241,0.6) 40px)",
+          }}
+        />
+        <div className="relative max-w-4xl mx-auto px-6 lg:px-12 text-center">
+          <p className="text-sm tracking-[0.35em] uppercase mb-6 font-sans" style={{ color: `rgba(255,249,241,0.5)` }}>
+            Can't make it in time?
+          </p>
+          <h2
+            className="text-5xl md:text-7xl mb-10 leading-tight"
+            style={{ fontFamily: "'Nunito', system-ui, sans-serif", fontWeight: 700, color: BG }}
+          >
+            Pre-order<br />
+            <em style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>Available</em>
+          </h2>
+          <div className="max-w-2xl mx-auto space-y-5 mb-12 text-left">
+            <p className="leading-relaxed font-sans font-light" style={{ color: `rgba(255,249,241,0.93)` }}>
+              We know mornings are unpredictable. That's why we offer pre-orders
+              on selected items — so you can secure your favourites before
+              they're gone. Pre-orders are accepted up to one week in advance
+              and ready for pickup during our regular hours.
+            </p>
+            <p className="leading-relaxed font-sans font-light" style={{ color: `rgba(255,249,241,0.93)` }}>
+              Whether it's a Saturday croissant haul, a box of cookies for a
+              gathering, or a loaf cake for a special occasion — send us a
+              message and we'll sort it out. Orders are confirmed once we've
+              replied directly.
+            </p>
+            <p className="text-sm leading-relaxed font-sans" style={{ color: `rgba(255,249,241,0.68)` }}>
+              Pre-orders are subject to availability and our baking schedule.
+              We recommend ordering at least 3 days ahead for best availability.
+            </p>
+          </div>
+          <button
+            onClick={() => {
+              navigate("/cart");
+              setTimeout(() => window.scrollTo(0, 0), 0);
+            }}
+            className="inline-flex items-center gap-3 border px-10 py-4 text-sm tracking-[0.2em] uppercase transition-all duration-300 font-sans"
+            style={{ borderColor: `rgba(255,249,241,0.45)`, color: BG, backgroundColor: "transparent", cursor: "pointer", font: "inherit" }}
+            onMouseEnter={(e) => {
+              (e.currentTarget as HTMLElement).style.backgroundColor = BG;
+              (e.currentTarget as HTMLElement).style.color = BRAND;
+              (e.currentTarget as HTMLElement).style.borderColor = BG;
+            }}
+            onMouseLeave={(e) => {
+              (e.currentTarget as HTMLElement).style.backgroundColor = "transparent";
+              (e.currentTarget as HTMLElement).style.color = BG;
+              (e.currentTarget as HTMLElement).style.borderColor = `rgba(255,249,241,0.45)`;
+            }}
+          >
+            Place a Pre-order
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ opacity: 0.5 }}>
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+              <polyline points="15 3 21 3 21 9"></polyline>
+              <line x1="10" y1="14" x2="21" y2="3"></line>
+            </svg>
+          </button>
+        </div>
+      </section>
+
       {/* ── Address ── */}
       <section id="address" className="py-28 relative overflow-hidden" style={{ backgroundColor: BG, borderTop: `1px solid ${r(0.1)}` }}>
 
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <div className="mb-16">
             <h2 className="font-display text-4xl md:text-5xl" style={{ color: BRAND }}>
-              COMING TO<br />OUR BAKERY
+              Coming To Our Bakery
             </h2>
           </div>
 
@@ -822,72 +888,6 @@ export default function Home({ cartItems }: HomeProps) {
         </div>
       </section>
 
-      {/* ── Order ── */}
-      <section id="order" className="py-28 relative overflow-hidden" style={{ backgroundColor: BRAND }}>
-        <div
-          className="absolute inset-0 opacity-[0.05] pointer-events-none"
-          style={{
-            backgroundImage:
-              "repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(255,249,241,0.6) 39px,rgba(255,249,241,0.6) 40px),repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(255,249,241,0.6) 39px,rgba(255,249,241,0.6) 40px)",
-          }}
-        />
-        <div className="relative max-w-4xl mx-auto px-6 lg:px-12 text-center">
-          <p className="text-sm tracking-[0.35em] uppercase mb-6 font-sans" style={{ color: `rgba(255,249,241,0.5)` }}>
-            Can't make it in time?
-          </p>
-          <h2
-            className="text-5xl md:text-7xl mb-10 leading-tight"
-            style={{ fontFamily: "'Nunito', system-ui, sans-serif", fontWeight: 700, color: BG }}
-          >
-            Pre-order<br />
-            <em style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>Available</em>
-          </h2>
-          <div className="max-w-2xl mx-auto space-y-5 mb-12 text-left">
-            <p className="leading-relaxed font-sans font-light" style={{ color: `rgba(255,249,241,0.93)` }}>
-              We know mornings are unpredictable. That's why we offer pre-orders
-              on selected items — so you can secure your favourites before
-              they're gone. Pre-orders are accepted up to one week in advance
-              and ready for pickup during our regular hours.
-            </p>
-            <p className="leading-relaxed font-sans font-light" style={{ color: `rgba(255,249,241,0.93)` }}>
-              Whether it's a Saturday croissant haul, a box of cookies for a
-              gathering, or a loaf cake for a special occasion — send us a
-              message and we'll sort it out. Orders are confirmed once we've
-              replied directly.
-            </p>
-            <p className="text-sm leading-relaxed font-sans" style={{ color: `rgba(255,249,241,0.68)` }}>
-              Pre-orders are subject to availability and our baking schedule.
-              We recommend ordering at least 3 days ahead for best availability.
-            </p>
-          </div>
-          <button
-            onClick={() => {
-              navigate("/cart");
-              setTimeout(() => window.scrollTo(0, 0), 0);
-            }}
-            className="inline-flex items-center gap-3 border px-10 py-4 text-sm tracking-[0.2em] uppercase transition-all duration-300 font-sans"
-            style={{ borderColor: `rgba(255,249,241,0.45)`, color: BG, backgroundColor: "transparent", cursor: "pointer", font: "inherit" }}
-            onMouseEnter={(e) => {
-              (e.currentTarget as HTMLElement).style.backgroundColor = BG;
-              (e.currentTarget as HTMLElement).style.color = BRAND;
-              (e.currentTarget as HTMLElement).style.borderColor = BG;
-            }}
-            onMouseLeave={(e) => {
-              (e.currentTarget as HTMLElement).style.backgroundColor = "transparent";
-              (e.currentTarget as HTMLElement).style.color = BG;
-              (e.currentTarget as HTMLElement).style.borderColor = `rgba(255,249,241,0.45)`;
-            }}
-          >
-            Place a Pre-order
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ opacity: 0.5 }}>
-              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-              <polyline points="15 3 21 3 21 9"></polyline>
-              <line x1="10" y1="14" x2="21" y2="3"></line>
-            </svg>
-          </button>
-        </div>
-      </section>
-
       {/* ── FAQ ── */}
       <section id="faq" className="py-28 relative overflow-hidden" style={{ backgroundColor: BG }}>
 
@@ -969,33 +969,73 @@ export default function Home({ cartItems }: HomeProps) {
             />
 
             {/* Info */}
-            <div className="flex flex-col items-center text-center gap-5 sm:flex-row sm:justify-between sm:text-left">
+            <div className="flex flex-col gap-10 text-center sm:flex-row sm:items-start sm:justify-between sm:text-left">
 
-              {/* Hours */}
-              <div className="text-sm font-sans space-y-1">
-                <p style={{ color: "rgba(255,249,241,0.75)" }}>
-                  Wed – Fri · 7:30 am – 4:00 pm
+              {/* Opening Hours */}
+              <div>
+                <p
+                  className="text-xs tracking-[0.2em] uppercase mb-4 font-sans"
+                  style={{ color: "rgba(255,249,241,0.45)" }}
+                >
+                  Opening Hours
                 </p>
 
-                <p style={{ color: "rgba(255,249,241,0.75)" }}>
-                  Sat – Sun · 7:00 am – 5:00 pm
+                <div className="text-base font-sans space-y-1">
+                  <p style={{ color: "rgba(255,249,241,0.75)" }}>
+                    Wed – Fri · 7:30 am – 4:00 pm
+                  </p>
+
+                  <p style={{ color: "rgba(255,249,241,0.75)" }}>
+                    Sat – Sun · 7:00 am – 5:00 pm
+                  </p>
+                </div>
+              </div>
+
+              {/* Address */}
+              <div>
+                <p
+                  className="text-xs tracking-[0.2em] uppercase mb-4 font-sans"
+                  style={{ color: "rgba(255,249,241,0.45)" }}
+                >
+                  Address
+                </p>
+
+                <p
+                  className="text-base font-sans leading-relaxed"
+                  style={{ color: "rgba(255,249,241,0.75)" }}
+                >
+                  Imam Bonjol no. 27
+                  <br />
+                  Bandung, Indonesia
                 </p>
               </div>
 
-              {/* Instagram */}
-              <a
-                href="https://instagram.com/blondthebakery"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 transition-opacity hover:opacity-60"
-                style={{ color: BG }}
-              >
-                <Instagram size={17} />
+              {/* Socials */}
+              <div>
+                <p
+                  className="text-xs tracking-[0.2em] uppercase mb-4 font-sans"
+                  style={{ color: "rgba(255,249,241,0.45)" }}
+                >
+                  Socials
+                </p>
 
-                <span className="text-sm font-sans">
-                  @blondthebakery
-                </span>
-              </a>
+                <a
+                  href="https://instagram.com/blondthebakery"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 transition-opacity hover:opacity-60"
+                  style={{ color: BG }}
+                >
+                  <Instagram size={17} />
+
+                  <span
+                    className="text-base font-sans"
+                    style={{ color: "rgba(255,249,241,0.75)" }}
+                  >
+                    @blondthebakery
+                  </span>
+                </a>
+              </div>
 
             </div>
 

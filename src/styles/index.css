@@ -16,3 +16,7 @@
 .animate-scroll-down {
   animation: scroll-down 2s ease-in-out infinite;
 }
+
+p {
+  font-family: "Times New Roman", Times, serif !important;
+}

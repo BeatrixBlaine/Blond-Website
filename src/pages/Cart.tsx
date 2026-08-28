@@ -185,6 +185,7 @@ export default function Cart({
 
   const orderSectionRef = useRef<HTMLDivElement>(null);
   const notificationTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const isScrollingToOrderRef = useRef(false);
 
   // Get minimum date (tomorrow)
   const getMinDate = () => {
@@ -254,6 +255,8 @@ export default function Cart({
 
   useEffect(() => {
     const handleScroll = () => {
+      if (isScrollingToOrderRef.current) return;
+
       if (!orderSectionRef.current || totalQuantity === 0) return;
 
       const rect = orderSectionRef.current.getBoundingClientRect();
@@ -876,12 +879,18 @@ export default function Cart({
                 : "fadeIn 0.3s ease-in",
             }}
           onClick={() => {
-            orderSectionRef.current?.scrollIntoView({
-                behavior: "smooth",
-            });
+            isScrollingToOrderRef.current = true;
 
             hideNotification();
-            }}
+
+            orderSectionRef.current?.scrollIntoView({
+              behavior: "smooth",
+            });
+
+            setTimeout(() => {
+              isScrollingToOrderRef.current = false;
+            }, 1000);
+          }}
           onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.transform = "scale(1.1)")}
           onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.transform = "scale(1)")}
         >
