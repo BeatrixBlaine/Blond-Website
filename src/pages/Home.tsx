@@ -122,19 +122,14 @@ const CROISSANT_COLS: { name: string; desc: string; productId: string }[][] = [
 
 const COOKIES: { name: string; desc: string; productId: string }[] = [
   {
-    name: "Peanut Butter Cookie",
-    desc: "Our giant chocolate chip baked with house-made salted peanut butter.",
-    productId: "ck-01",
-  },
-  {
     name: "Original Chocolate Chips with Maldon Salt",
     desc: "Classic chocolate chip cookie finished with Maldon Sea Salt.",
-    productId: "ck-02",
+    productId: "ck-01",
   },
   {
     name: "Double Chocolate Cookies",
     desc: "Rich cocoa cookie with dark chocolate pieces.",
-    productId: "ck-03",
+    productId: "ck-02",
   },
 ];
 

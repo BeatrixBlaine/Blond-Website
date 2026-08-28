@@ -2,8 +2,6 @@ import { useNavigate } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import { ArrowLeft, Plus, Minus, Trash2, ExternalLink, ShoppingBag } from "lucide-react";
 import { Product, PRODUCTS } from "@/data/products";
-import { ImageWithFallback } from "@/app/components/figma/ImageWithFallback";
-import blondLogo from "@/imports/IMG_1732__1_-1.png";
 import classicCroissant from "@/imports/classicCroissant.jpg";
 
 const BRAND = "#9E8465";
