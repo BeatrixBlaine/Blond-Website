@@ -326,7 +326,7 @@ export default function Home({ cartItems }: HomeProps) {
       </header>
 
       {/* ── Hero — full-bleed photo, editorial spread layout ── */}
-      <section id="home" className="relative h-screen flex flex-col overflow-hidden">
+      <section id="home" className="relative min-h-[100svh] flex flex-col overflow-hidden">
         {/* Background photo */}
         {/* <div className="absolute inset-0">
           <img
@@ -365,7 +365,7 @@ export default function Home({ cartItems }: HomeProps) {
         </div>
 
         {/* Scroll indicator */}
-        <div className="absolute bottom-[140px] sm:bottom-28 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 sm:gap-3">
+        <div className="absolute bottom-[165px] sm:bottom-28 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 sm:gap-3">
           <span
             className="text-[9px] sm:text-[10px] tracking-[0.35em] sm:tracking-[0.4em] uppercase font-sans whitespace-nowrap"
             style={{ fontWeight: 500, color: BRAND }}
