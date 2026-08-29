@@ -879,6 +879,17 @@ export default function Cart({
                   </span>
                 </div>
 
+                <p className="text-sm font-sans text-center mb-8" style={{ color: r(0.65) }}>
+                  For bulk orders & event inquiries, please contact us at{" "}
+                  <a
+                    href="mailto:blondbakeri@gmail.com"
+                    className="underline"
+                    style={{ color: BRAND }}
+                  >
+                    blondbakeri@gmail.com
+                  </a>
+                </p>
+
                 <div className="p-4 mb-8" style={{ backgroundColor: r(0.04), border: `1px solid ${r(0.12)}` }}>
                   <p className="text-sm font-sans font-light leading-relaxed" style={{ color: r(0.85) }}>
                     <span style={{ fontWeight: 600, color: BRAND }}>Note:</span> Prices exclude tax, and availability is subject to final confirmation. Don't worry, we will send you a confirmation message as soon as you place your order!
