@@ -6,6 +6,7 @@ import classicCroissant from "@/imports/classicCroissant.jpg";
 
 const BRAND = "#9E8465";
 const BG = "#FFF9F1";
+const PAPER_BAG_PRICE = 10000;
 
 function r(opacity: number) {
   return `rgba(158,132,101,${opacity})`;
@@ -164,7 +165,11 @@ export default function Cart({
     .filter((item): item is Product & { cartQuantity: number } => item !== null);
 
   // Calculate total
-  const total = cartItems.reduce((sum, item) => sum + item.price * item.cartQuantity, 0);
+  const total =
+  cartItems.reduce(
+    (sum, item) => sum + item.price * item.cartQuantity,
+    0
+  ) + (cartItems.length > 0 ? PAPER_BAG_PRICE : 0);
   
   // Calculate total quantity across all items
   const totalQuantity = cartItems.reduce((sum, item) => sum + item.cartQuantity, 0);
@@ -324,8 +329,10 @@ export default function Cart({
     
     cartItems.forEach((item) => {
       const subtotal = item.price * item.cartQuantity;
-      message += `• ${item.name} x${item.cartQuantity} — ${formatPriceForMessage(subtotal)}\n`;
+      message += `• (${item.cartQuantity}) ${item.name} — ${formatPriceForMessage(subtotal)}\n`;
     });
+
+    message += `• (1) Box — ${formatPriceForMessage(PAPER_BAG_PRICE)}\n`;
     
     message += `\nTotal: ${formatPriceForMessage(total)}\n\nThank you!`;
     return message;
@@ -606,6 +613,7 @@ export default function Cart({
               </div>
             </div>
           </div>
+          
 
           {/* Divider */}
           <div className="my-16 border-t" style={{ borderColor: r(0.15) }} />
@@ -826,7 +834,38 @@ export default function Cart({
                       </div>
                     </div>
                   </div>
+
+                  
                 ))}
+
+                {/* Paper Bag */}
+                <div
+                  className="py-8 border-b flex items-center justify-between"
+                  style={{ borderColor: r(0.12) }}
+                >
+                  <div>
+                    <p
+                      className="text-base font-sans font-medium"
+                      style={{ color: BRAND }}
+                    >
+                      Box
+                    </p>
+
+                    <p
+                      className="text-sm font-sans font-light mt-2"
+                      style={{ color: r(0.72) }}
+                    >
+                      10k
+                    </p>
+                  </div>
+
+                  <span
+                    className="text-sm font-sans"
+                    style={{ color: r(0.55) }}
+                  >
+                    Included
+                  </span>
+                </div>
               </div>
 
               {/* Summary */}

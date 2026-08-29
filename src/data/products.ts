@@ -1,6 +1,6 @@
 export interface Product {
   id: string;
-  category: "croissants" | "cookies" | "loaves";
+  category: "croissants" | "cookies";
   name: string;
   description: string;
   price: number; // in smallest unit (e.g., 30000 = 30k)
@@ -172,16 +172,8 @@ export const PRODUCTS: Product[] = [
     price: 39000,
   },
   
-  // Daily Loaves
-  {
-    id: "loaf-01",
-    category: "loaves",
-    name: "Daily Loaves",
-    description: "Our loaf selection changes daily and may include coffee, strawberry, chocolate, and banana. Each loaf is made in small batches — quantities are limited.",
-    price: 55000,
-  },
+
 ];
 
 export const CROISSANTS = PRODUCTS.filter((p) => p.category === "croissants");
 export const COOKIES = PRODUCTS.filter((p) => p.category === "cookies");
-export const LOAVES = PRODUCTS.filter((p) => p.category === "loaves");
