@@ -974,8 +974,8 @@ export default function Home({ cartItems }: HomeProps) {
             style={{ color: r(0.7) }}
           >
             Thank you for your interest in Blond. 
-            Whether you're looking for bulk orders, placing an order for an event, 
-            interested in collaborating, or simply want to say hello, feel free to reach out.
+            Whether you're looking for bulk orders, placing an order for an event, or  
+            interested in collaborating, feel free to reach out.
           </p>
 
           <a
