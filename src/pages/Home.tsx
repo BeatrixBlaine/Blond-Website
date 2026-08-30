@@ -21,7 +21,6 @@ import danish4 from "@/imports/4.jpeg";
 import danish5 from "@/imports/tomatoconfit.jpeg";
 import danish6 from "@/imports/tomatoconfit2.jpeg";
 import storefront from "@/imports/storefront12.jpeg";
-import hero from "@/imports/Hero-full.png";
 
 const BRAND = "#9E8465";
 const BG = "#FFF9F1";
@@ -32,6 +31,7 @@ const NAV_LINKS = [
   { label: "Pre-Order", id: "order" },
   { label: "Our Menu", id: "menu" },
   { label: "FAQ", id: "faq" },
+  { label: "Inquiries", id: "inquiries" },
 ];
 
 const CROISSANT_COLS: { name: string; desc: string; productId: string }[][] = [
@@ -440,9 +440,12 @@ export default function Home({ cartItems }: HomeProps) {
       {/* ── Gallery (drag-to-scroll) — right after hero ── */}
       <section className="py-20 overflow-hidden" style={{ borderTop: `1px solid ${r(0.1)}` }}>
         <div className="max-w-7xl mx-auto px-6 lg:px-12 mb-10">
-          <p className="text-sm tracking-[0.3em] uppercase font-sans" style={{ color: r(0.45) }}>
-            A taste of what we make
-          </p>
+            <div
+              className="mb-6 text-xs font-bold uppercase tracking-[0.3em] font-sans"
+              style={{ color: r(0.45) }}
+            >
+              A Taste Of What We Make
+            </div>
         </div>
 
         <div
@@ -514,12 +517,12 @@ export default function Home({ cartItems }: HomeProps) {
 
               {/* Heading */}
               <div className="mb-10 md:mb-12">
-                <p
-                  className="font-sans text-[11px] md:text-xs uppercase tracking-[0.35em] mb-4"
+                <div
+                  className="mb-6 text-xs font-bold uppercase tracking-[0.3em] font-sans"
                   style={{ color: r(0.45) }}
                 >
                   Behind Blond
-                </p>
+                </div>
 
                 <h2
                   className="font-display text-6xl md:text-7xl leading-[0.95]"
@@ -634,7 +637,7 @@ export default function Home({ cartItems }: HomeProps) {
             </div>
             <p className="leading-relaxed font-sans md:text-right" style={{ color: r(0.85) }}>
               Everything is made fresh each morning in small batches.
-              Selection may vary — come early.
+              <br className="hidden md:inline" /> Selection may vary — come early.
 
             </p>
           </div>
@@ -903,9 +906,12 @@ export default function Home({ cartItems }: HomeProps) {
 
         <div className="max-w-4xl mx-auto px-6 lg:px-12">
           <div className="mb-16">
-            <p className="text-sm tracking-[0.3em] uppercase mb-3 font-sans" style={{ color: r(0.45) }}>
-              Got questions?
-            </p>
+            <div
+              className="mb-6 text-xs font-bold uppercase tracking-[0.3em] font-sans"
+              style={{ color: r(0.45) }}
+            >
+              Got Questions?
+            </div>
             <h2 className="font-display text-6xl md:text-7xl" style={{ color: BRAND }}>FAQ</h2>
           </div>
           <div style={{ borderTop: `1px solid ${r(0.12)}` }}>
@@ -941,6 +947,48 @@ export default function Home({ cartItems }: HomeProps) {
         </div>
       </section>
 
+      {/* Inquiries */}
+      <section
+        id="inquiries"
+        className="px-6 py-28 sm:py-36 md:py-44"
+        style={{ backgroundColor: BG }}
+      >
+        <div className="mx-auto max-w-5xl text-center">
+
+          <div
+            className="mb-6 text-xs font-bold uppercase tracking-[0.3em] font-sans"
+            style={{ color: r(0.45) }}
+          >
+            Inquiries
+          </div>
+
+          <h2
+            className="font-display text-5xl leading-[0.95] sm:text-6xl md:text-7xl lg:text-8xl"
+            style={{ color: BRAND }}
+          >
+            We'd love to<br className="hidden sm:block" /> hear from you.
+          </h2>
+
+          <p
+            className="mx-auto mt-8 max-w-2xl text-base leading-relaxed sm:text-lg"
+            style={{ color: r(0.7) }}
+          >
+            Thank you for your interest in Blond. 
+            Whether you're looking for bulk orders, placing an order for an event, 
+            interested in collaborating, or simply want to say hello, feel free to reach out.
+          </p>
+
+          <a
+            href="mailto:blondbakeri@gmail.com"
+            className="mt-10 inline-block text-lg underline underline-offset-8 transition-opacity hover:opacity-60 sm:text-xl"
+            style={{ color: BRAND }}
+          >
+            blondbakeri@gmail.com
+          </a>
+
+        </div>
+      </section>
+
       {/* ── Footer ── */}
         <footer style={{ backgroundColor: BRAND }}>
           <div className="max-w-7xl mx-auto px-6 lg:px-12 py-10 sm:py-14">
@@ -968,12 +1016,12 @@ export default function Home({ cartItems }: HomeProps) {
 
               {/* Opening Hours */}
               <div>
-                <p
-                  className="text-xs tracking-[0.2em] uppercase mb-4 font-sans"
-                  style={{ color: "rgba(255,249,241,0.45)" }}
+                <div
+                  className="text-xs font-bold uppercase tracking-[0.2em] mb-4 font-sans"
+                  style={{ color: BG }}
                 >
                   Opening Hours
-                </p>
+                </div>
 
                 <div className="text-base font-sans space-y-1">
                   <p style={{ color: "rgba(255,249,241,0.75)" }}>
@@ -988,12 +1036,12 @@ export default function Home({ cartItems }: HomeProps) {
 
               {/* Address */}
               <div>
-                <p
-                  className="text-xs tracking-[0.2em] uppercase mb-4 font-sans"
-                  style={{ color: "rgba(255,249,241,0.45)" }}
+                <div
+                  className="text-xs font-bold uppercase tracking-[0.2em] mb-4 font-sans"
+                  style={{ color: BG }}
                 >
                   Address
-                </p>
+                </div>
 
                 <p
                   className="text-base font-sans leading-relaxed"
@@ -1007,12 +1055,12 @@ export default function Home({ cartItems }: HomeProps) {
 
               {/* Socials */}
               <div>
-                <p
-                  className="text-xs tracking-[0.2em] uppercase mb-4 font-sans"
-                  style={{ color: "rgba(255,249,241,0.45)" }}
+                <div
+                  className="text-xs font-bold uppercase tracking-[0.2em] mb-4 font-sans"
+                  style={{ color: BG }}
                 >
                   Socials
-                </p>
+                </div>
 
                 <a
                   href="https://instagram.com/blondthebakery"
