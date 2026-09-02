@@ -117,6 +117,16 @@ const CROISSANT_COLS: { name: string; desc: string; productId: string }[][] = [
       desc: "Croissant pastry shaped into a circle, filled with cheddar and parmesan, finished with rosemary.",
       productId: "c-17",
     },
+    {
+      name: "Strawberry Shortcake",
+      desc: "Strawberry mascarpone, housemade strawberry compote & pink crumble.",
+      productId: "c-18",
+    },
+    {
+      name: "Tomato Confit, Basil & Cheese",
+      desc: "Filled with slow-roasted tomato confit, fresh basil, and whipped honey mustard cream cheese.",
+      productId: "c-19",
+    },
   ],
 ];
 
@@ -763,8 +773,10 @@ export default function Home({ cartItems }: HomeProps) {
               replied directly.
             </p>
             <p className="text-sm leading-relaxed font-sans" style={{ color: `rgba(255,249,241,0.68)` }}>
-              Pre-orders are subject to availability and our baking schedule.
-              We recommend ordering at least 3 days ahead for best availability.
+              Pre-orders are subject to availability and our baking schedule. <span
+                className="font-extrabold"
+                style={{ color: `rgba(255,249,241,0.95)` }}
+              >Pre-orders must be placed at least 1 day in advance (H-1).</span> We recommend ordering at least 3 days ahead for best availability.
             </p>
           </div>
           <button

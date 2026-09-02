@@ -112,8 +112,14 @@ const CROISSANT_COLS: { name: string; desc: string; productId: string; image?: s
     },
     {
       name: "Strawberry Shortcake",
-      desc: "Croissant pastry shaped into a circle, filled with cheddar and parmesan, finished with rosemary.",
+      desc: "Strawberry mascarpone, housemade strawberry compote & pink crumble.",
       productId: "c-18",
+      image: classicCroissant,
+    },
+    {
+      name: "Tomato Confit, Basil & Cheese",
+      desc: "Filled with slow-roasted tomato confit, fresh basil, and whipped honey mustard cream cheese.",
+      productId: "c-19",
       image: classicCroissant,
     },
   ],
@@ -892,7 +898,7 @@ export default function Cart({
 
                 <div className="p-4 mb-8" style={{ backgroundColor: r(0.04), border: `1px solid ${r(0.12)}` }}>
                   <p className="text-sm font-sans font-light leading-relaxed" style={{ color: r(0.85) }}>
-                    <span style={{ fontWeight: 600, color: BRAND }}>Note:</span> Prices exclude tax, and availability is subject to final confirmation. Don't worry, we will send you a confirmation message as soon as you place your order!
+                    <span style={{ fontWeight: 600, color: BRAND }}>Note:</span> Prices exclude tax, and availability is subject to final confirmation. Pre-orders must be placed at least 1 day in advance (H-1). Don't worry, we will send you a confirmation message as soon as you place your order!
                   </p>
                 </div>
               </div>

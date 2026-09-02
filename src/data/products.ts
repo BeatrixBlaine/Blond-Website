@@ -148,9 +148,17 @@ export const PRODUCTS: Product[] = [
   {
     id: "c-18",
     category: "croissants",
-    number: 17,
+    number: 18,
     name: "Strawberry Shortcake",
-    description: "Croissant pastry shaped into a circle, filled with cheddar and parmesan, finished with rosemary.",
+    description: "Strawberry mascarpone, housemade strawberry compote & pink crumble.",
+    price: 58000,
+  },
+  {
+    id: "c-19",
+    category: "croissants",
+    number: 19,
+    name: "Tomato Confit, Basil & Cheese",
+    description: "Filled with slow-roasted tomato confit, fresh basil, and whipped honey mustard cream cheese.",
     price: 58000,
   },
   
