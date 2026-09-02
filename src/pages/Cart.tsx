@@ -40,6 +40,12 @@ const CROISSANT_COLS: { name: string; desc: string; productId: string; image?: s
       productId: "c-06",
       image: classicCroissant,
     },
+    {
+      name: "Creamy Spinach",
+      desc: "Filled with spinach, leek, and savoury cream.",
+      productId: "c-16",
+      image: classicCroissant,
+    },
   ],
   [
     {
@@ -96,12 +102,6 @@ const CROISSANT_COLS: { name: string; desc: string; productId: string; image?: s
       name: "Mushroom & Cheese Escargot",
       desc: "Slow-roasted mushrooms with garlic, parsley, and cheese.",
       productId: "c-15",
-      image: classicCroissant,
-    },
-    {
-      name: "Creamy Spinach",
-      desc: "Filled with spinach, leek, and savoury cream.",
-      productId: "c-16",
       image: classicCroissant,
     },
     {
@@ -443,7 +443,7 @@ export default function Cart({
                 {CROISSANT_COLS.map((col, ci) => (
                   <div key={ci} className="flex flex-col">
                     {col.map((item, i) => {
-                      const num = ci * 6 + i + 1;
+                      const num = ci === 0 ? i + 1 : ci === 1 ? i + 8 : i + 14;
 
                       const cartItem = items.find(
                         (cartItem) => cartItem.productId === item.productId

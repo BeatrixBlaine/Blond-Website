@@ -58,6 +58,11 @@ const CROISSANT_COLS: { name: string; desc: string; productId: string }[][] = [
       desc: "Twice baked with dark chocolate and almond frangipane, finished with toasted almond flakes.",
       productId: "c-06",
     },
+    {
+      name: "Creamy Spinach",
+      desc: "Filled with spinach, leek, and savoury cream.",
+      productId: "c-16",
+    },
   ],
   [
     {
@@ -106,11 +111,6 @@ const CROISSANT_COLS: { name: string; desc: string; productId: string }[][] = [
       name: "Mushroom & Cheese Escargot",
       desc: "Slow-roasted mushrooms with garlic, parsley, and cheese.",
       productId: "c-15",
-    },
-    {
-      name: "Creamy Spinach",
-      desc: "Filled with spinach, leek, and savoury cream.",
-      productId: "c-16",
     },
     {
       name: "Cheddar, Parmesan & Rosemary",
@@ -661,7 +661,7 @@ export default function Home({ cartItems }: HomeProps) {
               {CROISSANT_COLS.map((col, ci) => (
                 <div key={ci} className="flex flex-col">
                   {col.map((item, i) => {
-                    const num = ci * 6 + i + 1;
+                    const num = ci === 0 ? i + 1 : ci === 1 ? i + 8 : i + 14;
                     return (
                       <div key={item.name} className="py-4 border-b" style={{ borderColor: r(0.12) }}>
                         <div className="flex items-start gap-3">
@@ -776,7 +776,7 @@ export default function Home({ cartItems }: HomeProps) {
               Pre-orders are subject to availability and our baking schedule. <span
                 className="font-extrabold"
                 style={{ color: `rgba(255,249,241,0.95)` }}
-              >Pre-orders must be placed at least 1 day in advance (H-1).</span> We recommend ordering at least 3 days ahead for best availability.
+              >Pre-orders must be placed at least 1 day in advance (H-1).</span> We recommend ordering at least 3 days ahead for the best availability.
             </p>
           </div>
           <button
