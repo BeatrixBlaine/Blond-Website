@@ -11,9 +11,14 @@ import {
   Instagram,
   ShoppingBag,
 } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+
+// Logo
 import { ImageWithFallback } from "@/app/components/figma/ImageWithFallback";
 import croissantIcon from "@/imports/IMG_1730.png";
 import blondLogo from "@/imports/IMG_1732__1_-1.png";
+
+// gallery pic
 import danish1 from "@/imports/1.jpeg";
 import danish2 from "@/imports/2.jpeg";
 import danish3 from "@/imports/3.jpeg";
@@ -22,6 +27,9 @@ import danish5 from "@/imports/tomatoconfit.jpeg";
 import danish6 from "@/imports/tomatoconfit2.jpeg";
 import hazelnut2 from "@/imports/hazelnut2.jpeg";
 import eggTart from "@/imports/eggTart.jpeg";
+import beefSpecial from "@/imports/beefSpecial.jpeg";
+import mixBerry from "@/imports/mixBerry.jpeg";
+
 import storefront from "@/imports/storefront10.jpeg";
 
 const BRAND = "#9E8465";
@@ -147,9 +155,9 @@ const COOKIES: { name: string; desc: string; productId: string }[] = [
 
 const GALLERY_IMAGES = [
   { id: "1", src: hazelnut2, alt: "hazelnut2" },
-  { id: "2", src: danish2, alt: "danish2" },
+  { id: "2", src: beefSpecial, alt: "beefSpecial" },
   { id: "3", src: danish3, alt: "danish3" },
-  { id: "4", src: danish4, alt: "danish4" },
+  { id: "4", src: mixBerry, alt: "mixBerry" },
   { id: "5", src: eggTart, alt: "eggTart" },
   { id: "6", src: danish6, alt: "danish6" },
 ];
@@ -238,7 +246,18 @@ export default function Home({ cartItems }: HomeProps) {
   if (galleryRef.current) {
     galleryRef.current.style.cursor = "grab";
   }
-};
+  };
+
+  const scrollGallery = (direction: "left" | "right") => {
+  if (!galleryRef.current) return;
+
+  const amount = galleryRef.current.clientWidth * 0.7;
+
+  galleryRef.current.scrollBy({
+    left: direction === "right" ? amount : -amount,
+    behavior: "smooth",
+  });
+  };
 
   return (
     <div style={{ backgroundColor: BG, color: BRAND }}>
@@ -460,26 +479,55 @@ export default function Home({ cartItems }: HomeProps) {
             </div>
         </div>
 
+        
+
+        <div className="relative">
+
+        {/* Left button */}
+        <button
+          onClick={() => scrollGallery("left")}
+          aria-label="Scroll gallery left"
+          className="
+            absolute left-2 sm:left-4 lg:left-6
+            top-1/2 -translate-y-1/2
+            z-10
+            w-10 h-10 sm:w-12 sm:h-12
+            rounded-full
+            bg-transparent
+            text-white
+            flex items-center justify-center
+            hover:bg-white/20
+            transition
+          "
+        >
+          <ChevronLeft size={22} />
+        </button>
+
+        {/* Gallery */}
         <div
           ref={galleryRef}
-          className="flex gap-4 px-6 lg:px-12 select-none"
+          className="
+            flex gap-4
+            overflow-x-auto
+            scrollbar-hide
+            pl-2 sm:pl-4 lg:pl-6
+            pr-6
+          "
           style={{
-            overflowX: "auto",
-            overflowY: "hidden",
-            cursor: "grab",
             scrollbarWidth: "none",
             msOverflowStyle: "none",
-            WebkitOverflowScrolling: "touch",
           }}
-          onMouseDown={onGalleryMouseDown}
-          onMouseMove={onGalleryMouseMove}
-          onMouseUp={onGalleryMouseUp}
-          onMouseLeave={onGalleryMouseUp}
         >
           {GALLERY_IMAGES.map((img) => (
             <div
               key={img.id}
-              className="flex-shrink-0 overflow-hidden w-[45vw] sm:w-[240px] lg:w-[320px]"
+              className="
+                flex-shrink-0
+                overflow-hidden
+                w-[45vw]
+                sm:w-[240px]
+                lg:w-[320px]
+              "
               style={{
                 height: "clamp(200px, 52vw, 430px)",
                 backgroundColor: r(0.08),
@@ -489,13 +537,43 @@ export default function Home({ cartItems }: HomeProps) {
                 src={img.src}
                 alt={img.alt}
                 draggable={false}
-                className="w-full h-full object-cover pointer-events-none hover:scale-105 transition-transform duration-700"
-                style={{ filter: "saturate(0.85) brightness(1.03)" }}
+                className="
+                  w-full h-full
+                  object-cover
+                  pointer-events-none
+                  hover:scale-105
+                  transition-transform
+                  duration-700
+                "
+                style={{
+                  filter: "saturate(0.85) brightness(1.03)",
+                }}
               />
             </div>
           ))}
-          <div className="flex-shrink-0 w-6" />
         </div>
+
+        {/* Right button */}
+        <button
+          onClick={() => scrollGallery("right")}
+          aria-label="Scroll gallery right"
+          className="
+            absolute right-2 sm:right-4 lg:right-6
+            top-1/2 -translate-y-1/2
+            z-10
+            w-10 h-10 sm:w-12 sm:h-12
+            rounded-full
+            bg-transparent
+            text-white
+            hover:bg-white/20
+            flex items-center justify-center
+            transition
+          "
+        >
+          <ChevronRight size={22} />
+        </button>
+
+      </div>
       </section>
 
       {/* ── Story ── */}

@@ -11,6 +11,9 @@ import hazelnutPainSuisse from "@/imports/hazelnut1-edited.jpg";
 import eggTart from "@/imports/eggTart-edited.jpg";
 import bananaCheddarPainSuisse from "@/imports/banana-edited.jpg";
 import applePie from "@/imports/applepie-edited.jpg";
+import tomatoConfit from "@/imports/tomatoconfit2-edited.jpg";
+import mixBerry from "@/imports/mixBerry-edited.jpg";
+import almondChoco from "@/imports/almondChocolatine-edited.jpg";
 
 const BRAND = "#9E8465";
 const BG = "#FFF9F1";
@@ -34,7 +37,7 @@ const CROISSANT_COLS: { name: string; desc: string; productId: string; image?: s
       name: "Pistachio Almond Croissant",
       desc: "Twice-baked with pistachio and almond frangipane.",
       productId: "c-04",
-      image: classicCroissant,
+      image: almondChoco,
     },
     {
       name: "Pistachio Almond Chocolatine",
@@ -78,7 +81,7 @@ const CROISSANT_COLS: { name: string; desc: string; productId: string; image?: s
       name: "Mix Berries Flan",
       desc: "Filled with berry compote, custard, and crème fromage.",
       productId: "c-10",
-      image: classicCroissant,
+      image: mixBerry,
     },
     {
       name: "Peanut Butter Pain Au Chocolat",
@@ -128,7 +131,7 @@ const CROISSANT_COLS: { name: string; desc: string; productId: string; image?: s
       name: "Tomato Confit, Basil & Cheese",
       desc: "Filled with slow-roasted tomato confit, fresh basil, and whipped honey mustard cream cheese.",
       productId: "c-19",
-      image: classicCroissant,
+      image: tomatoConfit,
     },
   ],
 ];
