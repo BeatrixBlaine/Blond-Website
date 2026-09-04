@@ -3,6 +3,14 @@ import { useState, useEffect, useRef } from "react";
 import { ArrowLeft, Plus, Minus, Trash2, ExternalLink, ShoppingBag } from "lucide-react";
 import { Product, PRODUCTS } from "@/data/products";
 import classicCroissant from "@/imports/classicCroissant.jpg";
+import painAuChocolat from "@/imports/painAu-edited.jpg";
+import beefSpecial from "@/imports/beefSpecial-edited.jpg";
+import spinach from "@/imports/spinach-edited.jpg";
+import strawberryShortcake from "@/imports/strawberrydanish-edited.jpg";
+import hazelnutPainSuisse from "@/imports/hazelnut1-edited.jpg";
+import eggTart from "@/imports/eggTart-edited.jpg";
+import bananaCheddarPainSuisse from "@/imports/banana-edited.jpg";
+import applePie from "@/imports/applepie-edited.jpg";
 
 const BRAND = "#9E8465";
 const BG = "#FFF9F1";
@@ -15,7 +23,7 @@ function r(opacity: number) {
 const CROISSANT_COLS: { name: string; desc: string; productId: string; image?: string }[][] = [
   [
     { name: "Traditional Butter Croissant", desc: "", productId: "c-01", image: classicCroissant},
-    { name: "Pain Au Chocolat", desc: "Filled with 52% dark chocolate.", productId: "c-02", image: classicCroissant },
+    { name: "Pain Au Chocolat", desc: "Filled with 52% dark chocolate.", productId: "c-02", image: painAuChocolat },
     {
       name: "Cinnamon Bun",
       desc: "Croissant pastry baked in a muffin tin, rolled in cinnamon sugar and filled with cream cheese.",
@@ -44,7 +52,7 @@ const CROISSANT_COLS: { name: string; desc: string; productId: string; image?: s
       name: "Creamy Spinach",
       desc: "Filled with spinach, leek, and savoury cream.",
       productId: "c-16",
-      image: classicCroissant,
+      image: spinach,
     },
   ],
   [
@@ -52,19 +60,19 @@ const CROISSANT_COLS: { name: string; desc: string; productId: string; image?: s
       name: "Hazelnut Pain Suisse",
       desc: "Our signature pain Suisse, filled with homemade hazelnut chocolate, custard, and hazelnut paste.",
       productId: "c-07",
-      image: classicCroissant,
+      image: hazelnutPainSuisse,
     },
     {
       name: "Banana & Cheddar Pain Suisse",
       desc: "Filled with caramelized banana, custard, and cheddar cheese.",
       productId: "c-08",
-      image: classicCroissant,
+      image: bananaCheddarPainSuisse,
     },
     {
       name: "Apple & Cream Cheese",
       desc: "Cross-laminated pastry with slow-cooked apple compote and brown sugar.",
       productId: "c-09",
-      image: classicCroissant,
+      image: applePie,
     },
     {
       name: "Mix Berries Flan",
@@ -82,7 +90,7 @@ const CROISSANT_COLS: { name: string; desc: string; productId: string; image?: s
       name: "Egg Tart",
       desc: "Silky baked custard in a flaky croissant pastry.",
       productId: "c-12",
-      image: classicCroissant,
+      image: eggTart,
     },
   ],
   [
@@ -90,7 +98,7 @@ const CROISSANT_COLS: { name: string; desc: string; productId: string; image?: s
       name: "Beef Special",
       desc: "Filled with beef bacon, béchamel, and parmesan cheese.",
       productId: "c-13",
-      image: classicCroissant,
+      image: beefSpecial,
     },
     {
       name: "Beef Parmesan",
@@ -114,7 +122,7 @@ const CROISSANT_COLS: { name: string; desc: string; productId: string; image?: s
       name: "Strawberry Shortcake",
       desc: "Strawberry mascarpone, housemade strawberry compote & pink crumble.",
       productId: "c-18",
-      image: classicCroissant,
+      image: strawberryShortcake,
     },
     {
       name: "Tomato Confit, Basil & Cheese",
@@ -466,7 +474,7 @@ export default function Cart({
                                   w-20 h-20
                                   sm:w-24 sm:h-24
                                   md:w-28 md:h-28
-                                  object-cover
+                                  object-cover object-center
                                   shrink-0
                                   rounded-lg
                                 "

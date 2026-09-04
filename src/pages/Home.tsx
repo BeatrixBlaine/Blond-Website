@@ -20,7 +20,9 @@ import danish3 from "@/imports/3.jpeg";
 import danish4 from "@/imports/4.jpeg";
 import danish5 from "@/imports/tomatoconfit.jpeg";
 import danish6 from "@/imports/tomatoconfit2.jpeg";
-import storefront from "@/imports/storefront12.jpeg";
+import hazelnut2 from "@/imports/hazelnut2.jpeg";
+import eggTart from "@/imports/eggTart.jpeg";
+import storefront from "@/imports/storefront10.jpeg";
 
 const BRAND = "#9E8465";
 const BG = "#FFF9F1";
@@ -144,11 +146,11 @@ const COOKIES: { name: string; desc: string; productId: string }[] = [
 ];
 
 const GALLERY_IMAGES = [
-  { id: "1", src: danish1, alt: "danish1" },
+  { id: "1", src: hazelnut2, alt: "hazelnut2" },
   { id: "2", src: danish2, alt: "danish2" },
   { id: "3", src: danish3, alt: "danish3" },
   { id: "4", src: danish4, alt: "danish4" },
-  { id: "5", src: danish5, alt: "danish5" },
+  { id: "5", src: eggTart, alt: "eggTart" },
   { id: "6", src: danish6, alt: "danish6" },
 ];
 
