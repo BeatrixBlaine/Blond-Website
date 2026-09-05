@@ -29,6 +29,7 @@ import hazelnut2 from "@/imports/hazelnut2.jpeg";
 import eggTart from "@/imports/eggTart.jpeg";
 import beefSpecial from "@/imports/beefSpecial.jpeg";
 import mixBerry from "@/imports/mixBerry.jpeg";
+import spinach from "@/imports/spinach1.jpeg";
 
 import storefront from "@/imports/storefront10.jpeg";
 
@@ -160,6 +161,7 @@ const GALLERY_IMAGES = [
   { id: "4", src: mixBerry, alt: "mixBerry" },
   { id: "5", src: eggTart, alt: "eggTart" },
   { id: "6", src: danish6, alt: "danish6" },
+  { id: "7", src: spinach, alt: "spinach" },
 ];
 
 const FAQS = [

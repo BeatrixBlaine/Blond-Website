@@ -14,6 +14,7 @@ import applePie from "@/imports/applepie-edited.jpg";
 import tomatoConfit from "@/imports/tomatoconfit2-edited.jpg";
 import mixBerry from "@/imports/mixBerry-edited.jpg";
 import almondChoco from "@/imports/almondChocolatine-edited.jpg";
+import mushroom from "@/imports/mushroom1-edited.jpg";
 
 const BRAND = "#9E8465";
 const BG = "#FFF9F1";
@@ -113,7 +114,7 @@ const CROISSANT_COLS: { name: string; desc: string; productId: string; image?: s
       name: "Mushroom & Cheese Escargot",
       desc: "Slow-roasted mushrooms with garlic, parsley, and cheese.",
       productId: "c-15",
-      image: classicCroissant,
+      image: mushroom,
     },
     {
       name: "Cheddar, Parmesan & Rosemary",
