@@ -212,7 +212,12 @@ export default function Cart({
   const getMinDate = () => {
     const tomorrow = new Date();
     tomorrow.setDate(tomorrow.getDate() + 1);
-    return tomorrow.toISOString().split("T")[0];
+
+    const year = tomorrow.getFullYear();
+    const month = String(tomorrow.getMonth() + 1).padStart(2, "0");
+    const day = String(tomorrow.getDate()).padStart(2, "0");
+
+    return `${year}-${month}-${day}`;
   };
 
   const isBakeryOpen = () => {
@@ -368,6 +373,11 @@ export default function Cart({
 
   if (!orderDate) {
     alert("Please select a pickup date.");
+    return;
+  }
+
+  if (orderDate < getMinDate()) {
+    alert("Please select a pickup date starting from tomorrow.");
     return;
   }
 
