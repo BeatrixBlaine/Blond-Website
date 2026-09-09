@@ -69,11 +69,6 @@ const CROISSANT_COLS: { name: string; desc: string; productId: string }[][] = [
       desc: "Twice baked with dark chocolate and almond frangipane, finished with toasted almond flakes.",
       productId: "c-06",
     },
-    {
-      name: "Creamy Spinach",
-      desc: "Filled with spinach, leek, and savoury cream.",
-      productId: "c-16",
-    },
   ],
   [
     {
@@ -117,6 +112,11 @@ const CROISSANT_COLS: { name: string; desc: string; productId: string }[][] = [
       name: "Beef Parmesan",
       desc: "Twice-baked with smoked beef and parmesan cheese.",
       productId: "c-14",
+    },
+    {
+      name: "Creamy Spinach",
+      desc: "Filled with spinach, leek, and savoury cream.",
+      productId: "c-16",
     },
     {
       name: "Mushroom & Cheese Escargot",
@@ -738,7 +738,7 @@ export default function Home({ cartItems }: HomeProps) {
               {CROISSANT_COLS.map((col, ci) => (
                 <div key={ci} className="flex flex-col">
                   {col.map((item, i) => {
-                    const num = ci === 0 ? i + 1 : ci === 1 ? i + 8 : i + 14;
+                    const num = ci === 0 ? i + 1 : ci === 1 ? i + 7 : i + 13;
                     return (
                       <div key={item.name} className="py-4 border-b" style={{ borderColor: r(0.12) }}>
                         <div className="flex items-start gap-3">
