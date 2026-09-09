@@ -5,7 +5,7 @@ import { Product, PRODUCTS } from "@/data/products";
 import classicCroissant from "@/imports/classicCroissant.jpg";
 import painAuChocolat from "@/imports/painAu-edited.jpg";
 import beefSpecial from "@/imports/beefSpecial-edited.jpg";
-import spinach from "@/imports/spinach-edited.jpg";
+import spinach from "@/imports/spinach2-edited.jpg";
 import strawberryShortcake from "@/imports/strawberrydanish-edited.jpg";
 import hazelnutPainSuisse from "@/imports/hazelnut1-edited.jpg";
 import eggTart from "@/imports/eggTart-edited.jpg";
@@ -51,12 +51,6 @@ const CROISSANT_COLS: { name: string; desc: string; productId: string; image?: s
       desc: "Twice baked with dark chocolate and almond frangipane, finished with toasted almond flakes.",
       productId: "c-06",
       image: classicCroissant,
-    },
-    {
-      name: "Creamy Spinach",
-      desc: "Filled with spinach, leek, and savoury cream.",
-      productId: "c-16",
-      image: spinach,
     },
   ],
   [
@@ -111,6 +105,12 @@ const CROISSANT_COLS: { name: string; desc: string; productId: string; image?: s
       image: classicCroissant,
     },
     {
+      name: "Creamy Spinach",
+      desc: "Filled with spinach, leek, and savoury cream.",
+      productId: "c-16",
+      image: spinach,
+    },
+    {
       name: "Mushroom & Cheese Escargot",
       desc: "Slow-roasted mushrooms with garlic, parsley, and cheese.",
       productId: "c-15",
@@ -123,15 +123,9 @@ const CROISSANT_COLS: { name: string; desc: string; productId: string; image?: s
       image: classicCroissant,
     },
     {
-      name: "Strawberry Shortcake",
-      desc: "Strawberry mascarpone, housemade strawberry compote & pink crumble.",
-      productId: "c-18",
-      image: strawberryShortcake,
-    },
-    {
       name: "Tomato Confit, Basil & Cheese",
       desc: "Filled with slow-roasted tomato confit, fresh basil, and whipped honey mustard cream cheese.",
-      productId: "c-19",
+      productId: "c-18",
       image: tomatoConfit,
     },
   ],
@@ -465,7 +459,7 @@ export default function Cart({
                 {CROISSANT_COLS.map((col, ci) => (
                   <div key={ci} className="flex flex-col">
                     {col.map((item, i) => {
-                      const num = ci === 0 ? i + 1 : ci === 1 ? i + 8 : i + 14;
+                      const num = ci === 0 ? i + 1 : ci === 1 ? i + 7 : i + 13;
 
                       const cartItem = items.find(
                         (cartItem) => cartItem.productId === item.productId

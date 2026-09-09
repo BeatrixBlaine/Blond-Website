@@ -129,14 +129,9 @@ const CROISSANT_COLS: { name: string; desc: string; productId: string }[][] = [
       productId: "c-17",
     },
     {
-      name: "Strawberry Shortcake",
-      desc: "Strawberry mascarpone, housemade strawberry compote & pink crumble.",
-      productId: "c-18",
-    },
-    {
       name: "Tomato Confit, Basil & Cheese",
       desc: "Filled with slow-roasted tomato confit, fresh basil, and whipped honey mustard cream cheese.",
-      productId: "c-19",
+      productId: "c-18",
     },
   ],
 ];
