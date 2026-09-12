@@ -2,19 +2,24 @@ import { useNavigate } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import { ArrowLeft, Plus, Minus, Trash2, ExternalLink, ShoppingBag } from "lucide-react";
 import { Product, PRODUCTS } from "@/data/products";
-import classicCroissant from "@/imports/classicCroissant.jpg";
+import classicCroissant from "@/imports/classicCroissant2-edited.jpg";
 import painAuChocolat from "@/imports/painAu-edited.jpg";
 import beefSpecial from "@/imports/beefSpecial-edited.jpg";
 import spinach from "@/imports/spinach2-edited.jpg";
-import strawberryShortcake from "@/imports/strawberrydanish-edited.jpg";
 import hazelnutPainSuisse from "@/imports/hazelnut1-edited.jpg";
 import eggTart from "@/imports/eggTart-edited.jpg";
 import bananaCheddarPainSuisse from "@/imports/banana-edited.jpg";
 import applePie from "@/imports/applepie-edited.jpg";
 import tomatoConfit from "@/imports/tomatoconfit2-edited.jpg";
 import mixBerry from "@/imports/mixBerry-edited.jpg";
-import almondChoco from "@/imports/almondChocolatine-edited.jpg";
+import almondChoco from "@/imports/almondChocolatine2-edited.jpg";
 import mushroom from "@/imports/mushroom1-edited.jpg";
+import cheddar from "@/imports/cheddar-edited.jpg";
+import darkChocoCookies from "@/imports/darkChocoCookies-edited.jpg";
+import beefParmesan from "@/imports/beefParmesan1-edited.jpg";
+import cookiesOriginal from "@/imports/cookiesOriginal-edited.jpg";
+import pistachioChoco from "@/imports/pistachioChoco-edited.jpg";
+import peanutButterPainAu from "@/imports/peanutButterPainAu1-edited.jpg";
 
 const BRAND = "#9E8465";
 const BG = "#FFF9F1";
@@ -38,19 +43,19 @@ const CROISSANT_COLS: { name: string; desc: string; productId: string; image?: s
       name: "Pistachio Almond Croissant",
       desc: "Twice-baked with pistachio and almond frangipane.",
       productId: "c-04",
-      image: almondChoco,
+      image: pistachioChoco,
     },
     {
       name: "Pistachio Almond Chocolatine",
       desc: "Twice-baked dark chocolate, pistachio, and almond frangipane.",
       productId: "c-05",
-      image: classicCroissant,
+      image: pistachioChoco,
     },
     {
       name: "Almond Chocolatine",
       desc: "Twice baked with dark chocolate and almond frangipane, finished with toasted almond flakes.",
       productId: "c-06",
-      image: classicCroissant,
+      image: almondChoco,
     },
   ],
   [
@@ -82,7 +87,7 @@ const CROISSANT_COLS: { name: string; desc: string; productId: string; image?: s
       name: "Peanut Butter Pain Au Chocolat",
       desc: "Twice-baked with housemade salted peanut butter and dark chocolate.",
       productId: "c-11",
-      image: classicCroissant,
+      image: peanutButterPainAu,
     },
     {
       name: "Egg Tart",
@@ -102,7 +107,7 @@ const CROISSANT_COLS: { name: string; desc: string; productId: string; image?: s
       name: "Beef Parmesan",
       desc: "Twice-baked with smoked beef and parmesan cheese.",
       productId: "c-14",
-      image: classicCroissant,
+      image: beefParmesan,
     },
     {
       name: "Creamy Spinach",
@@ -120,7 +125,7 @@ const CROISSANT_COLS: { name: string; desc: string; productId: string; image?: s
       name: "Cheddar, Parmesan & Rosemary",
       desc: "Croissant pastry shaped into a circle, filled with cheddar and parmesan, finished with rosemary.",
       productId: "c-17",
-      image: classicCroissant,
+      image: cheddar,
     },
     {
       name: "Tomato Confit, Basil & Cheese",
@@ -136,13 +141,13 @@ const COOKIES: { name: string; desc: string; productId: string; image?: string }
     name: "Original Chocolate Chips with Maldon Salt",
     desc: "Classic chocolate chip cookie finished with Maldon Sea Salt.",
     productId: "ck-01",
-    image: classicCroissant,
+    image: cookiesOriginal,
   },
   {
     name: "Double Chocolate Cookies",
     desc: "Rich cocoa cookie with dark chocolate pieces.",
     productId: "ck-02",
-    image: classicCroissant,
+    image: darkChocoCookies,
   },
 ];
 
