@@ -177,11 +177,16 @@ export default function Cart({
     .filter((item): item is Product & { cartQuantity: number } => item !== null);
 
   // Calculate total
-  const total =
+  // Calculate prices
+  const subtotal =
   cartItems.reduce(
     (sum, item) => sum + item.price * item.cartQuantity,
     0
   ) + (cartItems.length > 0 ? PAPER_BAG_PRICE : 0);
+
+  const tax = subtotal * 0.10;
+
+  const total = subtotal + tax;
   
   // Calculate total quantity across all items
   const totalQuantity = cartItems.reduce((sum, item) => sum + item.cartQuantity, 0);
@@ -319,10 +324,12 @@ export default function Cart({
 
   const formatTotal = (total: number) => {
     const thousands = total / 1000;
+
     if (thousands >= 1000) {
       return (thousands / 1000).toFixed(1) + "M";
     }
-    return thousands.toFixed(0) + "k";
+
+    return `${Number(thousands.toFixed(1))}k`;
   };
 
   // Generate WhatsApp message with order details
@@ -351,6 +358,8 @@ export default function Cart({
 
     message += `• (1) Box — ${formatPriceForMessage(PAPER_BAG_PRICE)}\n`;
     
+    message += `\nSubtotal: ${formatPriceForMessage(subtotal)}`;
+    message += `\nTax (10%): ${formatPriceForMessage(tax)}`;
     message += `\nTotal: ${formatPriceForMessage(total)}\n\nThank you!`;
     return message;
   };
@@ -892,14 +901,37 @@ export default function Cart({
 
               {/* Summary */}
               <div className="mb-12">
-                <div className="flex items-center justify-between mb-8 pb-8 border-b" style={{ borderColor: r(0.15) }}>
-                  <span className="text-lg font-sans font-medium" style={{ color: r(0.85) }}>
-                    Subtotal
-                  </span>
-                  <span className="text-2xl font-display" style={{ color: BRAND }}>
-                    {formatTotal(total)}
-                  </span>
-                </div>
+                <div className="space-y-4 mb-8 pb-8 border-b" style={{ borderColor: r(0.15) }}>
+                    {/* Subtotal */}
+                    <div className="flex items-center justify-between">
+                      <span className="text-base font-sans" style={{ color: r(0.75) }}>
+                        Subtotal
+                      </span>
+                      <span className="text-lg font-sans" style={{ color: BRAND }}>
+                        {formatTotal(subtotal)}
+                      </span>
+                    </div>
+
+                    {/* Tax */}
+                    <div className="flex items-center justify-between">
+                      <span className="text-base font-sans" style={{ color: r(0.75) }}>
+                        Tax (10%)
+                      </span>
+                      <span className="text-lg font-sans" style={{ color: BRAND }}>
+                        {formatTotal(tax)}
+                      </span>
+                    </div>
+
+                    {/* Total */}
+                    <div className="flex items-center justify-between pt-4">
+                      <span className="text-lg font-sans font-medium" style={{ color: r(0.85) }}>
+                        Total
+                      </span>
+                      <span className="text-2xl font-display" style={{ color: BRAND }}>
+                        {formatTotal(total)}
+                      </span>
+                    </div>
+                  </div>
 
                 <p className="text-sm font-sans text-center mb-8" style={{ color: r(0.65) }}>
                   For bulk orders & event inquiries, please contact us at{" "}
@@ -914,7 +946,7 @@ export default function Cart({
 
                 <div className="p-4 mb-8" style={{ backgroundColor: r(0.04), border: `1px solid ${r(0.12)}` }}>
                   <p className="text-sm font-sans font-light leading-relaxed" style={{ color: r(0.85) }}>
-                    <span style={{ fontWeight: 600, color: BRAND }}>Note:</span> Prices exclude tax, and availability is subject to final confirmation. Pre-orders must be placed at least 1 day in advance (H-1). Don't worry, we will send you a confirmation message as soon as you place your order!
+                    <span style={{ fontWeight: 600, color: BRAND }}>Note:</span> A 10% tax is included in the total. Availability is subject to final confirmation. Pre-orders must be placed at least 1 day in advance (H-1). Don't worry, we will send you a confirmation message as soon as you place your order!
                   </p>
                 </div>
               </div>
