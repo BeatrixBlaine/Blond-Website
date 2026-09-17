@@ -715,9 +715,10 @@ export default function Home({ cartItems }: HomeProps) {
 
                 <div className="pt-4">
                   <p
-                    className="font-sans text-base md:text-lg"
+                    className="text-base md:text-lg "
                     style={{
-                      fontWeight: 650,
+                      fontFamily: '"Times New Roman", Times, serif',
+                      fontWeight: 400,
                       color: BRAND,
                     }}
                   >
