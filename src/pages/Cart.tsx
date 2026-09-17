@@ -20,6 +20,9 @@ import beefParmesan from "@/imports/beefParmesan1-edited.jpg";
 import cookiesOriginal from "@/imports/cookiesOriginal-edited.jpg";
 import pistachioChoco from "@/imports/pistachioChoco-edited.jpg";
 import peanutButterPainAu from "@/imports/peanutButterPainAu1-edited.jpg";
+import crumbleCustard from "@/imports/crumbleCustard-edited.jpg";
+import cinnamonBun from "@/imports/cinnamonBun-edited.jpg";
+import pistachioCroissant from "@/imports/pistachioCroissant-edited.jpg";
 
 const BRAND = "#9E8465";
 const BG = "#FFF9F1";
@@ -37,13 +40,13 @@ const CROISSANT_COLS: { name: string; desc: string; productId: string; image?: s
       name: "Cinnamon Bun",
       desc: "Croissant pastry baked in a muffin tin, rolled in cinnamon sugar and filled with cream cheese.",
       productId: "c-03",
-      image: classicCroissant,
+      image: cinnamonBun,
     },
     {
       name: "Pistachio Almond Croissant",
       desc: "Twice-baked with pistachio and almond frangipane.",
       productId: "c-04",
-      image: pistachioChoco,
+      image: pistachioCroissant,
     },
     {
       name: "Pistachio Almond Chocolatine",
@@ -56,6 +59,12 @@ const CROISSANT_COLS: { name: string; desc: string; productId: string; image?: s
       desc: "Twice baked with dark chocolate and almond frangipane, finished with toasted almond flakes.",
       productId: "c-06",
       image: almondChoco,
+    },
+    {
+      name: "Crumble Custard",
+      desc: "Cardamom & cinnamon custard, salted caramel, mascarpone cream, and cinnamon crumble.",
+      productId: "c-19",
+      image: crumbleCustard,
     },
   ],
   [
@@ -473,7 +482,7 @@ export default function Cart({
                 {CROISSANT_COLS.map((col, ci) => (
                   <div key={ci} className="flex flex-col">
                     {col.map((item, i) => {
-                      const num = ci === 0 ? i + 1 : ci === 1 ? i + 7 : i + 13;
+                      const num = ci === 0 ? i + 1 : ci === 1 ? i + 8 : i + 14;
 
                       const cartItem = items.find(
                         (cartItem) => cartItem.productId === item.productId
@@ -520,7 +529,7 @@ export default function Cart({
 
                               {item.desc && (
                                 <p
-                                  className="text-sm font-sans font-light mt-1 leading-relaxed"
+                                  className="text-sm font-sans font-light mt-1 leading-relaxed text-justify"
                                   style={{ color: r(0.82) }}
                                 >
                                   {item.desc}

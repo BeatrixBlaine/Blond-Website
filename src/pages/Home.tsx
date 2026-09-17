@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import type { CartItem } from "@/pages/Cart";
+import { PRODUCTS } from "@/data/products";
 import {
   Menu,
   X,
@@ -47,7 +48,7 @@ const NAV_LINKS = [
 
 const CROISSANT_COLS: { name: string; desc: string; productId: string }[][] = [
   [
-    { name: "Classic Butter Croissant", desc: "", productId: "c-01" },
+    { name: "Traditional Croissant", desc: "", productId: "c-01" },
     { name: "Pain Au Chocolat", desc: "Filled with 52% dark chocolate.", productId: "c-02" },
     {
       name: "Cinnamon Bun",
@@ -68,6 +69,11 @@ const CROISSANT_COLS: { name: string; desc: string; productId: string }[][] = [
       name: "Almond Chocolatine",
       desc: "Twice baked with dark chocolate and almond frangipane, finished with toasted almond flakes.",
       productId: "c-06",
+    },
+    {
+      name: "Peanut Butter Pain Au Chocolat",
+      desc: "Twice-baked with housemade salted peanut butter and dark chocolate.",
+      productId: "c-11",
     },
   ],
   [
@@ -92,9 +98,9 @@ const CROISSANT_COLS: { name: string; desc: string; productId: string }[][] = [
       productId: "c-10",
     },
     {
-      name: "Peanut Butter Pain Au Chocolat",
-      desc: "Twice-baked with housemade salted peanut butter and dark chocolate.",
-      productId: "c-11",
+      name: "Crumble Custard",
+      desc: "Cardamom & cinnamon custard, salted caramel, mascarpone cream, and cinnamon crumble.",
+      productId: "c-19",
     },
     {
       name: "Egg Tart",
@@ -133,6 +139,7 @@ const CROISSANT_COLS: { name: string; desc: string; productId: string }[][] = [
       desc: "Filled with slow-roasted tomato confit, fresh basil, and whipped honey mustard cream cheese.",
       productId: "c-18",
     },
+    
   ],
 ];
 
@@ -389,7 +396,7 @@ export default function Home({ cartItems }: HomeProps) {
 
         {/* Scroll indicator */}
         <div className="absolute bottom-[160px] sm:bottom-28 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 sm:gap-3">
-          <span
+          {/* <span
             className="text-[9px] sm:text-[10px] tracking-[0.35em] sm:tracking-[0.4em] uppercase font-sans whitespace-nowrap"
             style={{ fontWeight: 500, color: BRAND }}
           >
@@ -399,7 +406,7 @@ export default function Home({ cartItems }: HomeProps) {
           <span
             className="w-px h-8 sm:h-12 animate-scroll-line"
             style={{ backgroundColor: "rgba(12, 12, 12, 0.5)" }}
-          />
+          /> */}
         </div>
 
         {/* Bottom bar */}
@@ -466,7 +473,7 @@ export default function Home({ cartItems }: HomeProps) {
       </section>
 
       {/* ── Gallery (drag-to-scroll) — right after hero ── */}
-      <section className="py-20 overflow-hidden" style={{ borderTop: `1px solid ${r(0.1)}` }}>
+      {/* <section className="py-20 overflow-hidden" style={{ borderTop: `1px solid ${r(0.1)}` }}>
         <div className="max-w-7xl mx-auto px-6 lg:px-12 mb-10">
             <div
               className="mb-6 text-xs font-bold uppercase tracking-[0.3em] font-sans"
@@ -481,7 +488,7 @@ export default function Home({ cartItems }: HomeProps) {
         <div className="relative">
 
         {/* Left button */}
-        <button
+        {/*<button
           onClick={() => scrollGallery("left")}
           aria-label="Scroll gallery left"
           className="
@@ -501,7 +508,7 @@ export default function Home({ cartItems }: HomeProps) {
         </button>
 
         {/* Gallery */}
-        <div
+        {/*<div
           ref={galleryRef}
           className="
             flex gap-4
@@ -551,7 +558,7 @@ export default function Home({ cartItems }: HomeProps) {
         </div>
 
         {/* Right button */}
-        <button
+        {/*<button
           onClick={() => scrollGallery("right")}
           aria-label="Scroll gallery right"
           className="
@@ -571,7 +578,7 @@ export default function Home({ cartItems }: HomeProps) {
         </button>
 
       </div>
-      </section>
+      </section> */}
 
       {/* ── Story ── */}
       <section
@@ -604,18 +611,13 @@ export default function Home({ cartItems }: HomeProps) {
 
               {/* Heading */}
               <div className="mb-10 md:mb-12">
-                <div
-                  className="mb-6 text-xs font-bold uppercase tracking-[0.3em] font-sans"
-                  style={{ color: r(0.45) }}
-                >
-                  Behind Blond
-                </div>
+                
 
                 <h2
                   className="font-display text-6xl md:text-7xl leading-[0.95]"
                   style={{ color: BRAND }}
                 >
-                  Our Story
+                  Story
                 </h2>
 
                 <div
@@ -626,69 +628,104 @@ export default function Home({ cartItems }: HomeProps) {
 
               {/* Story Content */}
               <div
-                className="space-y-7 md:space-y-8 leading-relaxed font-sans font-light text-sm md:text-[15px]"
+                className="space-y-6 md:space-y-7 leading-relaxed font-sans font-light text-sm md:text-[15px]
+                text-justify"
                 style={{ color: r(0.9) }}
               >
                 <p
-                  className="text-xl md:text-2xl leading-relaxed"
+                  className="text-xl md:text-xl leading-relaxed"
                   style={{ fontWeight: 650, color: BRAND }}
                 >
-                  Blond started in 2025, as the beginning of a long-held dream of mine to life.
+                  I’ve always been a baking person.
                 </p>
 
                 <p>
-                  I have always been passionate about baking and making things with my own hands.
-                  As a self-taught baker, I was always curious about learning, experimenting, and
-                  understanding the process behind what I made.
+                  For as long as I can remember, I’ve loved making things with my hands,
+                  especially baking. Most of what I know comes from being a self-taught baker,
+                  learning as I went, trying things out, getting things wrong, and trying
+                  again. I’ve always loved both sides of it, how something looks, and more
+                  importantly, how it tastes.
                 </p>
 
                 <p>
-                  After finishing my Master's degree in the UK, I decided to gain experience
-                  in the bakery industry, including an internship at one of the UK's oldest bakeries.
-                  Eventually, I followed my gut and brought that passion back to my hometown,
-                  Bandung, where Blond began with a focus on viennoiserie.
+                  Baking has always been my safe place. Something I could come back to through
+                  different stages of my life, even when I didn’t really know what I was doing
+                  or where I was going.
+                </p>
+
+                <p>
+                  After finishing my Master's degree in the UK, I found myself feeling quite
+                  clueless about what path I wanted to take. I had studied, graduated, and
+                  suddenly had to figure out what came next. But baking was always somewhere
+                  in the back of my mind. It had been a childhood dream of mine for a long
+                  time, and I think I always knew I wanted to give it a real chance.
                 </p>
 
                 <p
-                  className="text-lg md:text-xl"
+                  className="text-lg md:text-xl leading-relaxed"
                   style={{ fontWeight: 650, color: BRAND }}
                 >
-                  But more than anything, I love making things.
+                  So I decided to take a leap of faith and pursue it.
                 </p>
 
                 <p>
-                  I love the process, the details, and the pairing of different
-                  flavours and elements to create something beautiful. I think that
-                  love naturally found its way into Blond too. From the pastries to
-                  the small space I slowly put together, just as I imagined it.
+                  I was very lucky to spend some time interning at one of the UK's oldest
+                  bakeries, where I got to experience what it was like to work in a real
+                  bakery and learn from people who had been doing it for years.
                 </p>
 
                 <p>
-                  Our pastries go through a long process in the small kitchen at Blond
-                  that you see every day. From our laminated dough to the smallest
-                  elements that go into each pastry, everything is made from scratch
-                  with care and patience.
+                  Eventually, I came back home to Bandung and decided to build my own little
+                  bakery.
                 </p>
 
                 <p
-                  className="text-lg md:text-xl"
+                  className="text-lg md:text-xl leading-relaxed"
                   style={{ fontWeight: 650, color: BRAND }}
                 >
-                  What started as something I did by myself has
-                  slowly grown into a small and passionate team.
+                  That became Blond.
                 </p>
 
                 <p>
-                  Today, Blond is made possible by many hands.
-                  Everyone plays their own important part, often working late at
-                  night and early in the morning to bring each pastry to life.
+                  Every pastry at Blond is special. There is a lot that goes into each one,
+                  even the smallest elements you might not notice. We make things by hand,
+                  through a long process, and I want that to stay at the heart of Blond.
                 </p>
 
                 <p>
-                  Behind every pastry is a process, a collection of small details,
-                  and a team dedicated to making it.
+                  I’ve never really liked things that feel artificial or overly made. I want
+                  Blond to be as real as it can be, fresh, honest, and thoughtful. I want to
+                  make real things, using good ingredients, and give them the time and care
+                  they deserve.
                 </p>
+
+                <p>
+                  What started with just me has slowly grown to include a small team of
+                  dedicated and passionate people working alongside me. We’re still a small
+                  team, and most days, you’ll find us all working closely together, doing a
+                  little bit of everything to keep Blond going.
+                </p>
+
+                <p>
+                  What started as a childhood dream has somehow become this little bakery,
+                  shaped by many hands and so much support along the way. We’re still small,
+                  and there is still so much to learn and make, but we’re happy to keep
+                  growing Blond together, little by little.
+                </p>
+
+                <div className="pt-4">
+                  <p
+                    className="font-sans text-base md:text-lg"
+                    style={{
+                      fontWeight: 650,
+                      color: BRAND,
+                    }}
+                  >
+                    — Addina
+                  </p>
+                </div>
               </div>
+
 
             </div>
           </div>
@@ -723,8 +760,7 @@ export default function Home({ cartItems }: HomeProps) {
               </h2>
             </div>
             <p className="leading-relaxed font-sans md:text-right" style={{ color: r(0.85) }}>
-              Everything is made fresh each morning in small batches.
-              <br className="hidden md:inline" /> Selection may vary — come early.
+              Here’s what we’re making this month
 
             </p>
           </div>
@@ -738,7 +774,7 @@ export default function Home({ cartItems }: HomeProps) {
               {CROISSANT_COLS.map((col, ci) => (
                 <div key={ci} className="flex flex-col">
                   {col.map((item, i) => {
-                    const num = ci === 0 ? i + 1 : ci === 1 ? i + 7 : i + 13;
+                    const num = ci === 0 ? i + 1 : ci === 1 ? i + 8 : i + 14;
                     return (
                       <div key={item.name} className="py-4 border-b" style={{ borderColor: r(0.12) }}>
                         <div className="flex items-start gap-3">
@@ -748,10 +784,22 @@ export default function Home({ cartItems }: HomeProps) {
                           >
                             {String(num).padStart(2, "0")}
                           </span>
-                          <div>
-                            <p className="text-base font-sans font-medium leading-snug" style={{ color: BRAND }}>
-                              {item.name}
-                            </p>
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-baseline justify-between gap-4">
+                              <p
+                                className="text-base font-sans font-medium leading-snug"
+                                style={{ color: BRAND }}
+                              >
+                                {item.name}
+                              </p>
+
+                              <span
+                                className="text-sm font-serif font-medium whitespace-nowrap"
+                                style={{ color: BRAND , fontFamily: '"Times New Roman", Times, serif'}}
+                              >
+                                {(PRODUCTS.find((p) => p.id === item.productId)?.price ?? 0) / 1000}k
+                              </span>
+                            </div>
                             {item.desc && (
                               <p className="text-sm font-sans font-light mt-1 leading-relaxed" style={{ color: r(0.82) }}>
                                 {item.desc}
@@ -791,13 +839,22 @@ export default function Home({ cartItems }: HomeProps) {
                       {String(i + 1).padStart(2, "0")}
                     </span>
 
-                    <div>
-                      <p
-                        className="text-base font-sans font-medium leading-snug"
-                        style={{ color: BRAND }}
-                      >
-                        {item.name}
-                      </p>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex w-full items-baseline justify-between gap-4">
+                        <p
+                          className="text-base font-sans font-medium leading-snug"
+                          style={{ color: BRAND }}
+                        >
+                          {item.name}
+                        </p>
+
+                        <span
+                          className="text-sm font-serif font-medium whitespace-nowrap"
+                          style={{ color: BRAND, fontFamily: '"Times New Roman", Times, serif' }}
+                        >
+                          {(PRODUCTS.find((p) => p.id === item.productId)?.price ?? 0) / 1000}k
+                        </span>
+                      </div>
 
                       {item.desc && (
                         <p
@@ -818,17 +875,9 @@ export default function Home({ cartItems }: HomeProps) {
 
       {/* ── Order ── */}
       <section id="order" className="py-28 relative overflow-hidden" style={{ backgroundColor: BRAND }}>
-        <div
-          className="absolute inset-0 opacity-[0.05] pointer-events-none"
-          style={{
-            backgroundImage:
-              "repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(255,249,241,0.6) 39px,rgba(255,249,241,0.6) 40px),repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(255,249,241,0.6) 39px,rgba(255,249,241,0.6) 40px)",
-          }}
-        />
+        
         <div className="relative max-w-4xl mx-auto px-6 lg:px-12 text-center">
-          <p className="text-sm tracking-[0.35em] uppercase mb-6 font-sans" style={{ color: `rgba(255,249,241,0.5)` }}>
-            Can't make it in time?
-          </p>
+          
           <h2
             className="text-5xl md:text-7xl mb-10 leading-tight"
             style={{ fontFamily: "'Nunito', system-ui, sans-serif", fontWeight: 700, color: BG }}
@@ -836,26 +885,41 @@ export default function Home({ cartItems }: HomeProps) {
             Pre-order<br />
             <em style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>Available</em>
           </h2>
+
           <div className="max-w-2xl mx-auto space-y-5 mb-12 text-left">
-            <p className="leading-relaxed font-sans font-light" style={{ color: `rgba(255,249,241,0.93)` }}>
-              We know mornings are unpredictable. That's why we offer pre-orders
-              on selected items — so you can secure your favourites before
-              they're gone. Pre-orders are accepted up to one week in advance
-              and ready for pickup during our regular hours.
+            <p className="leading-relaxed font-sans font-light text-justify" style={{ color: `rgba(255,249,241,0.93)` }}>
+             Our pre-order system lets you reserve your favourite pastries ahead of time, 
+             so you can simply come by, pick them up, and skip the queue.
             </p>
-            <p className="leading-relaxed font-sans font-light" style={{ color: `rgba(255,249,241,0.93)` }}>
-              Whether it's a Saturday croissant haul, a box of cookies for a
-              gathering, or a loaf cake for a special occasion — send us a
-              message and we'll sort it out. Orders are confirmed once we've
-              replied directly.
-            </p>
-            <p className="text-sm leading-relaxed font-sans" style={{ color: `rgba(255,249,241,0.68)` }}>
-              Pre-orders are subject to availability and our baking schedule. <span
+            <p className="leading-relaxed font-sans font-light text-justify" style={{ color: `rgba(255,249,241,0.93)` }}>
+              Pre-orders can be made <span
                 className="font-extrabold"
                 style={{ color: `rgba(255,249,241,0.95)` }}
-              >Pre-orders must be placed at least 1 day in advance (H-1).</span> We recommend ordering at least 3 days ahead for the best availability.
+              >at least 1 day in advance</span>, and you 
+              can choose the date and pick-up time that works for you. Once 
+              you place your order through our website, it will automatically 
+              continue to WhatsApp, where we’ll check everything with you and send through the available payment options.
+            </p>
+            <p className="leading-relaxed font-sans font-light text-justify" style={{ color: `rgba(255,249,241,0.93)` }}>
+              <span
+                className="font-extrabold"
+                style={{ color: `rgba(255,249,241,0.95)` }}
+              >Your order is considered confirmed</span> once we’ve sent the 
+              payment details and <span
+                className="font-extrabold"
+                style={{ color: `rgba(255,249,241,0.95)` }}
+              >payment has been received.</span>
+            </p>
+            <p className="text-sm leading-relaxed font-sans text-justify" style={{ color: `rgba(255,249,241,0.68)` }}>
+              For <span
+                className="font-bold"
+                style={{ color: `rgba(255,249,241,0.95)` }}
+              >larger orders, events, or special requests</span>, 
+              please get in touch with us directly through WhatsApp or email. 
+              We’d love to help.
             </p>
           </div>
+          
           <button
             onClick={() => {
               navigate("/cart");
@@ -995,12 +1059,7 @@ export default function Home({ cartItems }: HomeProps) {
 
         <div className="max-w-4xl mx-auto px-6 lg:px-12">
           <div className="mb-16">
-            <div
-              className="mb-6 text-xs font-bold uppercase tracking-[0.3em] font-sans"
-              style={{ color: r(0.45) }}
-            >
-              Got Questions?
-            </div>
+            
             <h2 className="font-display text-6xl md:text-7xl" style={{ color: BRAND }}>FAQ</h2>
           </div>
           <div style={{ borderTop: `1px solid ${r(0.12)}` }}>
