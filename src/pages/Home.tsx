@@ -632,10 +632,7 @@ export default function Home({ cartItems }: HomeProps) {
                 text-justify"
                 style={{ color: r(0.9) }}
               >
-                <p
-                  className="text-xl md:text-xl leading-relaxed"
-                  style={{ fontWeight: 650, color: BRAND }}
-                >
+                <p>
                   I’ve always been a baking person.
                 </p>
 
@@ -661,10 +658,7 @@ export default function Home({ cartItems }: HomeProps) {
                   time, and I think I always knew I wanted to give it a real chance.
                 </p>
 
-                <p
-                  className="text-lg md:text-xl leading-relaxed"
-                  style={{ fontWeight: 650, color: BRAND }}
-                >
+                <p>
                   So I decided to take a leap of faith and pursue it.
                 </p>
 
@@ -679,10 +673,7 @@ export default function Home({ cartItems }: HomeProps) {
                   bakery.
                 </p>
 
-                <p
-                  className="text-lg md:text-xl leading-relaxed"
-                  style={{ fontWeight: 650, color: BRAND }}
-                >
+                <p>
                   That became Blond.
                 </p>
 
@@ -715,7 +706,7 @@ export default function Home({ cartItems }: HomeProps) {
 
                 <div className="pt-4">
                   <p
-                    className="text-base md:text-lg "
+                    className="text-sm md:text-base"
                     style={{
                       fontFamily: '"Times New Roman", Times, serif',
                       fontWeight: 400,

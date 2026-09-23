@@ -5,7 +5,7 @@ import { Product, PRODUCTS } from "@/data/products";
 import classicCroissant from "@/imports/classicCroissant2-edited.jpg";
 import painAuChocolat from "@/imports/painAu-edited.jpg";
 import beefSpecial from "@/imports/beefSpecial-edited.jpg";
-import spinach from "@/imports/spinach2-edited.jpg";
+import spinach from "@/imports/spinach3-edited.jpg";
 import hazelnutPainSuisse from "@/imports/hazelnut1-edited.jpg";
 import eggTart from "@/imports/eggTart-edited.jpg";
 import bananaCheddarPainSuisse from "@/imports/banana-edited.jpg";
