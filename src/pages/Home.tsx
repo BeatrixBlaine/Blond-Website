@@ -150,8 +150,8 @@ const COOKIES: { name: string; desc: string; productId: string }[] = [
     productId: "ck-01",
   },
   {
-    name: "Double Chocolate Cookies",
-    desc: "Rich cocoa cookie with dark chocolate pieces.",
+    name: "Peanut Butter Cookies",
+    desc: "Rich peanut butter cookie.",
     productId: "ck-02",
   },
 ];

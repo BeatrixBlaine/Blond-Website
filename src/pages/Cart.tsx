@@ -153,8 +153,8 @@ const COOKIES: { name: string; desc: string; productId: string; image?: string }
     image: cookiesOriginal,
   },
   {
-    name: "Double Chocolate Cookies",
-    desc: "Rich cocoa cookie with dark chocolate pieces.",
+    name: "Peanut Butter Cookies",
+    desc: "Rich peanut butter cookie.",
     productId: "ck-02",
     image: darkChocoCookies,
   },

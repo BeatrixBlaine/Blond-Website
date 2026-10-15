@@ -175,9 +175,9 @@ export const PRODUCTS: Product[] = [
     id: "ck-02",
     category: "cookies",
     number: 2,
-    name: "Double Chocolate Cookies",
-    description: "Rich cocoa cookie with dark chocolate pieces.",
-    price: 39000,
+    name: "Peanut butter Cookies",
+    description: "Rich peanut butter cookie.",
+    price: 50000,
   },
   
 
