@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { Phone, Mail } from "lucide-react";
 import type { CartItem } from "@/pages/Cart";
 import { PRODUCTS } from "@/data/products";
 import {
@@ -426,7 +427,7 @@ export default function Home({ cartItems }: HomeProps) {
           {/* Our Story */}
           <button
             onClick={() => scrollTo("story")}
-            className="flex-1 sm:flex-none px-3 sm:px-8 py-3 text-[9px] sm:text-sm tracking-[0.08em] sm:tracking-[0.15em] uppercase transition-all duration-300 font-sans whitespace-nowrap"
+            className="flex-1 rounded sm:flex-none px-3 sm:px-8 py-3 text-[9px] sm:text-sm tracking-[0.08em] sm:tracking-[0.15em] uppercase transition-all duration-300 font-sans whitespace-nowrap"
             style={{ backgroundColor: BRAND, color: BG }}
             onMouseEnter={(e) =>
               ((e.currentTarget as HTMLElement).style.opacity = "0.85")
@@ -441,7 +442,7 @@ export default function Home({ cartItems }: HomeProps) {
           {/* View Menu */}
           <button
             onClick={() => scrollTo("menu")}
-            className="flex-1 sm:flex-none px-3 sm:px-8 py-3 text-[9px] sm:text-sm tracking-[0.08em] sm:tracking-[0.15em] uppercase transition-all duration-300 font-sans whitespace-nowrap"
+            className="flex-1 rounded sm:flex-none px-3 sm:px-8 py-3 text-[9px] sm:text-sm tracking-[0.08em] sm:tracking-[0.15em] uppercase transition-all duration-300 font-sans whitespace-nowrap"
             style={{ backgroundColor: BRAND, color: BG }}
             onMouseEnter={(e) =>
               ((e.currentTarget as HTMLElement).style.opacity = "0.85")
@@ -456,7 +457,7 @@ export default function Home({ cartItems }: HomeProps) {
           {/* Pre-order */}
           <button
             onClick={() => scrollTo("order")}
-            className="flex-1 sm:flex-none px-3 sm:px-8 py-3 text-[9px] sm:text-sm tracking-[0.08em] sm:tracking-[0.15em] uppercase transition-all duration-300 font-sans whitespace-nowrap"
+            className="flex-1 rounded sm:flex-none px-3 sm:px-8 py-3 text-[9px] sm:text-sm tracking-[0.08em] sm:tracking-[0.15em] uppercase transition-all duration-300 font-sans whitespace-nowrap"
             style={{ backgroundColor: BRAND, color: BG }}
             onMouseEnter={(e) =>
               ((e.currentTarget as HTMLElement).style.opacity = "0.85")
@@ -596,7 +597,7 @@ export default function Home({ cartItems }: HomeProps) {
 
             {/* Photo */}
             <div className="relative h-full">
-              <div className="overflow-hidden h-[280px] md:h-[500px] lg:h-full lg:min-h-[420px]">
+              <div className="overflow-hidden rounded-2xl h-[280px] md:h-[500px] lg:h-full lg:min-h-[420px]">
                 <img
                   src={storefront}
                   alt="Baker shaping croissant dough by hand at dawn"
@@ -893,14 +894,8 @@ export default function Home({ cartItems }: HomeProps) {
               continue to WhatsApp, where we’ll check everything with you and send through the available payment options.
             </p>
             <p className="leading-relaxed font-sans font-light text-justify" style={{ color: `rgba(255,249,241,0.93)` }}>
-              <span
-                className="font-extrabold"
-                style={{ color: `rgba(255,249,241,0.95)` }}
-              >Your order is considered confirmed</span> once we’ve sent the 
-              payment details and <span
-                className="font-extrabold"
-                style={{ color: `rgba(255,249,241,0.95)` }}
-              >payment has been received.</span>
+              Your order is considered confirmed once we’ve sent the 
+              payment details and payment has been received.
             </p>
             <p className="text-sm leading-relaxed font-sans text-justify" style={{ color: `rgba(255,249,241,0.68)` }}>
               For <span
@@ -917,7 +912,7 @@ export default function Home({ cartItems }: HomeProps) {
               navigate("/cart");
               setTimeout(() => window.scrollTo(0, 0), 0);
             }}
-            className="inline-flex items-center gap-3 border px-10 py-4 text-sm tracking-[0.2em] uppercase transition-all duration-300 font-sans"
+            className="inline-flex rounded items-center gap-3 border px-10 py-4 text-sm tracking-[0.2em] uppercase transition-all duration-300 font-sans"
             style={{ borderColor: `rgba(255,249,241,0.45)`, color: BG, backgroundColor: "transparent", cursor: "pointer", font: "inherit" }}
             onMouseEnter={(e) => {
               (e.currentTarget as HTMLElement).style.backgroundColor = BG;
@@ -993,7 +988,7 @@ export default function Home({ cartItems }: HomeProps) {
                     href="https://maps.app.goo.gl/tWgSh2jF9pGRYdAt5"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 border px-6 py-3 text-sm tracking-[0.12em] uppercase transition-all duration-300 font-sans"
+                    className="inline-flex rounded items-center gap-2 border px-6 py-3 text-sm tracking-[0.12em] uppercase transition-all duration-300 font-sans"
                     style={{ borderColor: BRAND, color: BRAND }}
                     onMouseEnter={(e) => {
                       (e.currentTarget as HTMLElement).style.backgroundColor = BRAND;
@@ -1163,17 +1158,18 @@ export default function Home({ cartItems }: HomeProps) {
                   Opening Hours
                 </div>
 
-                <div className="text-base font-sans space-y-1">
-                  <p style={{ color: "rgba(255,249,241,0.75)" }}>
+                <div className="text-[13px] font-sans space-y-1">
+                  <span style={{ color: "rgba(255,249,241,0.75)" }}>
                     Wed – Fri · 7:30 am – 4:00 pm
-                  </p>
-
-                  <p style={{ color: "rgba(255,249,241,0.75)" }}>
+                  </span>
+                  <br></br>
+                  <span style={{ color: "rgba(255,249,241,0.75)" }}>
                     Sat – Sun · 7:00 am – 5:00 pm
-                  </p>
+                  </span>
                 </div>
               </div>
 
+              
               {/* Address */}
               <div>
                 <div
@@ -1183,15 +1179,65 @@ export default function Home({ cartItems }: HomeProps) {
                   Address
                 </div>
 
-                <p
-                  className="text-base font-sans leading-relaxed"
-                  style={{ color: "rgba(255,249,241,0.75)" }}
-                >
-                  Imam Bonjol no. 27
-                  <br />
-                  Bandung, Indonesia
-                </p>
+                <div className="flex items-start gap-2">
+                  <MapPin
+                    size={16}
+                    className="mt-0.5 shrink-0"
+                    style={{ color: BG }}
+                  />
+                  <a
+                    href="https://maps.google.com/?q=Imam+Bonjol+no.+27,+Bandung,+Indonesia"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                  <span
+                    className="text-[13px] font-sans leading-relaxed"
+                    style={{ color: "rgba(255,249,241,0.75)" }}
+                  >
+                    Imam Bonjol no. 27
+                    <br />
+                    Bandung, Indonesia
+                  </span>
+                  </a>
+                </div>
               </div>
+
+              {/* Contact Us */}
+              <div>
+                <div
+                  className="text-xs font-bold uppercase tracking-[0.2em] mb-4 font-sans"
+                  style={{ color: BG }}
+                >
+                  Contact Us
+                </div>
+
+                <div className="flex flex-col gap-3">
+                  {/* Phone */}
+                  <a
+                    href="tel:+6281802227775"
+                    className="flex items-center gap-2 transition-opacity hover:opacity-60"
+                    style={{ color: "rgba(255,249,241,0.75)" }}
+                  >
+                    <Phone size={15} className="shrink-0" />
+                    <span className="text-[13px] font-sans">
+                      +62 818 0222 7775
+                    </span>
+                  </a>
+
+                  {/* Email */}
+                  <a
+                    href="mailto:blondbakeri@gmail.com"
+                    className="flex items-center gap-2 transition-opacity hover:opacity-60"
+                    style={{ color: "rgba(255,249,241,0.75)" }}
+                  >
+                    <Mail size={15} className="shrink-0" />
+                    <span className="text-[13px] font-sans">
+                      blondbakeri@gmail.com
+                    </span>
+                  </a>
+                </div>
+              </div>
+
 
               {/* Socials */}
               <div>
@@ -1212,7 +1258,7 @@ export default function Home({ cartItems }: HomeProps) {
                   <Instagram size={17} />
 
                   <span
-                    className="text-base font-sans"
+                    className="text-[13px] font-sans"
                     style={{ color: "rgba(255,249,241,0.75)" }}
                   >
                     @blondthebakery
@@ -1224,10 +1270,10 @@ export default function Home({ cartItems }: HomeProps) {
 
             {/* Copyright */}
             <p
-              className="mt-8 text-[11px] font-sans text-center sm:text-left"
+              className="mt-8 text-[14px] font-sans text-center sm:text-left"
               style={{ color: "rgba(255,249,241,0.35)" }}
             >
-              © {new Date().getFullYear()} Blond the Bakery
+              © {new Date().getFullYear()} Blond the Bakery. All rights reserved.
             </p>
 
           </div>
