@@ -1008,7 +1008,7 @@ export default function Home({ cartItems }: HomeProps) {
             </div>
 
             <div
-              className="lg:col-span-3 h-80 lg:h-[460px] overflow-hidden border"
+              className="lg:col-span-3 rounded h-80 lg:h-[460px] overflow-hidden border"
               style={{ borderColor: r(0.15), backgroundColor: r(0.06) }}
             >
               <iframe
@@ -1171,7 +1171,7 @@ export default function Home({ cartItems }: HomeProps) {
 
               
               {/* Address */}
-              <div>
+              <div className="flex flex-col items-center sm:items-start">
                 <div
                   className="text-xs font-bold uppercase tracking-[0.2em] mb-4 font-sans"
                   style={{ color: BG }}
@@ -1179,7 +1179,7 @@ export default function Home({ cartItems }: HomeProps) {
                   Address
                 </div>
 
-                <div className="flex items-start gap-2">
+                <div className="flex items-start justify-center gap-2">
                   <MapPin
                     size={16}
                     className="mt-0.5 shrink-0"
@@ -1203,7 +1203,7 @@ export default function Home({ cartItems }: HomeProps) {
               </div>
 
               {/* Contact Us */}
-              <div>
+              <div className="flex flex-col items-center sm:items-start">
                 <div
                   className="text-xs font-bold uppercase tracking-[0.2em] mb-4 font-sans"
                   style={{ color: BG }}

@@ -541,7 +541,7 @@ export default function Cart({
                           <div className="flex flex-col items-center flex-shrink-0">
                               <button
                                 onClick={() => handleAddItem(item.productId)}
-                                className="w-16 py-1 text-xs tracking-[0.15em] uppercase border transition-all duration-300 font-sans mt-1"
+                                className="w-16 py-1 rounded text-xs tracking-[0.15em] uppercase border transition-all duration-300 font-sans mt-1"
                                 style={{
                                   borderColor: BRAND,
                                   color: addedProductId === item.productId ? BG : BRAND,
@@ -624,7 +624,7 @@ export default function Cart({
                     <div className="flex flex-col items-center flex-shrink-0">
                       <button
                         onClick={() => handleAddItem(item.productId)}
-                        className="w-16 py-1 text-xs tracking-[0.15em] uppercase border transition-all duration-300 font-sans mt-1"
+                        className="w-16 py-1 rounded text-xs tracking-[0.15em] uppercase border transition-all duration-300 font-sans mt-1"
                         style={{
                           borderColor: BRAND,
                           color: addedProductId === item.productId ? BG : BRAND,
@@ -970,7 +970,7 @@ export default function Cart({
 
                 <button
                     onClick={handleOrder}
-                    className="flex-1 inline-flex items-center justify-center gap-2 px-8 py-4 text-sm tracking-[0.15em] uppercase transition-all duration-300 font-sans"
+                    className="flex-1 rounded inline-flex items-center justify-center gap-2 px-8 py-4 text-sm tracking-[0.15em] uppercase transition-all duration-300 font-sans"
                     style={{ backgroundColor: BRAND, color: BG }}
                     onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.opacity = "0.85")}
                     onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.opacity = "1")}
