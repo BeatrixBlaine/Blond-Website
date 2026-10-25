@@ -789,7 +789,7 @@ export default function Cart({
               </p>
               <button
                 onClick={() => navigate("/")}
-                className="inline-flex items-center gap-2 px-8 py-3 text-sm tracking-[0.15em] uppercase transition-all duration-300 font-sans"
+                className="inline-flex rounded items-center gap-2 px-8 py-3 text-sm tracking-[0.15em] uppercase transition-all duration-300 font-sans"
                 style={{ backgroundColor: BRAND, color: BG }}
                 onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.opacity = "0.85")}
                 onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.opacity = "1")}
