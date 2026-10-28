@@ -940,7 +940,7 @@ export default function Home({ cartItems }: HomeProps) {
 
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <div className="mb-16">
-            <h2 className="font-display text-4xl md:text-5xl" style={{ color: BRAND }}>
+            <h2 className="font-display text-6xl md:text-7xl" style={{ color: BRAND }}>
               Coming To Our Bakery
             </h2>
           </div>
