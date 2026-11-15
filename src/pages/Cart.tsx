@@ -160,6 +160,106 @@ const COOKIES: { name: string; desc: string; productId: string; image?: string }
   },
 ];
 
+interface MenuItem {
+  name: string;
+  desc: string;
+  productId: string;
+  image?: string;
+}
+
+// croissants: the first two columns are sweet (01-13), the last one is savoury (14-19)
+const SWEET_CROISSANTS: MenuItem[] = [...CROISSANT_COLS[0], ...CROISSANT_COLS[1]];
+const SAVOURY_CROISSANTS: MenuItem[] = CROISSANT_COLS[2];
+
+interface MenuCardProps {
+  item: MenuItem;
+  number: number;
+  price: number;
+  quantity: number;
+  added: boolean;
+  onAdd: (productId: string) => void;
+  wide?: boolean;
+}
+
+// one menu item: photo, number, name, price, description and the Add button
+function MenuCard({ item, number, price, quantity, added, onAdd, wide = false }: MenuCardProps) {
+  return (
+    <article
+      className={`group flex h-full overflow-hidden rounded-2xl border transition-all duration-300 hover:-translate-y-1 ${
+        wide ? "flex-row" : "flex-row sm:flex-col"
+      }`}
+      style={{
+        borderColor: r(0.14),
+        backgroundColor: "rgba(255,255,255,0.55)",
+        boxShadow: `0 1px 2px ${r(0.05)}`,
+      }}
+    >
+      {/* Photo */}
+      <div
+        className={`relative shrink-0 overflow-hidden ${
+          wide
+            ? "w-28 sm:w-2/5 sm:min-h-[240px]"
+            : "min-h-[7rem] w-28 sm:min-h-0 sm:w-full sm:aspect-[3/2]"
+        }`}
+        style={{ backgroundColor: r(0.08) }}
+      >
+        {item.image && (
+          <img
+            src={item.image}
+            alt={item.name}
+            loading="lazy"
+            className="absolute inset-0 h-full w-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+          />
+        )}
+        <span
+          className="absolute left-3 top-3 hidden rounded-full px-2.5 py-1 font-display text-xs select-none sm:block"
+          style={{ backgroundColor: "rgba(255,249,241,0.92)", color: BRAND }}
+        >
+          {String(number).padStart(2, "0")}
+        </span>
+      </div>
+
+      {/* Text */}
+      <div className="flex min-w-0 flex-1 flex-col p-4 sm:p-5 lg:p-6">
+        <div className="flex items-baseline justify-between gap-4">
+          <p className="text-base font-medium leading-snug sm:text-lg" style={{ color: BRAND }}>
+            {item.name}
+          </p>
+          <span
+            className="whitespace-nowrap text-base font-medium"
+            style={{ color: BRAND, fontFamily: '"Times New Roman", Times, serif' }}
+          >
+            {(price / 1000).toFixed(0)}k
+          </span>
+        </div>
+
+        <p
+          className="mt-2 text-sm font-light leading-relaxed sm:min-h-[4.5rem] sm:text-[15px]"
+          style={{ color: r(0.82) }}
+        >
+          {item.desc}
+        </p>
+
+        <div className="mt-auto flex items-center justify-between gap-3 pt-4 sm:pt-5">
+          <span className="text-[10px] uppercase tracking-[0.14em]" style={{ color: r(0.55) }}>
+            {quantity > 0 ? `In Bag · ${quantity}` : ""}
+          </span>
+          <button
+            onClick={() => onAdd(item.productId)}
+            className={`rounded-full border px-6 py-1.5 font-sans text-xs uppercase tracking-[0.15em] transition-all duration-300 ${
+              added
+                ? "border-[#9E8465] bg-[#9E8465] text-[#FFF9F1]"
+                : "border-[#9E8465] text-[#9E8465] hover:bg-[#9E8465] hover:text-[#FFF9F1]"
+            }`}
+          >
+            {added ? "✓" : "Add"}
+          </button>
+        </div>
+      </div>
+    </article>
+  );
+}
+
 export interface CartItem {
   productId: string;
   quantity: number;
@@ -473,192 +573,63 @@ export default function Cart({
 
             {/* Croissants */}
             <div className="mb-20">
-              <div className="flex flex-wrap items-baseline gap-5 mb-10">
+              <div className="mb-10 flex flex-wrap items-baseline gap-5 border-b pb-6" style={{ borderColor: r(0.15) }}>
                 <h2 className="font-display text-5xl" style={{ color: BRAND }}>
                   Vienoisserrie
                 </h2>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12">
-                {CROISSANT_COLS.map((col, ci) => (
-                  <div key={ci} className="flex flex-col">
-                    {col.map((item, i) => {
-                      const num = ci === 0 ? i + 1 : ci === 1 ? i + 8 : i + 14;
 
-                      const cartItem = items.find(
-                        (cartItem) => cartItem.productId === item.productId
-                      );
-
-                      const quantity = cartItem?.quantity ?? 0;
-                      return (
-                        <div
-                          key={item.productId}
-                          className="py-4 border-b flex items-start justify-between gap-3"
-                          style={{ borderColor: r(0.12) }}
-                        >
-                          <div className="flex items-start gap-3 flex-1 min-w-0">
-
-                            {item.image && (
-                              <img
-                                src={item.image}
-                                alt={item.name}
-                                className="
-                                  w-20 h-20
-                                  sm:w-24 sm:h-24
-                                  md:w-28 md:h-28
-                                  object-cover object-center
-                                  shrink-0
-                                  rounded-lg
-                                "
-                              />
-                            )}
-
-                            <span
-                              className="font-display text-sm mt-0.5 select-none shrink-0 w-6 text-right"
-                              style={{ color: r(0.35) }}
-                            >
-                              {String(num).padStart(2, "0")}
-                            </span>
-
-                            <div className="min-w-0">
-                              <p
-                                className="text-base font-sans font-medium leading-snug"
-                                style={{ color: BRAND }}
-                              >
-                                {item.name}
-                              </p>
-
-                              {item.desc && (
-                                <p
-                                  className="text-sm font-sans font-light mt-1 leading-relaxed text-justify"
-                                  style={{ color: r(0.82) }}
-                                >
-                                  {item.desc}
-                                </p>
-                              )}
-                            </div>
-                          </div>
-
-                          <div className="flex flex-col items-center flex-shrink-0">
-                              <button
-                                onClick={() => handleAddItem(item.productId)}
-                                className="w-16 py-1 rounded text-xs tracking-[0.15em] uppercase border transition-all duration-300 font-sans mt-1"
-                                style={{
-                                  borderColor: BRAND,
-                                  color: addedProductId === item.productId ? BG : BRAND,
-                                  backgroundColor:
-                                    addedProductId === item.productId ? BRAND : "transparent",
-                                }}
-                                onMouseEnter={(e) => {
-                                  (e.currentTarget as HTMLElement).style.backgroundColor = BRAND;
-                                  (e.currentTarget as HTMLElement).style.color = BG;
-                                }}
-                                onMouseLeave={(e) => {
-                                  (e.currentTarget as HTMLElement).style.backgroundColor = "transparent";
-                                  (e.currentTarget as HTMLElement).style.color = BRAND;
-                                }}
-                              >
-                                {addedProductId === item.productId ? "✓" : "Add"}
-                              </button>
-
-                              {quantity > 0 && (
-                                <span
-                                  className="text-[10px] mt-2 tracking-[0.12em] uppercase whitespace-nowrap"
-                                  style={{ color: r(0.55) }}
-                                >
-                                  In Bag · {quantity}
-                                </span>
-                              )}
-                            </div>
-                        </div>
-                      );
-                    })}
+              {[
+                { label: "Sweet", list: SWEET_CROISSANTS, start: 1 },
+                { label: "Savoury", list: SAVOURY_CROISSANTS, start: SWEET_CROISSANTS.length + 1 },
+              ].map((group) => (
+                <div key={group.label} className="mb-12 last:mb-0">
+                  <div className="mb-6 flex items-center gap-4">
+                    <span className="text-xs uppercase tracking-[0.25em]" style={{ color: r(0.6) }}>
+                      {group.label}
+                    </span>
+                    <span className="flex-1 border-t" style={{ borderColor: r(0.15) }} />
                   </div>
-                ))}
-              </div>
+                  <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3 lg:gap-8">
+                    {group.list.map((item, i) => (
+                      <MenuCard
+                        key={item.productId}
+                        item={item}
+                        number={group.start + i}
+                        price={PRODUCTS.find((p: Product) => p.id === item.productId)?.price ?? 0}
+                        quantity={items.find((cartItem) => cartItem.productId === item.productId)?.quantity ?? 0}
+                        added={addedProductId === item.productId}
+                        onAdd={handleAddItem}
+                      />
+                    ))}
+                  </div>
+                </div>
+              ))}
             </div>
 
             {/* Cookies */}
             <div>
-              <h2 className="font-display text-5xl mb-10 pb-4 border-b" style={{ color: BRAND, borderColor: r(0.15) }}>
-                Cookies
-              </h2>
-              <div className="flex flex-col">
-                {COOKIES.map((item, i) => {
-                  const cartItem = items.find(
-                    (cartItem) => cartItem.productId === item.productId
-                  );
-
-                  const quantity = cartItem?.quantity ?? 0;
-
-                  return (
-                  <div key={item.productId} className="py-4 border-b flex items-start justify-between gap-3" style={{ borderColor: r(0.12) }}>
-                    <div className="flex items-start gap-3 flex-1">
-                      {item.image && (
-                        <img
-                          src={item.image}
-                          alt={item.name}
-                          className="
-                            w-20 h-20
-                            sm:w-24 sm:h-24
-                            md:w-28 md:h-28
-                            object-cover
-                            shrink-0
-                            rounded-lg
-                          "
-                        />
-                      )}
-                      <span className="font-display text-sm mt-0.5 select-none flex-shrink-0 w-6 text-right" style={{ color: r(0.35) }}>
-                        {String(i + 1).padStart(2, "0")}
-                      </span>
-                      <div>
-                        <p className="text-base font-sans font-medium leading-snug" style={{ color: BRAND }}>
-                          {item.name}
-                        </p>
-                        {item.desc && (
-                          <p className="text-sm font-sans font-light mt-1 leading-relaxed" style={{ color: r(0.82) }}>
-                            {item.desc}
-                          </p>
-                        )}
-                      </div>
-                    </div>
-                    <div className="flex flex-col items-center flex-shrink-0">
-                      <button
-                        onClick={() => handleAddItem(item.productId)}
-                        className="w-16 py-1 rounded text-xs tracking-[0.15em] uppercase border transition-all duration-300 font-sans mt-1"
-                        style={{
-                          borderColor: BRAND,
-                          color: addedProductId === item.productId ? BG : BRAND,
-                          backgroundColor:
-                            addedProductId === item.productId ? BRAND : "transparent",
-                        }}
-                        onMouseEnter={(e) => {
-                          (e.currentTarget as HTMLElement).style.backgroundColor = BRAND;
-                          (e.currentTarget as HTMLElement).style.color = BG;
-                        }}
-                        onMouseLeave={(e) => {
-                          (e.currentTarget as HTMLElement).style.backgroundColor = "transparent";
-                          (e.currentTarget as HTMLElement).style.color = BRAND;
-                        }}
-                      >
-                        {addedProductId === item.productId ? "✓" : "Add"}
-                      </button>
-
-                      {quantity > 0 && (
-                        <span
-                          className="text-[10px] mt-2 tracking-[0.12em] uppercase whitespace-nowrap"
-                          style={{ color: r(0.55) }}
-                        >
-                          In Bag · {quantity}
-                        </span>
-                      )}
-                    </div>
-                  </div>
-                );
-                })}
+              <div className="mb-10 flex flex-wrap items-baseline gap-5 border-b pb-6" style={{ borderColor: r(0.15) }}>
+                <h2 className="font-display text-5xl" style={{ color: BRAND }}>
+                  Cookies
+                </h2>
+              </div>
+              <div className="grid grid-cols-1 gap-4 sm:gap-6 lg:grid-cols-2 lg:gap-8">
+                {COOKIES.map((item, i) => (
+                  <MenuCard
+                    key={item.productId}
+                    item={item}
+                    number={i + 1}
+                    price={PRODUCTS.find((p: Product) => p.id === item.productId)?.price ?? 0}
+                    quantity={items.find((cartItem) => cartItem.productId === item.productId)?.quantity ?? 0}
+                    added={addedProductId === item.productId}
+                    onAdd={handleAddItem}
+                    wide
+                  />
+                ))}
               </div>
             </div>
           </div>
-          
 
           {/* Divider */}
           <div className="my-16 border-t" style={{ borderColor: r(0.15) }} />
