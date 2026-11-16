@@ -622,8 +622,9 @@ export default function Home({ cartItems }: HomeProps) {
           borderTop: `1px solid ${r(0.1)}`,
         }}
       >
-        <div className="max-w-7xl mx-auto px-6 lg:px-12">
-          <div className="mb-10 md:mb-12 lg:mb-20">
+        {/* Phone and tablet: heading on top (PC has it in the text column) */}
+        <div className="lg:hidden max-w-7xl mx-auto px-6">
+          <div className="mb-10 md:mb-12">
             <h2
               className="font-display text-6xl md:text-7xl leading-tight"
               style={{ color: BRAND }}
@@ -681,6 +682,19 @@ export default function Home({ cartItems }: HomeProps) {
 
                 {/* Text */}
                 <div className={photoRight ? "lg:order-1" : ""}>
+                  {/* PC: heading above the first part of the story */}
+                  {i === 0 && (
+                    <div className="hidden lg:block mb-12">
+                      <h2
+                        className="font-display text-7xl leading-[0.95]"
+                        style={{ color: BRAND }}
+                      >
+                        Story
+                      </h2>
+                      <div className="mt-7 w-16 h-px" style={{ backgroundColor: r(0.35) }} />
+                    </div>
+                  )}
+
                   <div
                     className="space-y-6 md:space-y-7 leading-relaxed font-sans font-light text-sm md:text-[15px] text-justify"
                     style={{ color: r(0.9) }}
