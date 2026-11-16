@@ -178,11 +178,13 @@ interface MenuCardProps {
   quantity: number;
   added: boolean;
   onAdd: (productId: string) => void;
+  onIncrease: (productId: string) => void;
+  onDecrease: (productId: string) => void;
   wide?: boolean;
 }
 
 // one menu item: photo, number, name, price, description and the Add button
-function MenuCard({ item, number, price, quantity, added, onAdd, wide = false }: MenuCardProps) {
+function MenuCard({ item, number, price, quantity, added, onAdd, onIncrease, onDecrease, wide = false }: MenuCardProps) {
   return (
     <article
       className={`group flex h-full overflow-hidden rounded-2xl border transition-all duration-300 hover:-translate-y-1 ${
@@ -242,18 +244,39 @@ function MenuCard({ item, number, price, quantity, added, onAdd, wide = false }:
 
         <div className="mt-auto flex items-center justify-between gap-3 pt-4 sm:pt-5">
           <span className="text-[10px] uppercase tracking-[0.14em]" style={{ color: r(0.55) }}>
-            {quantity > 0 ? `In Bag · ${quantity}` : ""}
+            {quantity > 0 ? "In Bag" : ""}
           </span>
-          <button
-            onClick={() => onAdd(item.productId)}
-            className={`rounded-full border px-6 py-1.5 font-sans text-xs uppercase tracking-[0.15em] transition-all duration-300 ${
-              added
-                ? "border-[#9E8465] bg-[#9E8465] text-[#FFF9F1]"
-                : "border-[#9E8465] text-[#9E8465] hover:bg-[#9E8465] hover:text-[#FFF9F1]"
-            }`}
-          >
-            {added ? "✓" : "Add"}
-          </button>
+
+          {quantity > 0 ? (
+            <div className="flex items-center rounded-full border border-[#9E8465] text-[#9E8465]">
+              <button
+                onClick={() => onDecrease(item.productId)}
+                className="flex h-8 w-9 items-center justify-center rounded-l-full transition-colors duration-300 hover:bg-[#9E8465] hover:text-[#FFF9F1]"
+                aria-label={`Remove one ${item.name}`}
+              >
+                <Minus size={14} />
+              </button>
+              <span className="min-w-6 text-center font-sans text-sm">{quantity}</span>
+              <button
+                onClick={() => onIncrease(item.productId)}
+                className="flex h-8 w-9 items-center justify-center rounded-r-full transition-colors duration-300 hover:bg-[#9E8465] hover:text-[#FFF9F1]"
+                aria-label={`Add one more ${item.name}`}
+              >
+                <Plus size={14} />
+              </button>
+            </div>
+          ) : (
+            <button
+              onClick={() => onAdd(item.productId)}
+              className={`rounded-full border px-6 py-1.5 font-sans text-xs uppercase tracking-[0.15em] transition-all duration-300 ${
+                added
+                  ? "border-[#9E8465] bg-[#9E8465] text-[#FFF9F1]"
+                  : "border-[#9E8465] text-[#9E8465] hover:bg-[#9E8465] hover:text-[#FFF9F1]"
+              }`}
+            >
+              {added ? "✓" : "Add"}
+            </button>
+          )}
         </div>
       </div>
     </article>
@@ -600,6 +623,8 @@ export default function Cart({
                         quantity={items.find((cartItem) => cartItem.productId === item.productId)?.quantity ?? 0}
                         added={addedProductId === item.productId}
                         onAdd={handleAddItem}
+                        onIncrease={onIncreaseQuantity}
+                        onDecrease={onDecreaseQuantity}
                       />
                     ))}
                   </div>
@@ -624,6 +649,8 @@ export default function Cart({
                     quantity={items.find((cartItem) => cartItem.productId === item.productId)?.quantity ?? 0}
                     added={addedProductId === item.productId}
                     onAdd={handleAddItem}
+                        onIncrease={onIncreaseQuantity}
+                        onDecrease={onDecreaseQuantity}
                     wide
                   />
                 ))}
