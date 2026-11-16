@@ -43,8 +43,8 @@ const BG = "#FFF9F1";
 const NAV_LINKS = [
   { label: "Home", id: "home" },
   { label: "Our Story", id: "story" },
-  { label: "Pre-Order", id: "order" },
   { label: "Our Menu", id: "menu" },
+  { label: "Pre-Order", id: "order" },
   { label: "FAQ", id: "faq" },
   { label: "Inquiries", id: "inquiries" },
 ];
