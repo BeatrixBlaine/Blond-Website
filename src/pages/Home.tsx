@@ -34,6 +34,8 @@ import mixBerry from "@/imports/mixBerry.jpeg";
 import spinach from "@/imports/spinach1.jpeg";
 
 import storefront from "@/imports/storefront10.jpeg";
+import storyPhoto2 from "@/imports/storefront5.jpeg";
+import storyPhoto3 from "@/imports/storefront4.jpeg";
 
 const BRAND = "#9E8465";
 const BG = "#FFF9F1";
@@ -165,6 +167,36 @@ const GALLERY_IMAGES = [
   { id: "5", src: eggTart, alt: "eggTart" },
   { id: "6", src: danish6, alt: "danish6" },
   { id: "7", src: spinach, alt: "spinach" },
+];
+
+// Story section photos. Change, add or remove photos here (placeholders for now).
+// PC shows one next to each part of the story. Phone and tablet show one above each part.
+const STORY_PHOTOS = [
+  { id: "1", src: storefront, alt: "The front door of Blond bakery" },
+  { id: "2", src: storyPhoto2, alt: "Pastries on the shelves at Blond" },
+  { id: "3", src: storyPhoto3, alt: "Blond bakery through the window" },
+];
+
+// Story text, split into three parts. On PC each part sits next to one photo.
+const STORY_PARTS: string[][] = [
+  [
+    "I’ve always been a baking person.",
+    "For as long as I can remember, I’ve loved making things with my hands, especially baking. Most of what I know comes from being a self-taught baker, learning as I went, trying things out, getting things wrong, and trying again. I’ve always loved both sides of it, how something looks, and more importantly, how it tastes.",
+    "Baking has always been my safe place. Something I could come back to through different stages of my life, even when I didn’t really know what I was doing or where I was going.",
+  ],
+  [
+    "After finishing my Master's degree in the UK, I found myself feeling quite clueless about what path I wanted to take. I had studied, graduated, and suddenly had to figure out what came next. But baking was always somewhere in the back of my mind. It had been a childhood dream of mine for a long time, and I think I always knew I wanted to give it a real chance.",
+    "So I decided to take a leap of faith and pursue it.",
+    "I was very lucky to spend some time interning at one of the UK's oldest bakeries, where I got to experience what it was like to work in a real bakery and learn from people who had been doing it for years.",
+    "Eventually, I came back home to Bandung and decided to build my own little bakery.",
+    "That became Blond.",
+  ],
+  [
+    "Every pastry at Blond is special. There is a lot that goes into each one, even the smallest elements you might not notice. We make things by hand, through a long process, and I want that to stay at the heart of Blond.",
+    "I’ve never really liked things that feel artificial or overly made. I want Blond to be as real as it can be, fresh, honest, and thoughtful. I want to make real things, using good ingredients, and give them the time and care they deserve.",
+    "What started with just me has slowly grown to include a small team of dedicated and passionate people working alongside me. We’re still a small team, and most days, you’ll find us all working closely together, doing a little bit of everything to keep Blond going.",
+    "What started as a childhood dream has somehow become this little bakery, shaped by many hands and so much support along the way. We’re still small, and there is still so much to learn and make, but we’re happy to keep growing Blond together, little by little.",
+  ],
 ];
 
 const FAQS = [
@@ -591,137 +623,91 @@ export default function Home({ cartItems }: HomeProps) {
         }}
       >
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
+          <div className="mb-10 md:mb-12 lg:mb-20">
+            <h2
+              className="font-display text-6xl md:text-7xl leading-tight"
+              style={{ color: BRAND }}
+            >
+              Story
+            </h2>
+            <div className="mt-7 w-16 h-px" style={{ backgroundColor: r(0.35) }} />
+          </div>
+        </div>
 
-          {/* Photo + Story */}
-          <div className="grid grid-cols-1 lg:grid-cols-[0.9fr_1.1fr] gap-12 lg:gap-20 items-stretch">
+        <div className="max-w-7xl mx-auto px-6 lg:px-12 space-y-12 lg:space-y-28">
+          {STORY_PARTS.map((paragraphs, i) => {
+            const photo = STORY_PHOTOS[i % STORY_PHOTOS.length];
+            const photoRight = i % 2 === 1;
 
-            {/* Photo */}
-            <div className="relative h-full">
-              <div className="overflow-hidden rounded-2xl h-[280px] md:h-[500px] lg:h-full lg:min-h-[420px]">
-                <img
-                  src={storefront}
-                  alt="Baker shaping croissant dough by hand at dawn"
-                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
-                  style={{ filter: "saturate(0.8) brightness(1.05)" }}
-                />
-              </div>
-            </div>
-
-            {/* Right Side */}
-            <div className="flex flex-col">
-
-              {/* Heading */}
-              <div className="mb-10 md:mb-12">
-                
-
-                <h2
-                  className="font-display text-6xl md:text-7xl leading-[0.95]"
-                  style={{ color: BRAND }}
-                >
-                  Story
-                </h2>
-
-                <div
-                  className="mt-7 w-16 h-px"
-                  style={{ backgroundColor: r(0.35) }}
-                />
-              </div>
-
-              {/* Story Content */}
+            return (
               <div
-                className="space-y-6 md:space-y-7 leading-relaxed font-sans font-light text-sm md:text-[15px]
-                text-justify"
-                style={{ color: r(0.9) }}
+                key={i}
+                className={`grid grid-cols-1 gap-10 lg:gap-16 xl:gap-24 items-center ${
+                  photoRight ? "lg:grid-cols-[7fr_5fr]" : "lg:grid-cols-[5fr_7fr]"
+                }`}
               >
-                <p>
-                  I’ve always been a baking person.
-                </p>
+                {/* Phone and tablet: photo above the text */}
+                <div
+                  className="lg:hidden overflow-hidden rounded-2xl aspect-[4/3] md:aspect-[16/9]"
+                  style={{ backgroundColor: r(0.08) }}
+                >
+                  <img
+                    src={photo.src}
+                    alt={photo.alt}
+                    loading="lazy"
+                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+                    style={{ filter: "saturate(0.85) brightness(1.03)" }}
+                  />
+                </div>
 
-                <p>
-                  For as long as I can remember, I’ve loved making things with my hands,
-                  especially baking. Most of what I know comes from being a self-taught baker,
-                  learning as I went, trying things out, getting things wrong, and trying
-                  again. I’ve always loved both sides of it, how something looks, and more
-                  importantly, how it tastes.
-                </p>
+                {/* Photo, PC only */}
+                <div className={`hidden lg:block ${photoRight ? "lg:order-2" : ""}`}>
+                  <div className="relative">
+                    
+                    <div
+                      className="relative overflow-hidden rounded-2xl aspect-[4/5]"
+                      style={{ backgroundColor: r(0.08) }}
+                    >
+                      <img
+                        src={photo.src}
+                        alt={photo.alt}
+                        loading="lazy"
+                        className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+                        style={{ filter: "saturate(0.8) brightness(1.05)" }}
+                      />
+                    </div>
+                  </div>
+                </div>
 
-                <p>
-                  Baking has always been my safe place. Something I could come back to through
-                  different stages of my life, even when I didn’t really know what I was doing
-                  or where I was going.
-                </p>
-
-                <p>
-                  After finishing my Master's degree in the UK, I found myself feeling quite
-                  clueless about what path I wanted to take. I had studied, graduated, and
-                  suddenly had to figure out what came next. But baking was always somewhere
-                  in the back of my mind. It had been a childhood dream of mine for a long
-                  time, and I think I always knew I wanted to give it a real chance.
-                </p>
-
-                <p>
-                  So I decided to take a leap of faith and pursue it.
-                </p>
-
-                <p>
-                  I was very lucky to spend some time interning at one of the UK's oldest
-                  bakeries, where I got to experience what it was like to work in a real
-                  bakery and learn from people who had been doing it for years.
-                </p>
-
-                <p>
-                  Eventually, I came back home to Bandung and decided to build my own little
-                  bakery.
-                </p>
-
-                <p>
-                  That became Blond.
-                </p>
-
-                <p>
-                  Every pastry at Blond is special. There is a lot that goes into each one,
-                  even the smallest elements you might not notice. We make things by hand,
-                  through a long process, and I want that to stay at the heart of Blond.
-                </p>
-
-                <p>
-                  I’ve never really liked things that feel artificial or overly made. I want
-                  Blond to be as real as it can be, fresh, honest, and thoughtful. I want to
-                  make real things, using good ingredients, and give them the time and care
-                  they deserve.
-                </p>
-
-                <p>
-                  What started with just me has slowly grown to include a small team of
-                  dedicated and passionate people working alongside me. We’re still a small
-                  team, and most days, you’ll find us all working closely together, doing a
-                  little bit of everything to keep Blond going.
-                </p>
-
-                <p>
-                  What started as a childhood dream has somehow become this little bakery,
-                  shaped by many hands and so much support along the way. We’re still small,
-                  and there is still so much to learn and make, but we’re happy to keep
-                  growing Blond together, little by little.
-                </p>
-
-                <div className="pt-4">
-                  <p
-                    className="text-sm md:text-base"
-                    style={{
-                      fontFamily: '"Times New Roman", Times, serif',
-                      fontWeight: 400,
-                      color: BRAND,
-                    }}
+                {/* Text */}
+                <div className={photoRight ? "lg:order-1" : ""}>
+                  <div
+                    className="space-y-6 md:space-y-7 leading-relaxed font-sans font-light text-sm md:text-[15px] text-justify"
+                    style={{ color: r(0.9) }}
                   >
-                    — Addina
-                  </p>
+                    {paragraphs.map((text, j) => (
+                      <p key={j}>{text}</p>
+                    ))}
+
+                    {i === STORY_PARTS.length - 1 && (
+                      <div className="pt-4">
+                        <p
+                          className="text-sm md:text-base text-left"
+                          style={{
+                            fontFamily: '"Times New Roman", Times, serif',
+                            fontWeight: 400,
+                            color: BRAND,
+                          }}
+                        >
+                          — Addina
+                        </p>
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
-
-
-            </div>
-          </div>
+            );
+          })}
         </div>
       </section>
 
