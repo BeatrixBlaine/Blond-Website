@@ -34,8 +34,8 @@ import mixBerry from "@/imports/mixBerry.jpeg";
 import spinach from "@/imports/spinach1.jpeg";
 
 import storefront from "@/imports/storefront10.jpeg";
-import storyPhoto2 from "@/imports/storefront5.jpeg";
-import storyPhoto3 from "@/imports/storefront4.jpeg";
+import storyPhoto2 from "@/imports/storelogo.jpeg";
+import storyPhoto3 from "@/imports/storeFrontDesk.jpeg";
 
 const BRAND = "#9E8465";
 const BG = "#FFF9F1";
