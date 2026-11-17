@@ -37,6 +37,29 @@ import storefront from "@/imports/storefront10.jpeg";
 import storyPhoto2 from "@/imports/storelogo.jpeg";
 import storyPhoto3 from "@/imports/storeFrontDesk.jpeg";
 
+// Menu photos
+import menuClassicCroissant from "@/imports/classicCroissant2.jpeg";
+import menuPainAuChocolat from "@/imports/painAu.jpeg";
+import menuCinnamonBun from "@/imports/cinnamonBun.jpeg";
+import menuPistachioCroissant from "@/imports/pistachioCroissant.jpeg";
+import menuPistachioChoco from "@/imports/pistachioChoco.jpeg";
+import menuAlmondChoco from "@/imports/almondChocolatine2.jpeg";
+import menuCrumbleCustard from "@/imports/crumbleCustard.jpeg";
+import menuHazelnut from "@/imports/hazelnut1.jpeg";
+import menuBanana from "@/imports/banana.jpeg";
+import menuApplePie from "@/imports/applepie1.jpeg";
+import menuMixBerry from "@/imports/mixBerry.jpeg";
+import menuPeanutButter from "@/imports/peanutButterPainAu1.jpeg";
+import menuEggTart from "@/imports/eggTart.jpeg";
+import menuBeefSpecial from "@/imports/beefSpecial.jpeg";
+import menuBeefParmesan from "@/imports/beefParmesan1.jpeg";
+import menuSpinach from "@/imports/spinach3.jpeg";
+import menuMushroom from "@/imports/mushroom1.jpeg";
+import menuCheddar from "@/imports/cheddar.jpeg";
+import menuTomatoConfit from "@/imports/tomatoconfit2.jpeg";
+import menuCookiesOriginal from "@/imports/cookiesOriginal.jpeg";
+import menuDarkChocoCookies from "@/imports/darkChocoCookies.jpeg";
+
 const BRAND = "#9E8465";
 const BG = "#FFF9F1";
 
@@ -159,6 +182,38 @@ const COOKIES: { name: string; desc: string; productId: string }[] = [
   },
 ];
 
+// Menu photos, by product id. Change a photo here.
+const MENU_PHOTOS: Record<string, string> = {
+  "c-01": menuClassicCroissant,
+  "c-02": menuPainAuChocolat,
+  "c-03": menuCinnamonBun,
+  "c-04": menuPistachioCroissant,
+  "c-05": menuPistachioChoco,
+  "c-06": menuAlmondChoco,
+  "c-19": menuCrumbleCustard,
+  "c-07": menuHazelnut,
+  "c-08": menuBanana,
+  "c-09": menuApplePie,
+  "c-10": menuMixBerry,
+  "c-11": menuPeanutButter,
+  "c-12": menuEggTart,
+  "c-13": menuBeefSpecial,
+  "c-14": menuBeefParmesan,
+  "c-16": menuSpinach,
+  "c-15": menuMushroom,
+  "c-17": menuCheddar,
+  "c-18": menuTomatoConfit,
+  "ck-01": menuCookiesOriginal,
+  "ck-02": menuDarkChocoCookies,
+};
+
+// croissants: the first two columns are sweet, the last one is savoury
+const MENU_GROUPS = [
+  { key: "sweet", title: "Sweet", items: [...CROISSANT_COLS[0], ...CROISSANT_COLS[1]] },
+  { key: "savoury", title: "Savoury", items: CROISSANT_COLS[2] },
+  { key: "cookies", title: "Cookies", items: COOKIES },
+];
+
 const GALLERY_IMAGES = [
   { id: "1", src: hazelnut2, alt: "hazelnut2" },
   { id: "2", src: beefSpecial, alt: "beefSpecial" },
@@ -247,6 +302,7 @@ export default function Home({ cartItems }: HomeProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [menuTab, setMenuTab] = useState("sweet");
 
   const galleryRef = useRef<HTMLDivElement>(null);
   const isDragging = useRef(false);
@@ -744,7 +800,7 @@ export default function Home({ cartItems }: HomeProps) {
         />
         <div className="max-w-7xl mx-auto px-6 lg:px-12 relative z-10">
           <div
-            className="mb-20 grid grid-cols-1 md:grid-cols-2 gap-6 items-end pb-10 border-b"
+            className="mb-14 grid grid-cols-1 md:grid-cols-2 gap-6 items-end pb-10 border-b"
             style={{ borderColor: r(0.15) }}
           >
             <div>
@@ -758,89 +814,80 @@ export default function Home({ cartItems }: HomeProps) {
             </p>
           </div>
 
-          {/* Croissants */}
-          <div className="mb-24">
-            <div className="flex flex-wrap items-baseline gap-5 mb-12">
-              <h3 className="font-display text-5xl" style={{ color: BRAND }}>Vienoisserrie</h3>
+          {/* Phone: tabs and thumbnails */}
+          <div className="sm:hidden">
+            {/* Tabs */}
+            <div className="flex flex-wrap gap-3 mb-10">
+              {MENU_GROUPS.map((g) => (
+                <button
+                  key={g.key}
+                  type="button"
+                  onClick={() => setMenuTab(g.key)}
+                  className="px-6 py-2.5 rounded-full border font-sans text-sm transition-colors"
+                  style={
+                    menuTab === g.key
+                      ? { backgroundColor: BRAND, color: BG, borderColor: BRAND }
+                      : { color: BRAND, borderColor: r(0.4) }
+                  }
+                >
+                  {g.title} <span className="opacity-70 ml-1">{g.items.length}</span>
+                </button>
+              ))}
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12">
-              {CROISSANT_COLS.map((col, ci) => (
-                <div key={ci} className="flex flex-col">
-                  {col.map((item, i) => {
-                    const num = ci === 0 ? i + 1 : ci === 1 ? i + 8 : i + 14;
-                    return (
-                      <div key={item.name} className="py-4 border-b" style={{ borderColor: r(0.12) }}>
-                        <div className="flex items-start gap-3">
-                          <span
-                            className="font-display text-sm mt-0.5 select-none flex-shrink-0 w-6 text-right"
-                            style={{ color: r(0.35) }}
-                          >
-                            {String(num).padStart(2, "0")}
-                          </span>
-                          <div className="flex-1 min-w-0">
-                            <div className="flex items-baseline justify-between gap-4">
-                              <p
-                                className="text-base font-sans font-medium leading-snug"
-                                style={{ color: BRAND }}
-                              >
-                                {item.name}
-                              </p>
 
-                              <span
-                                className="text-sm font-serif font-medium whitespace-nowrap"
-                                style={{ color: BRAND , fontFamily: '"Times New Roman", Times, serif'}}
-                              >
-                                {(PRODUCTS.find((p) => p.id === item.productId)?.price ?? 0) / 1000}k
-                              </span>
-                            </div>
-                            {item.desc && (
-                              <p className="text-sm font-sans font-light mt-1 leading-relaxed" style={{ color: r(0.82) }}>
-                                {item.desc}
-                              </p>
-                            )}
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  })}
+            {/* Items */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-14">
+              {MENU_GROUPS.find((g) => g.key === menuTab)?.items.map((item) => (
+                <div key={item.name} className="flex gap-5 py-5 border-b" style={{ borderColor: r(0.12) }}>
+                  <img
+                    src={MENU_PHOTOS[item.productId]}
+                    alt={item.name}
+                    className="w-24 h-24 md:w-28 md:h-28 rounded-2xl object-cover flex-shrink-0"
+                  />
+                  <div className="flex-1 min-w-0 self-center">
+                    <div className="flex items-baseline justify-between gap-4">
+                      <p className="text-base font-sans font-medium leading-snug" style={{ color: BRAND }}>
+                        {item.name}
+                      </p>
+                      <span
+                        className="text-sm font-serif font-medium whitespace-nowrap"
+                        style={{ color: BRAND, fontFamily: '"Times New Roman", Times, serif' }}
+                      >
+                        {(PRODUCTS.find((p) => p.id === item.productId)?.price ?? 0) / 1000}k
+                      </span>
+                    </div>
+                    {item.desc && (
+                      <p className="text-sm font-sans font-light mt-1 leading-relaxed" style={{ color: r(0.82) }}>
+                        {item.desc}
+                      </p>
+                    )}
+                  </div>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Cookies */}
-          <div>
-            <h3
-              className="font-display text-5xl mb-10 pb-4 border-b"
-              style={{ color: BRAND, borderColor: r(0.15) }}
-            >
-              Cookies
-            </h3>
+          {/* Tablet and PC: swipe rows */}
+          <div className="hidden sm:block">
+            {MENU_GROUPS.map((g) => (
+              <div key={g.key} className="mb-16 last:mb-0">
+                <div className="flex items-baseline justify-between gap-4 mb-6">
+                  <h3 className="font-display text-4xl md:text-5xl" style={{ color: BRAND }}>{g.title}</h3>
+                  <span className="text-sm font-sans whitespace-nowrap" style={{ color: r(0.6) }}>
+                    {g.items.length} items
+                  </span>
+                </div>
 
-            <div className="flex flex-col">
-              {COOKIES.map((item, i) => (
-                <div
-                  key={item.name}
-                  className="py-4 border-b"
-                  style={{ borderColor: r(0.12) }}
-                >
-                  <div className="flex items-start gap-3">
-                    <span
-                      className="font-display text-sm mt-0.5 select-none flex-shrink-0 w-6 text-right"
-                      style={{ color: r(0.35) }}
-                    >
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-
-                    <div className="flex-1 min-w-0">
-                      <div className="flex w-full items-baseline justify-between gap-4">
-                        <p
-                          className="text-base font-sans font-medium leading-snug"
-                          style={{ color: BRAND }}
-                        >
+                <div className="flex gap-5 overflow-x-auto snap-x snap-mandatory scroll-pl-6 lg:scroll-pl-12 pb-4 -mx-6 px-6 lg:-mx-12 lg:px-12">
+                  {g.items.map((item) => (
+                    <div key={item.name} className="snap-start flex-shrink-0 w-[72%] sm:w-[44%] lg:w-[26%]">
+                      <div className="aspect-[4/5] rounded-2xl overflow-hidden mb-4">
+                        <img src={MENU_PHOTOS[item.productId]} alt={item.name} className="w-full h-full object-cover" />
+                      </div>
+                      <div className="flex items-baseline justify-between gap-3">
+                        <p className="text-base font-sans font-medium leading-snug" style={{ color: BRAND }}>
                           {item.name}
                         </p>
-
                         <span
                           className="text-sm font-serif font-medium whitespace-nowrap"
                           style={{ color: BRAND, fontFamily: '"Times New Roman", Times, serif' }}
@@ -848,20 +895,16 @@ export default function Home({ cartItems }: HomeProps) {
                           {(PRODUCTS.find((p) => p.id === item.productId)?.price ?? 0) / 1000}k
                         </span>
                       </div>
-
                       {item.desc && (
-                        <p
-                          className="text-sm font-sans font-light mt-1 leading-relaxed"
-                          style={{ color: r(0.82) }}
-                        >
+                        <p className="text-sm font-sans font-light mt-1 leading-relaxed line-clamp-3" style={{ color: r(0.82) }}>
                           {item.desc}
                         </p>
                       )}
                     </div>
-                  </div>
+                  ))}
                 </div>
-              ))}
-            </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
