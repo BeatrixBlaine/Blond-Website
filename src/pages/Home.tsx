@@ -214,6 +214,25 @@ const MENU_GROUPS = [
   { key: "cookies", title: "Cookies", items: COOKIES },
 ];
 
+// Pre-order steps
+const ORDER_STEPS = [
+  {
+    n: "01",
+    title: "Place your order",
+    desc: "Choose your pastries, plus a pick-up date and time. Please order at least 1 day in advance.",
+  },
+  {
+    n: "02",
+    title: "Confirm on WhatsApp",
+    desc: "Your order continues to WhatsApp, where we check everything with you and send the payment options.",
+  },
+  {
+    n: "03",
+    title: "Pay and pick up",
+    desc: "Your order is confirmed once payment has been received. Then just come by and skip the queue.",
+  },
+];
+
 const GALLERY_IMAGES = [
   { id: "1", src: hazelnut2, alt: "hazelnut2" },
   { id: "2", src: beefSpecial, alt: "beefSpecial" },
@@ -912,8 +931,8 @@ export default function Home({ cartItems }: HomeProps) {
       {/* ── Order ── */}
       <section id="order" className="py-28 relative overflow-hidden" style={{ backgroundColor: BRAND }}>
         
-        <div className="relative max-w-4xl mx-auto px-6 lg:px-12 text-center">
-          
+        <div className="relative max-w-6xl mx-auto px-6 lg:px-12 text-center">
+
           <h2
             className="text-5xl md:text-7xl mb-10 leading-tight"
             style={{ fontFamily: "'Nunito', system-ui, sans-serif", fontWeight: 700, color: BG }}
@@ -922,34 +941,34 @@ export default function Home({ cartItems }: HomeProps) {
             <em style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>Available</em>
           </h2>
 
-          <div className="max-w-2xl mx-auto space-y-5 mb-12 text-left">
-            <p className="leading-relaxed font-sans font-light text-justify" style={{ color: `rgba(255,249,241,0.93)` }}>
-             Our pre-order system lets you reserve your favourite pastries ahead of time, 
-             so you can simply come by, pick them up, and skip the queue.
-            </p>
-            <p className="leading-relaxed font-sans font-light text-justify" style={{ color: `rgba(255,249,241,0.93)` }}>
-              Pre-orders can be made <span
-                className="font-extrabold"
-                style={{ color: `rgba(255,249,241,0.95)` }}
-              >at least 1 day in advance</span>, and you 
-              can choose the date and pick-up time that works for you. Once 
-              you place your order through our website, it will automatically 
-              continue to WhatsApp, where we’ll check everything with you and send through the available payment options.
-            </p>
-            <p className="leading-relaxed font-sans font-light text-justify" style={{ color: `rgba(255,249,241,0.93)` }}>
-              Your order is considered confirmed once we’ve sent the 
-              payment details and payment has been received.
-            </p>
-            <p className="text-sm leading-relaxed font-sans text-justify" style={{ color: `rgba(255,249,241,0.68)` }}>
-              For <span
-                className="font-bold"
-                style={{ color: `rgba(255,249,241,0.95)` }}
-              >larger orders, events, or special requests</span>, 
-              please get in touch with us directly through WhatsApp or email. 
-              We’d love to help.
-            </p>
+          <p className="max-w-xl mx-auto mb-14 leading-relaxed font-sans font-light" style={{ color: `rgba(255,249,241,0.85)` }}>
+            Reserve your favourite pastries ahead of time, so you can simply come by, pick them up and skip the queue.
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-0 mb-14 text-left">
+            {ORDER_STEPS.map((step, i) => (
+              <div
+                key={step.n}
+                className={`md:px-10 ${i > 0 ? "md:border-l" : ""}`}
+                style={{ borderColor: `rgba(255,249,241,0.25)` }}
+              >
+                <div className="font-display text-3xl mb-3" style={{ color: `rgba(255,249,241,0.55)` }}>
+                  {step.n}
+                </div>
+                <div className="text-xl font-sans font-medium mb-2" style={{ color: BG }}>
+                  {step.title}
+                </div>
+                <p className="font-sans font-light leading-relaxed" style={{ color: `rgba(255,249,241,0.82)` }}>
+                  {step.desc}
+                </p>
+              </div>
+            ))}
           </div>
-          
+
+          <p className="text-sm leading-relaxed font-sans font-light mb-10" style={{ color: `rgba(255,249,241,0.75)` }}>
+            Larger orders, events or special requests? Get in touch through WhatsApp or email. We’d love to help.
+          </p>
+
           <button
             onClick={() => {
               navigate("/cart");
