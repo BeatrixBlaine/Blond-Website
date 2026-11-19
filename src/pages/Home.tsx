@@ -8,7 +8,8 @@ import {
   X,
   MapPin,
   Clock,
-  ChevronDown,
+  Plus,
+  Minus,
   ExternalLink,
   Instagram,
   ShoppingBag,
@@ -1105,41 +1106,65 @@ export default function Home({ cartItems }: HomeProps) {
         }}
       />
 
-        <div className="max-w-4xl mx-auto px-6 lg:px-12">
-          <div className="mb-16">
-            
-            <h2 className="font-display text-6xl md:text-7xl" style={{ color: BRAND }}>FAQ</h2>
-          </div>
-          <div style={{ borderTop: `1px solid ${r(0.12)}` }}>
+        <div className="relative max-w-6xl mx-auto px-6 lg:px-12">
+          <h2 className="font-display text-6xl md:text-7xl mb-12" style={{ color: BRAND }}>FAQ</h2>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 items-start">
             {FAQS.map((faq, i) => (
-              <div key={i} style={{ borderBottom: `1px solid ${r(0.12)}` }}>
+              <div
+                key={i}
+                className="rounded-2xl border transition-colors duration-300"
+                style={{
+                  borderColor: openFaq === i ? r(0.3) : r(0.14),
+                  backgroundColor: openFaq === i ? "rgba(255,255,255,0.8)" : "rgba(255,255,255,0.55)",
+                }}
+              >
                 <button
-                  className="w-full flex items-start justify-between py-7 text-left gap-6"
+                  className="w-full flex items-center justify-between gap-5 px-6 py-5 text-left"
                   onClick={() => setOpenFaq(openFaq === i ? null : i)}
+                  aria-expanded={openFaq === i}
                 >
-                  <span
-                    className="font-display text-2xl transition-colors duration-200"
-                    style={{ color: openFaq === i ? BRAND : r(0.92) }}
-                  >
+                  <span className="font-display text-xl leading-snug" style={{ color: BRAND }}>
                     {faq.q}
                   </span>
-                  <ChevronDown
-                    size={20}
-                    className={`flex-shrink-0 mt-1.5 transition-transform duration-300 ${openFaq === i ? "rotate-180" : ""}`}
-                    style={{ color: r(0.45) }}
-                  />
+                  <span
+                    className="flex-shrink-0 w-8 h-8 rounded-full border flex items-center justify-center"
+                    style={{ borderColor: r(0.3), color: BRAND }}
+                  >
+                    {openFaq === i ? <Minus size={14} /> : <Plus size={14} />}
+                  </span>
                 </button>
-                <div
-                  className="overflow-hidden transition-all duration-300"
-                  style={{ maxHeight: openFaq === i ? 200 : 0, paddingBottom: openFaq === i ? 28 : 0 }}
-                >
-                  <p className="leading-relaxed font-sans font-light" style={{ color: r(0.88) }}>
-                    {faq.a}
-                  </p>
+
+                {/* The row grows to fit the answer, so long answers are never cut off */}
+                <div className="px-6">
+                  <div
+                    className="grid transition-all duration-300"
+                    style={{ gridTemplateRows: openFaq === i ? "1fr" : "0fr" }}
+                  >
+                    <div className="overflow-hidden">
+                      <div className={openFaq === i ? "pb-6" : ""}>
+                        <p className="leading-relaxed font-sans font-light" style={{ color: r(0.88) }}>
+                          {faq.a}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             ))}
           </div>
+
+          <p className="mt-12 text-center font-sans font-light leading-relaxed" style={{ color: r(0.8) }}>
+            Can’t find your answer? Email us at
+            <br />
+            <a
+              href="mailto:blondbakeri@gmail.com"
+              className="underline underline-offset-4 transition-opacity hover:opacity-60"
+              style={{ color: BRAND }}
+            >
+              blondbakeri@gmail.com
+            </a>
+          </p>
         </div>
       </section>
 
