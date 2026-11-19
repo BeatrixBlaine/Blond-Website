@@ -160,6 +160,12 @@ const COOKIES: { name: string; desc: string; productId: string; image?: string }
   },
 ];
 
+// Photo for each product id, used in the order list
+const CART_PHOTOS: Record<string, string | undefined> = {};
+[...CROISSANT_COLS.flat(), ...COOKIES].forEach((item) => {
+  CART_PHOTOS[item.productId] = item.image;
+});
+
 interface MenuItem {
   name: string;
   desc: string;
@@ -550,6 +556,108 @@ export default function Cart({
     }, 800);
     };
 
+  // Pickup details form (name, date and hour)
+  const pickupForm = (
+      <div className="mb-10 rounded-2xl border p-6 md:p-8" style={{ borderColor: r(0.14), backgroundColor: "rgba(255,255,255,0.55)" }}>
+        <h3 className="font-display text-2xl mb-5" style={{ color: BRAND }}>Pickup details</h3>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          {/* Name Field */}
+          <div>
+            <label className="block text-sm font-sans font-medium mb-2" style={{ color: BRAND }}>
+              Your Name
+            </label>
+            <input
+              type="text"
+              value={customerName}
+              onChange={(e) => setCustomerName(e.target.value)}
+              placeholder="Enter your name"
+              className="w-full px-4 py-3 border rounded-lg font-sans text-sm focus:outline-none transition-colors"
+              style={{
+                borderColor: r(0.2),
+                backgroundColor: BG,
+                color: BRAND,
+              }}
+              onFocus={(e) => (e.currentTarget.style.borderColor = BRAND)}
+              onBlur={(e) => (e.currentTarget.style.borderColor = r(0.2))}
+            />
+          </div>
+
+          {/* Date Field */}
+          <div>
+            <label className="block text-sm font-sans font-medium mb-2" style={{ color: BRAND }}>
+              Desired Pickup Date
+            </label>
+            <input
+              type="date"
+              value={orderDate}
+              onChange={(e) => {
+                  setOrderDate(e.target.value);
+
+                  // Reset pickup time when date changes
+                  setPickupTime("");
+                  }}
+              min={getMinDate()}
+              className="w-full px-4 py-3 border rounded-lg font-sans text-sm focus:outline-none transition-colors"
+              style={{
+                borderColor: r(0.2),
+                backgroundColor: BG,
+                color: BRAND,
+              }}
+              onFocus={(e) => (e.currentTarget.style.borderColor = BRAND)}
+              onBlur={(e) => (e.currentTarget.style.borderColor = r(0.2))}
+            />
+
+            {orderDate && !isBakeryOpen() && (
+                  <p
+                  className="text-sm mt-2 font-sans"
+                  style={{ color: "#b45309" }}
+                  >
+                  We're closed on Mondays and Tuesdays. Please choose another date.
+                  </p>
+              )}
+          </div>
+          
+          {/* Pickup Time Field */}
+          <div>
+          <label
+              className="block text-sm font-sans font-medium mb-2"
+              style={{ color: BRAND }}
+          >
+              Pickup Hour
+          </label>
+
+          <select
+              value={pickupTime}
+              onChange={(e) => setPickupTime(e.target.value)}
+              disabled={!orderDate || !isBakeryOpen()}
+              className="w-full px-4 py-3 border rounded-lg font-sans text-sm focus:outline-none transition-colors"
+              style={{
+              borderColor: r(0.2),
+              backgroundColor: BG,
+              color: BRAND,
+              opacity: orderDate ? 1 : 0.5,
+              }}
+          >
+              <option value="">
+              {!orderDate
+                  ? "Select date first"
+                  : !isBakeryOpen()
+                  ? "We're closed on this day"
+                  : "Select pickup time"}
+              </option>
+
+              {getAvailablePickupTimes().map((time) => (
+              <option key={time} value={time}>
+                  {time}
+              </option>
+              ))}
+          </select>
+          </div>
+
+        </div>
+      </div>
+  );
+
   return (
     <div style={{ backgroundColor: BG, color: BRAND, minHeight: "100vh" }}>
       {/* Header */}
@@ -662,122 +770,16 @@ export default function Cart({
           <div className="my-16 border-t" style={{ borderColor: r(0.15) }} />
 
           {/* Your Order Section */}
-          <div ref={orderSectionRef} className="max-w-4xl mx-auto px-6 lg:px-12 scroll-mt-24" id="your-order">
+          <div ref={orderSectionRef} className="max-w-6xl mx-auto px-6 lg:px-12 scroll-mt-24" id="your-order">
             <h2 className="font-display text-5xl md:text-6xl mb-8" style={{ color: BRAND }}>
               Your Order
             </h2>
 
-            {/* Customer Info Form */}
-            <div className="mb-12 p-6 border" style={{ borderColor: r(0.15), backgroundColor: r(0.02) }}>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                {/* Name Field */}
-                <div>
-                  <label className="block text-sm font-sans font-medium mb-2" style={{ color: BRAND }}>
-                    Your Name
-                  </label>
-                  <input
-                    type="text"
-                    value={customerName}
-                    onChange={(e) => setCustomerName(e.target.value)}
-                    placeholder="Enter your name"
-                    className="w-full px-4 py-3 border font-sans text-sm focus:outline-none transition-colors"
-                    style={{
-                      borderColor: r(0.2),
-                      backgroundColor: BG,
-                      color: BRAND,
-                    }}
-                    onFocus={(e) => (e.currentTarget.style.borderColor = BRAND)}
-                    onBlur={(e) => (e.currentTarget.style.borderColor = r(0.2))}
-                  />
-                </div>
-
-                {/* Date Field */}
-                <div>
-                  <label className="block text-sm font-sans font-medium mb-2" style={{ color: BRAND }}>
-                    Desired Pickup Date
-                  </label>
-                  <input
-                    type="date"
-                    value={orderDate}
-                    onChange={(e) => {
-                        setOrderDate(e.target.value);
-
-                        // Reset pickup time when date changes
-                        setPickupTime("");
-                        }}
-                    min={getMinDate()}
-                    className="w-full px-4 py-3 border font-sans text-sm focus:outline-none transition-colors"
-                    style={{
-                      borderColor: r(0.2),
-                      backgroundColor: BG,
-                      color: BRAND,
-                    }}
-                    onFocus={(e) => (e.currentTarget.style.borderColor = BRAND)}
-                    onBlur={(e) => (e.currentTarget.style.borderColor = r(0.2))}
-                  />
-
-                  {orderDate && !isBakeryOpen() && (
-                        <p
-                        className="text-sm mt-2 font-sans"
-                        style={{ color: "#b45309" }}
-                        >
-                        We're closed on Mondays and Tuesdays. Please choose another date.
-                        </p>
-                    )}
-                </div>
-                
-                {/* Pickup Time Field */}
-                <div>
-                <label
-                    className="block text-sm font-sans font-medium mb-2"
-                    style={{ color: BRAND }}
-                >
-                    Pickup Hour
-                </label>
-
-                <select
-                    value={pickupTime}
-                    onChange={(e) => setPickupTime(e.target.value)}
-                    disabled={!orderDate || !isBakeryOpen()}
-                    className="w-full px-4 py-3 border font-sans text-sm focus:outline-none transition-colors"
-                    style={{
-                    borderColor: r(0.2),
-                    backgroundColor: BG,
-                    color: BRAND,
-                    opacity: orderDate ? 1 : 0.5,
-                    }}
-                >
-                    <option value="">
-                    {!orderDate
-                        ? "Select date first"
-                        : !isBakeryOpen()
-                        ? "We're closed on this day"
-                        : "Select pickup time"}
-                    </option>
-
-                    {getAvailablePickupTimes().map((time) => (
-                    <option key={time} value={time}>
-                        {time}
-                    </option>
-                    ))}
-                </select>
-                </div>
-
-              </div>
-            </div>
-
-            {/* Friendly Note */}
-            {cartItems.length > 0 && (
-              <p
-                className="text-sm font-sans font-light text-center mb-12"
-                style={{ color: r(0.65) }}
-              >
-                Almost there! Please scroll down to review your order and place it with us.
-              </p>
-            )}
-
             {cartItems.length === 0 ? (
-            // Empty Cart
+            <>
+              {pickupForm}
+
+              {/* Empty Cart */}
             <div
               className="text-center py-20 rounded-lg"
               style={{ backgroundColor: r(0.04), border: `1px solid ${r(0.12)}` }}
@@ -796,124 +798,121 @@ export default function Cart({
                 Return to Home
               </button>
             </div>
+            </>
           ) : (
             <>
-              {/* Cart Items */}
-              <div className="mb-16" style={{ borderTop: `1px solid ${r(0.15)}` }}>
-                {cartItems.map((item, index) => (
-                  <div
-                    key={item.id}
-                    className="py-8 border-b flex flex-col gap-4"
-                    style={{ borderColor: r(0.12) }}
-                  >
-                    <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
-                      <div className="flex-1">
-                        <p className="text-base font-sans font-medium leading-snug mb-2" style={{ color: BRAND }}>
-                          {item.name}
-                        </p>
-                        <p className="text-sm font-sans font-light" style={{ color: r(0.72) }}>
-                          {formatPrice(item.price)} per item
-                        </p>
-                      </div>
+              {/* Friendly Note */}
+              <p
+                className="text-sm font-sans font-light text-center mb-10 lg:hidden"
+                style={{ color: r(0.65) }}
+              >
+                Almost there! Please scroll down to review your order and place it with us.
+              </p>
 
-                      {/* Remove Button - Top Right on Mobile */}
-                      <button
-                        onClick={() => onRemoveItem(item.id)}
-                        className="sm:hidden p-2 hover:opacity-60 transition-opacity self-end"
-                        style={{ color: r(0.45) }}
-                        aria-label="Remove item"
-                      >
-                        <Trash2 size={18} />
-                      </button>
-                    </div>
+              <div className="grid grid-cols-1 lg:grid-cols-[7fr_5fr] gap-10 lg:gap-14 items-start">
+                {/* Left: pickup details and items */}
+                <div>
+                  {pickupForm}
 
-                    {/* Controls Row */}
-                    <div className="flex items-center justify-between gap-4">
-                      {/* Quantity Controls */}
+                  <h3 className="font-display text-2xl mb-2" style={{ color: BRAND }}>Items</h3>
+                  <div style={{ borderTop: `1px solid ${r(0.12)}` }}>
+                    {cartItems.map((item) => (
                       <div
-                        className="flex items-center gap-2 px-3 py-2 border"
-                        style={{ borderColor: r(0.2), backgroundColor: "transparent" }}
+                        key={item.id}
+                        className="flex gap-4 py-5 border-b items-center"
+                        style={{ borderColor: r(0.12) }}
                       >
-                        <button
-                          onClick={() => onDecreaseQuantity(item.id)}
-                          className="p-1 hover:opacity-60 transition-opacity"
-                          style={{ color: BRAND }}
-                          aria-label="Decrease quantity"
-                        >
-                          <Minus size={16} />
-                        </button>
+                        {CART_PHOTOS[item.id] ? (
+                          <img
+                            src={CART_PHOTOS[item.id]}
+                            alt={item.name}
+                            className="w-20 h-20 rounded-xl object-cover flex-shrink-0"
+                          />
+                        ) : (
+                          <div className="w-20 h-20 rounded-xl flex-shrink-0" style={{ backgroundColor: r(0.08) }} />
+                        )}
 
-                        <span className="w-6 text-center font-sans font-medium text-sm" style={{ color: BRAND }}>
-                          {item.cartQuantity}
-                        </span>
-
-                        <button
-                          onClick={() => onIncreaseQuantity(item.id)}
-                          className="p-1 hover:opacity-60 transition-opacity"
-                          style={{ color: BRAND }}
-                          aria-label="Increase quantity"
-                        >
-                          <Plus size={16} />
-                        </button>
-                      </div>
-
-                      {/* Item Subtotal and Remove */}
-                      <div className="flex items-center gap-4">
-                        <div className="text-right min-w-20">
-                          <p className="text-base font-sans font-medium" style={{ color: BRAND }}>
-                            {formatPrice(item.price * item.cartQuantity)}
+                        <div className="flex-1 min-w-0">
+                          <p className="text-base font-sans font-medium leading-snug" style={{ color: BRAND }}>
+                            {item.name}
                           </p>
+                          <p className="text-sm font-sans font-light mt-1" style={{ color: r(0.72) }}>
+                            {formatPrice(item.price)} per item
+                          </p>
+
+                          <div className="mt-3 flex items-center gap-4">
+                            {/* Quantity Controls */}
+                            <div
+                              className="inline-flex items-center gap-2 px-2 py-1 border rounded-full"
+                              style={{ borderColor: r(0.25) }}
+                            >
+                              <button
+                                onClick={() => onDecreaseQuantity(item.id)}
+                                className="p-1 hover:opacity-60 transition-opacity"
+                                style={{ color: BRAND }}
+                                aria-label="Decrease quantity"
+                              >
+                                <Minus size={14} />
+                              </button>
+
+                              <span className="w-5 text-center font-sans font-medium text-sm" style={{ color: BRAND }}>
+                                {item.cartQuantity}
+                              </span>
+
+                              <button
+                                onClick={() => onIncreaseQuantity(item.id)}
+                                className="p-1 hover:opacity-60 transition-opacity"
+                                style={{ color: BRAND }}
+                                aria-label="Increase quantity"
+                              >
+                                <Plus size={14} />
+                              </button>
+                            </div>
+
+                            {/* Remove Button */}
+                            <button
+                              onClick={() => onRemoveItem(item.id)}
+                              className="p-1 hover:opacity-60 transition-opacity"
+                              style={{ color: r(0.45) }}
+                              aria-label="Remove item"
+                            >
+                              <Trash2 size={16} />
+                            </button>
+                          </div>
                         </div>
 
-                        {/* Remove Button - Desktop Only */}
-                        <button
-                          onClick={() => onRemoveItem(item.id)}
-                          className="hidden sm:block p-2 hover:opacity-60 transition-opacity"
-                          style={{ color: r(0.45) }}
-                          aria-label="Remove item"
-                        >
-                          <Trash2 size={18} />
-                        </button>
+                        <p className="text-base font-sans font-medium self-start pt-1" style={{ color: BRAND }}>
+                          {formatPrice(item.price * item.cartQuantity)}
+                        </p>
                       </div>
+                    ))}
+
+                    {/* Paper Bag */}
+                    <div className="py-5 flex items-center justify-between">
+                      <div>
+                        <p className="text-base font-sans font-medium" style={{ color: BRAND }}>
+                          Box
+                        </p>
+                        <p className="text-sm font-sans font-light mt-1" style={{ color: r(0.72) }}>
+                          10k
+                        </p>
+                      </div>
+
+                      <span className="text-sm font-sans" style={{ color: r(0.55) }}>
+                        Included
+                      </span>
                     </div>
                   </div>
-
-                  
-                ))}
-
-                {/* Paper Bag */}
-                <div
-                  className="py-8 border-b flex items-center justify-between"
-                  style={{ borderColor: r(0.12) }}
-                >
-                  <div>
-                    <p
-                      className="text-base font-sans font-medium"
-                      style={{ color: BRAND }}
-                    >
-                      Box
-                    </p>
-
-                    <p
-                      className="text-sm font-sans font-light mt-2"
-                      style={{ color: r(0.72) }}
-                    >
-                      10k
-                    </p>
-                  </div>
-
-                  <span
-                    className="text-sm font-sans"
-                    style={{ color: r(0.55) }}
-                  >
-                    Included
-                  </span>
                 </div>
-              </div>
 
-              {/* Summary */}
-              <div className="mb-12">
-                <div className="space-y-4 mb-8 pb-8 border-b" style={{ borderColor: r(0.15) }}>
+                {/* Right: summary */}
+                <div
+                  className="rounded-2xl border p-6 md:p-8 lg:sticky lg:top-24"
+                  style={{ borderColor: r(0.14), backgroundColor: "rgba(255,255,255,0.55)" }}
+                >
+                  <h3 className="font-display text-2xl mb-6" style={{ color: BRAND }}>Summary</h3>
+
+                  <div className="space-y-3">
                     {/* Subtotal */}
                     <div className="flex items-center justify-between">
                       <span className="text-base font-sans" style={{ color: r(0.75) }}>
@@ -935,47 +934,42 @@ export default function Cart({
                     </div>
 
                     {/* Total */}
-                    <div className="flex items-center justify-between pt-4">
+                    <div className="flex items-baseline justify-between pt-4 border-t" style={{ borderColor: r(0.15) }}>
                       <span className="text-lg font-sans font-medium" style={{ color: r(0.85) }}>
                         Total
                       </span>
-                      <span className="text-2xl font-display" style={{ color: BRAND }}>
+                      <span className="text-3xl font-display" style={{ color: BRAND }}>
                         {formatTotal(total)}
                       </span>
                     </div>
                   </div>
 
-                <p className="text-sm font-sans text-center mb-8" style={{ color: r(0.65) }}>
-                  For bulk orders & event inquiries, please contact us at{" "}
-                  <a
-                    href="mailto:blondbakeri@gmail.com"
-                    className="underline"
-                    style={{ color: BRAND }}
-                  >
-                    blondbakeri@gmail.com
-                  </a>
-                </p>
-
-                <div className="p-4 mb-8" style={{ backgroundColor: r(0.04), border: `1px solid ${r(0.12)}` }}>
-                  <p className="text-sm font-sans font-light leading-relaxed" style={{ color: r(0.85) }}>
+                  <p className="text-sm font-sans font-light leading-relaxed my-6" style={{ color: r(0.78) }}>
                     <span style={{ fontWeight: 600, color: BRAND }}>Note:</span> A 10% tax is included in the total. Availability is subject to final confirmation. Pre-orders must be placed at least 1 day in advance (H-1). Don't worry, we will send you a confirmation message as soon as you place your order!
                   </p>
-                </div>
-              </div>
 
-              {/* Buttons */}
-              <div className="flex flex-col gap-4 sm:flex-row">
-
-                <button
+                  <button
                     onClick={handleOrder}
-                    className="flex-1 rounded inline-flex items-center justify-center gap-2 px-8 py-4 text-sm tracking-[0.15em] uppercase transition-all duration-300 font-sans"
+                    className="w-full rounded inline-flex items-center justify-center gap-2 px-8 py-4 text-sm tracking-[0.15em] uppercase transition-all duration-300 font-sans"
                     style={{ backgroundColor: BRAND, color: BG }}
                     onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.opacity = "0.85")}
                     onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.opacity = "1")}
-                    >
+                  >
                     Send Order via WhatsApp
                     <ExternalLink size={14} style={{ opacity: 0.7 }} />
-                </button>
+                  </button>
+
+                  <p className="text-sm font-sans text-center mt-5" style={{ color: r(0.65) }}>
+                    For bulk orders & event inquiries, please contact us at{" "}
+                    <a
+                      href="mailto:blondbakeri@gmail.com"
+                      className="underline"
+                      style={{ color: BRAND }}
+                    >
+                      blondbakeri@gmail.com
+                    </a>
+                  </p>
+                </div>
               </div>
             </>
           )}
