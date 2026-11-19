@@ -1007,70 +1007,10 @@ export default function Home({ cartItems }: HomeProps) {
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 items-start">
-            <div className="lg:col-span-2 space-y-12">
-              <div>
-                <div className="flex items-center gap-3 mb-6">
-                  <Clock size={18} style={{ color: BRAND }} />
-                  <h3 className="font-display text-2xl" style={{ color: BRAND }}>Opening Hours</h3>
-                </div>
-                <div className="pl-7">
-                  {[
-                    { day: "Wednesday – Friday", hours: "7:30 am – 4:00 pm" },
-                    { day: "Saturday – Sunday", hours: "7:00 am – 5:00 pm" },
-                    { day: "Monday – Tuesday", hours: "Closed" },
-                  ].map(({ day, hours }) => (
-                    <div key={day} className="flex justify-between py-4 border-b" style={{ borderColor: r(0.12) }}>
-                      <span className="font-sans" style={{ color: r(0.85) }}>{day}</span>
-                      <span
-                        className="font-sans"
-                        style={{
-                          color: hours === "Closed" ? r(0.3) : BRAND,
-                          fontStyle: hours === "Closed" ? "italic" : "normal",
-                        }}
-                      >
-                        {hours}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div>
-                <div className="flex items-center gap-3 mb-6">
-                  <MapPin size={18} style={{ color: BRAND }} />
-                  <h3 className="font-display text-2xl" style={{ color: BRAND }}>Location</h3>
-                </div>
-                <div className="pl-7">
-                  <p className="font-sans font-light leading-relaxed mb-6" style={{ color: r(0.88) }}>
-                    A small spot worth the trip. Check our Instagram for any
-                    temporary closures or special pop-up hours before you visit.
-                  </p>
-                  <a
-                    href="https://maps.app.goo.gl/tWgSh2jF9pGRYdAt5"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex rounded items-center gap-2 border px-6 py-3 text-sm tracking-[0.12em] uppercase transition-all duration-300 font-sans"
-                    style={{ borderColor: BRAND, color: BRAND }}
-                    onMouseEnter={(e) => {
-                      (e.currentTarget as HTMLElement).style.backgroundColor = BRAND;
-                      (e.currentTarget as HTMLElement).style.color = BG;
-                    }}
-                    onMouseLeave={(e) => {
-                      (e.currentTarget as HTMLElement).style.backgroundColor = "transparent";
-                      (e.currentTarget as HTMLElement).style.color = BRAND;
-                    }}
-                  >
-                    <MapPin size={14} />
-                    Get Directions
-                    <ExternalLink size={12} style={{ opacity: 0.5 }} />
-                  </a>
-                </div>
-              </div>
-            </div>
-
+          <div className="relative">
+            {/* Map */}
             <div
-              className="lg:col-span-3 rounded h-80 lg:h-[460px] overflow-hidden border"
+              className="rounded-2xl h-72 lg:h-[560px] overflow-hidden border"
               style={{ borderColor: r(0.15), backgroundColor: r(0.06) }}
             >
               <iframe
@@ -1083,6 +1023,65 @@ export default function Home({ cartItems }: HomeProps) {
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
               />
+            </div>
+
+            {/* Details card: over the map on PC, below it on phone and tablet */}
+            <div
+              className="lg:absolute lg:left-10 lg:top-1/2 lg:-translate-y-1/2 lg:w-[400px] mt-6 lg:mt-0 rounded-2xl p-7 md:p-9 border shadow-[0_20px_60px_-20px_rgba(158,132,101,0.45)]"
+              style={{ backgroundColor: BG, borderColor: r(0.15) }}
+            >
+              <div className="flex items-center gap-3 mb-5">
+                <Clock size={18} style={{ color: BRAND }} />
+                <h3 className="font-display text-2xl" style={{ color: BRAND }}>Opening Hours</h3>
+              </div>
+              <div className="mb-8">
+                {[
+                  { day: "Wednesday – Friday", hours: "7:30 am – 4:00 pm" },
+                  { day: "Saturday – Sunday", hours: "7:00 am – 5:00 pm" },
+                  { day: "Monday – Tuesday", hours: "Closed" },
+                ].map(({ day, hours }) => (
+                  <div key={day} className="flex justify-between gap-4 py-4 border-b" style={{ borderColor: r(0.12) }}>
+                    <span className="font-sans" style={{ color: r(0.85) }}>{day}</span>
+                    <span
+                      className="font-sans whitespace-nowrap"
+                      style={{
+                        color: hours === "Closed" ? r(0.3) : BRAND,
+                        fontStyle: hours === "Closed" ? "italic" : "normal",
+                      }}
+                    >
+                      {hours}
+                    </span>
+                  </div>
+                ))}
+              </div>
+
+              <div className="flex items-center gap-3 mb-5">
+                <MapPin size={18} style={{ color: BRAND }} />
+                <h3 className="font-display text-2xl" style={{ color: BRAND }}>Location</h3>
+              </div>
+              <p className="font-sans font-light leading-relaxed mb-6" style={{ color: r(0.88) }}>
+                A small spot worth the trip. Check our Instagram for any
+                temporary closures or special pop-up hours before you visit.
+              </p>
+              <a
+                href="https://maps.app.goo.gl/tWgSh2jF9pGRYdAt5"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex rounded items-center gap-2 border px-6 py-3 text-sm tracking-[0.12em] uppercase transition-all duration-300 font-sans"
+                style={{ borderColor: BRAND, color: BRAND }}
+                onMouseEnter={(e) => {
+                  (e.currentTarget as HTMLElement).style.backgroundColor = BRAND;
+                  (e.currentTarget as HTMLElement).style.color = BG;
+                }}
+                onMouseLeave={(e) => {
+                  (e.currentTarget as HTMLElement).style.backgroundColor = "transparent";
+                  (e.currentTarget as HTMLElement).style.color = BRAND;
+                }}
+              >
+                <MapPin size={14} />
+                Get Directions
+                <ExternalLink size={12} style={{ opacity: 0.5 }} />
+              </a>
             </div>
           </div>
         </div>
