@@ -1187,155 +1187,122 @@ export default function Home({ cartItems }: HomeProps) {
 
       {/* ── Footer ── */}
         <footer style={{ backgroundColor: BRAND }}>
-          <div className="max-w-7xl mx-auto px-6 lg:px-12 py-10 sm:py-14">
+          <div className="max-w-5xl mx-auto px-6 lg:px-12 py-14 md:py-16 text-center">
 
             {/* Logo */}
-            <div className="flex justify-center sm:justify-start">
-              <ImageWithFallback
-                src={blondLogo}
-                alt="BLOND"
-                className="h-20 sm:h-20 md:h-24 w-auto object-contain"
-                style={{ filter: "brightness(0) invert(1)" }}
-              />
-            </div>
-
-            {/* Divider */}
-            <div
-              className="my-7 sm:my-10"
-              style={{
-                borderTop: "1px solid rgba(255,249,241,0.15)",
-              }}
+            <ImageWithFallback
+              src={blondLogo}
+              alt="BLOND"
+              className="h-20 md:h-24 w-auto object-contain mx-auto mb-8"
+              style={{ filter: "brightness(0) invert(1)" }}
             />
 
+            {/* Quick links */}
+            <div className="flex flex-wrap justify-center gap-x-8 gap-y-3 mb-10">
+              {NAV_LINKS.map((link) => (
+                <button
+                  key={link.id}
+                  type="button"
+                  onClick={() => scrollTo(link.id)}
+                  className="text-sm uppercase tracking-[0.18em] font-sans transition-opacity hover:opacity-60"
+                  style={{ color: "rgba(255,249,241,0.85)", cursor: "pointer", font: "inherit", letterSpacing: "0.18em" }}
+                >
+                  {link.label}
+                </button>
+              ))}
+            </div>
+
             {/* Info */}
-            <div className="flex flex-col gap-10 text-center sm:flex-row sm:items-start sm:justify-between sm:text-left">
+            <div
+              className="grid grid-cols-1 md:grid-cols-3 gap-10 py-10 border-y"
+              style={{ borderColor: "rgba(255,249,241,0.18)" }}
+            >
 
               {/* Opening Hours */}
-              <div>
+              <div className="flex flex-col items-center">
                 <div
-                  className="text-xs font-bold uppercase tracking-[0.2em] mb-4 font-sans"
-                  style={{ color: BG }}
+                  className="text-xs uppercase tracking-[0.2em] mb-4 font-sans"
+                  style={{ color: "rgba(255,249,241,0.55)" }}
                 >
                   Opening Hours
                 </div>
-
-                <div className="text-[13px] font-sans space-y-1">
-                  <span style={{ color: "rgba(255,249,241,0.75)" }}>
-                    Wed – Fri · 7:30 am – 4:00 pm
-                  </span>
-                  <br></br>
-                  <span style={{ color: "rgba(255,249,241,0.75)" }}>
-                    Sat – Sun · 7:00 am – 5:00 pm
-                  </span>
+                <div className="text-[15px] font-sans leading-relaxed" style={{ color: "rgba(255,249,241,0.9)" }}>
+                  <div>Wed – Fri · 7:30 am – 4:00 pm</div>
+                  <div>Sat – Sun · 7:00 am – 5:00 pm</div>
                 </div>
               </div>
 
-              
               {/* Address */}
-              <div className="flex flex-col items-center sm:items-start">
+              <div className="flex flex-col items-center">
                 <div
-                  className="text-xs font-bold uppercase tracking-[0.2em] mb-4 font-sans"
-                  style={{ color: BG }}
+                  className="text-xs uppercase tracking-[0.2em] mb-4 font-sans"
+                  style={{ color: "rgba(255,249,241,0.55)" }}
                 >
                   Address
                 </div>
-
-                <div className="flex items-start justify-center gap-2">
-                  <MapPin
-                    size={16}
-                    className="mt-0.5 shrink-0"
-                    style={{ color: BG }}
-                  />
-                  <a
-                    href="https://maps.google.com/?q=Imam+Bonjol+no.+27,+Bandung,+Indonesia"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                  <span
-                    className="text-[13px] font-sans leading-relaxed"
-                    style={{ color: "rgba(255,249,241,0.75)" }}
-                  >
+                <a
+                  href="https://maps.google.com/?q=Imam+Bonjol+no.+27,+Bandung,+Indonesia"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-start gap-2 text-left transition-opacity hover:opacity-60"
+                >
+                  <MapPin size={16} className="mt-1 shrink-0" style={{ color: BG }} />
+                  <span className="text-[15px] font-sans leading-relaxed" style={{ color: "rgba(255,249,241,0.9)" }}>
                     Imam Bonjol no. 27
                     <br />
                     Bandung, Indonesia
                   </span>
-                  </a>
-                </div>
+                </a>
               </div>
 
               {/* Contact Us */}
-              <div className="flex flex-col items-center sm:items-start">
+              <div className="flex flex-col items-center">
                 <div
-                  className="text-xs font-bold uppercase tracking-[0.2em] mb-4 font-sans"
-                  style={{ color: BG }}
+                  className="text-xs uppercase tracking-[0.2em] mb-4 font-sans"
+                  style={{ color: "rgba(255,249,241,0.55)" }}
                 >
                   Contact Us
                 </div>
-
-                <div className="flex flex-col gap-3">
-                  {/* Phone */}
+                <div className="flex flex-col gap-2">
                   <a
                     href="tel:+6281802227775"
-                    className="flex items-center gap-2 transition-opacity hover:opacity-60"
-                    style={{ color: "rgba(255,249,241,0.75)" }}
+                    className="flex items-center justify-center gap-2 transition-opacity hover:opacity-60"
+                    style={{ color: "rgba(255,249,241,0.9)" }}
                   >
                     <Phone size={15} className="shrink-0" />
-                    <span className="text-[13px] font-sans">
-                      +62 818 0222 7775
-                    </span>
+                    <span className="text-[15px] font-sans">+62 818 0222 7775</span>
                   </a>
-
-                  {/* Email */}
                   <a
                     href="mailto:blondbakeri@gmail.com"
-                    className="flex items-center gap-2 transition-opacity hover:opacity-60"
-                    style={{ color: "rgba(255,249,241,0.75)" }}
+                    className="flex items-center justify-center gap-2 transition-opacity hover:opacity-60"
+                    style={{ color: "rgba(255,249,241,0.9)" }}
                   >
                     <Mail size={15} className="shrink-0" />
-                    <span className="text-[13px] font-sans">
-                      blondbakeri@gmail.com
-                    </span>
+                    <span className="text-[15px] font-sans">blondbakeri@gmail.com</span>
                   </a>
                 </div>
-              </div>
-
-
-              {/* Socials */}
-              <div>
-                <div
-                  className="text-xs font-bold uppercase tracking-[0.2em] mb-4 font-sans"
-                  style={{ color: BG }}
-                >
-                  Socials
-                </div>
-
-                <a
-                  href="https://instagram.com/blondthebakery"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 transition-opacity hover:opacity-60"
-                  style={{ color: BG }}
-                >
-                  <Instagram size={17} />
-
-                  <span
-                    className="text-[13px] font-sans"
-                    style={{ color: "rgba(255,249,241,0.75)" }}
-                  >
-                    @blondthebakery
-                  </span>
-                </a>
               </div>
 
             </div>
 
-            {/* Copyright */}
-            <p
-              className="mt-8 text-[14px] font-sans text-center sm:text-left"
-              style={{ color: "rgba(255,249,241,0.35)" }}
-            >
-              © {new Date().getFullYear()} Blond the Bakery. All rights reserved.
-            </p>
+            {/* Socials + copyright */}
+            <div className="flex flex-col items-center gap-4 mt-8">
+              <a
+                href="https://instagram.com/blondthebakery"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 transition-opacity hover:opacity-60"
+                style={{ color: BG }}
+              >
+                <Instagram size={17} />
+                <span className="text-[15px] font-sans" style={{ color: "rgba(255,249,241,0.9)" }}>
+                  @blondthebakery
+                </span>
+              </a>
+              <p className="text-sm font-sans" style={{ color: "rgba(255,249,241,0.45)" }}>
+                © {new Date().getFullYear()} Blond the Bakery. All rights reserved.
+              </p>
+            </div>
 
           </div>
         </footer>
