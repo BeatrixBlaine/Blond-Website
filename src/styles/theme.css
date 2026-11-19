@@ -181,6 +181,12 @@
     line-height: 1.5;
   }
 
+  /* Tailwind v4 resets buttons to the arrow cursor, so bring the hand back */
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]) {
+    cursor: pointer;
+  }
+
   input {
     font-size: var(--text-base);
     font-weight: var(--font-weight-normal);
