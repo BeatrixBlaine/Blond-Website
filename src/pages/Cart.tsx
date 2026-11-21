@@ -20,7 +20,6 @@ import beefParmesan from "@/imports/beefParmesan1.jpeg";
 import cookiesOriginal from "@/imports/cookiesOriginal.jpeg";
 import pistachioChoco from "@/imports/pistachioChoco.jpeg";
 import peanutButterPainAu from "@/imports/peanutButterPainAu1.jpeg";
-import crumbleCustard from "@/imports/crumbleCustard.jpeg";
 import cinnamonBun from "@/imports/cinnamonBun.jpeg";
 import pistachioCroissant from "@/imports/pistachioCroissant.jpeg";
 
@@ -59,12 +58,6 @@ const CROISSANT_COLS: { name: string; desc: string; productId: string; image?: s
       desc: "Twice baked with dark chocolate and almond frangipane, finished with toasted almond flakes.",
       productId: "c-06",
       image: almondChoco,
-    },
-    {
-      name: "Crumble Custard",
-      desc: "Cardamom & cinnamon custard, salted caramel, mascarpone cream, and cinnamon crumble.",
-      productId: "c-19",
-      image: crumbleCustard,
     },
   ],
   [

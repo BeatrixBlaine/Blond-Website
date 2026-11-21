@@ -153,14 +153,6 @@ export const PRODUCTS: Product[] = [
     description: "Filled with slow-roasted tomato confit, fresh basil, and whipped honey mustard cream cheese.",
     price: 58000,
   },
-  {
-    id: "c-19",
-    category: "croissants",
-    number: 19,
-    name: "Crumble Custard",
-    description: "Cardamom & cinnamon custard, salted caramel, mascarpone cream, and cinnamon crumble.",
-    price: 58000,
-  },
   
   // Cookies
   {
