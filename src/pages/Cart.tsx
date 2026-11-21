@@ -26,7 +26,7 @@ import pistachioCroissant from "@/imports/pistachioCroissant.jpeg";
 
 const BRAND = "#9E8465";
 const BG = "#FFF9F1";
-const PAPER_BAG_PRICE = 10000;
+const PACKAGING_PRICE = 10000; // paper bag or box, same price
 
 function r(opacity: number) {
   return `rgba(158,132,101,${opacity})`;
@@ -319,13 +319,26 @@ export default function Cart({
     })
     .filter((item): item is Product & { cartQuantity: number } => item !== null);
 
+  // Packaging: a box for bigger orders, otherwise a paper bag
+  const croissantCount = cartItems
+    .filter((item) => item.category === "croissants")
+    .reduce((sum, item) => sum + item.cartQuantity, 0);
+  const cookieCount = cartItems
+    .filter((item) => item.category === "cookies")
+    .reduce((sum, item) => sum + item.cartQuantity, 0);
+  const usesBox =
+    croissantCount > 3 ||
+    cookieCount > 8 ||
+    croissantCount + cookieCount >= 4;
+  const packagingName = usesBox ? "Box" : "Paper Bag";
+
   // Calculate total
   // Calculate prices
   const subtotal =
   cartItems.reduce(
     (sum, item) => sum + item.price * item.cartQuantity,
     0
-  ) + (cartItems.length > 0 ? PAPER_BAG_PRICE : 0);
+  ) + (cartItems.length > 0 ? PACKAGING_PRICE : 0);
 
   const tax = subtotal * 0.10;
 
@@ -390,7 +403,7 @@ export default function Cart({
 
   // Wednesday - Friday
   if (day >= 3 && day <= 5) {
-    for (let hour = 7; hour <= 16; hour++) {
+    for (let hour = 7; hour <= 15; hour++) {
       if (hour === 7) {
         times.push("07:30");
       } else {
@@ -401,7 +414,7 @@ export default function Cart({
 
   // Saturday - Sunday
   if (day === 6 || day === 0) {
-    for (let hour = 7; hour <= 17; hour++) {
+    for (let hour = 7; hour <= 15; hour++) {
       times.push(`${String(hour).padStart(2, "0")}:00`);
     }
   }
@@ -499,7 +512,7 @@ export default function Cart({
       message += `• (${item.cartQuantity}) ${item.name} — ${formatPriceForMessage(subtotal)}\n`;
     });
 
-    message += `• (1) Box — ${formatPriceForMessage(PAPER_BAG_PRICE)}\n`;
+    message += `• (1) ${packagingName} — ${formatPriceForMessage(PACKAGING_PRICE)}\n`;
     
     message += `\nSubtotal: ${formatPriceForMessage(subtotal)}`;
     message += `\nTax (10%): ${formatPriceForMessage(tax)}`;
@@ -887,11 +900,11 @@ export default function Cart({
                       </div>
                     ))}
 
-                    {/* Paper Bag */}
+                    {/* Packaging: paper bag or box */}
                     <div className="py-5 flex items-center justify-between">
                       <div>
                         <p className="text-base font-sans font-medium" style={{ color: BRAND }}>
-                          Box
+                          {packagingName}
                         </p>
                         <p className="text-sm font-sans font-light mt-1" style={{ color: r(0.72) }}>
                           10k
