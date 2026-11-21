@@ -45,7 +45,6 @@ import menuCinnamonBun from "@/imports/cinnamonBun.jpeg";
 import menuPistachioCroissant from "@/imports/pistachioCroissant.jpeg";
 import menuPistachioChoco from "@/imports/pistachioChoco.jpeg";
 import menuAlmondChoco from "@/imports/almondChocolatine2.jpeg";
-import menuCrumbleCustard from "@/imports/crumbleCustard.jpeg";
 import menuHazelnut from "@/imports/hazelnut1.jpeg";
 import menuBanana from "@/imports/banana.jpeg";
 import menuApplePie from "@/imports/applepie1.jpeg";
@@ -125,11 +124,6 @@ const CROISSANT_COLS: { name: string; desc: string; productId: string }[][] = [
       productId: "c-10",
     },
     {
-      name: "Crumble Custard",
-      desc: "Cardamom & cinnamon custard, salted caramel, mascarpone cream, and cinnamon crumble.",
-      productId: "c-19",
-    },
-    {
       name: "Egg Tart",
       desc: "Silky baked custard in a flaky croissant pastry.",
       productId: "c-12",
@@ -191,7 +185,6 @@ const MENU_PHOTOS: Record<string, string> = {
   "c-04": menuPistachioCroissant,
   "c-05": menuPistachioChoco,
   "c-06": menuAlmondChoco,
-  "c-19": menuCrumbleCustard,
   "c-07": menuHazelnut,
   "c-08": menuBanana,
   "c-09": menuApplePie,
