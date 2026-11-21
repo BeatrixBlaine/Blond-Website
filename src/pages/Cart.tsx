@@ -585,7 +585,7 @@ export default function Cart({
           {/* Date Field */}
           <div>
             <label className="block text-sm font-sans font-medium mb-2" style={{ color: BRAND }}>
-              Desired Pickup Date
+              Pickup Date
             </label>
             <input
               type="date"
