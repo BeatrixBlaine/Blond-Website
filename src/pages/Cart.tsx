@@ -319,17 +319,24 @@ export default function Cart({
     })
     .filter((item): item is Product & { cartQuantity: number } => item !== null);
 
-  // Packaging: a box for bigger orders, otherwise a paper bag
+  // Packaging: a box for bigger orders (rule depends on what is in the cart), otherwise a paper bag
   const croissantCount = cartItems
     .filter((item) => item.category === "croissants")
     .reduce((sum, item) => sum + item.cartQuantity, 0);
   const cookieCount = cartItems
     .filter((item) => item.category === "cookies")
     .reduce((sum, item) => sum + item.cartQuantity, 0);
-  const usesBox =
-    croissantCount > 3 ||
-    cookieCount > 8 ||
-    croissantCount + cookieCount >= 4;
+  let usesBox = false;
+  if (croissantCount > 0 && cookieCount === 0) {
+    // only croissants
+    usesBox = croissantCount > 3;
+  } else if (cookieCount > 0 && croissantCount === 0) {
+    // only cookies
+    usesBox = cookieCount > 8;
+  } else if (croissantCount > 0 && cookieCount > 0) {
+    // both
+    usesBox = croissantCount + cookieCount >= 5;
+  }
   const packagingName = usesBox ? "Box" : "Paper Bag";
 
   // Calculate total
