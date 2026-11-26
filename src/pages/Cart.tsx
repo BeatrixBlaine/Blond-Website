@@ -1,7 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
-import { ArrowLeft, Plus, Minus, Trash2, ExternalLink, ShoppingBag } from "lucide-react";
+import { ArrowLeft, Plus, Minus, Trash2, CreditCard, ShoppingBag } from "lucide-react";
 import { Product, PRODUCTS } from "@/data/products";
+import AuthDialog from "@/components/AuthDialog";
+import { useAuth } from "@/lib/auth";
+import { api, ApiError } from "@/lib/api";
+import { formatRupiah, openPayment } from "@/lib/payment";
 import classicCroissant from "@/imports/classicCroissant2.jpeg";
 import painAuChocolat from "@/imports/painAu.jpeg";
 import beefSpecial from "@/imports/beefSpecial.jpeg";
@@ -25,6 +29,7 @@ import pistachioCroissant from "@/imports/pistachioCroissant.jpeg";
 
 const BRAND = "#9E8465";
 const BG = "#FFF9F1";
+const ERROR = "#A4452C";
 const PACKAGING_PRICE = 10000; // paper bag or box, same price
 
 function r(opacity: number) {
@@ -293,6 +298,7 @@ interface CartProps {
   onRemoveItem: (productId: string) => void;
   onIncreaseQuantity: (productId: string) => void;
   onDecreaseQuantity: (productId: string) => void;
+  onClearCart: () => void;
 }
 
 export default function Cart({
@@ -301,8 +307,10 @@ export default function Cart({
   onRemoveItem,
   onIncreaseQuantity,
   onDecreaseQuantity,
+  onClearCart,
 }: CartProps) {
   const navigate = useNavigate();
+  const { user, loading: authLoading, logout } = useAuth();
   
   // Get product details for each cart item
   const cartItems = items
@@ -351,6 +359,12 @@ export default function Cart({
   const [customerName, setCustomerName] = useState("");
   const [orderDate, setOrderDate] = useState("");
   const [pickupTime, setPickupTime] = useState("");
+
+  // Checkout state
+  const [authOpen, setAuthOpen] = useState(false);
+  const [paying, setPaying] = useState(false);
+  const [checkoutError, setCheckoutError] = useState("");
+  const [acceptedTotal, setAcceptedTotal] = useState<number | null>(null);
 
   // Notification state
   const [showNotification, setShowNotification] = useState(true);
@@ -474,10 +488,6 @@ export default function Cart({
     return (price / 1000).toFixed(0) + "k";
   };
 
-  const formatPriceForMessage = (price: number) => {
-    return "Rp " + price.toLocaleString("id-ID");
-  };
-
   const formatTotal = (total: number) => {
     const thousands = total / 1000;
 
@@ -488,73 +498,100 @@ export default function Cart({
     return `${Number(thousands.toFixed(1))}k`;
   };
 
-  // Generate WhatsApp message with order details
-  const generateWhatsAppMessage = () => {
-    let message = "Hello BLOND! I'd like to place a pre-order:\n\n";
-    
-    if (customerName) {
-      message += `Name: ${customerName}\n`;
-    }
-    if (orderDate) {
-      message += `Pickup Date: ${orderDate}\n`;
+  // Checks the pickup form, same messages as before
+  const isFormValid = () => {
+    if (!customerName.trim()) {
+      alert("Please enter your name.");
+      return false;
     }
 
-    if (pickupTime) {
-        message += `Pickup Time: ${pickupTime}\n`;
+    if (!orderDate) {
+      alert("Please select a pickup date.");
+      return false;
     }
-    
-    if (customerName || orderDate) {
-      message += "\nItems:\n";
-    }
-    
-    cartItems.forEach((item) => {
-      const subtotal = item.price * item.cartQuantity;
-      message += `• (${item.cartQuantity}) ${item.name} — ${formatPriceForMessage(subtotal)}\n`;
-    });
 
-    message += `• (1) ${packagingName} — ${formatPriceForMessage(PACKAGING_PRICE)}\n`;
-    
-    message += `\nSubtotal: ${formatPriceForMessage(subtotal)}`;
-    message += `\nTax (10%): ${formatPriceForMessage(tax)}`;
-    message += `\nTotal: ${formatPriceForMessage(total)}\n\nThank you!`;
-    return message;
+    if (orderDate < getMinDate()) {
+      alert("Please select a pickup date starting from tomorrow.");
+      return false;
+    }
+
+    if (!isBakeryOpen()) {
+      alert("We're closed on Mondays and Tuesdays. Please select another pickup date.");
+      return false;
+    }
+
+    if (!pickupTime) {
+      alert("Please select a pickup time.");
+      return false;
+    }
+
+    return true;
   };
 
-  const getWhatsAppLink = () => {
-    return `https://wa.me/${import.meta.env.VITE_PHONE}?text=${encodeURIComponent(generateWhatsAppMessage())}`;
+  // The cart of this browser is copied to the server, the server works out the prices again
+  // and holds the pastries. The payment window opens with the amount the server calculated.
+  const startCheckout = async () => {
+    setPaying(true);
+    setCheckoutError("");
+
+    try {
+      const serverCart = await api.replaceCart(
+        items.map((item) => ({ productId: item.productId, quantity: item.quantity }))
+      );
+
+      // the price on this page is only a preview, the customer pays what the server says
+      if (Math.round(total) !== serverCart.total && acceptedTotal !== serverCart.total) {
+        setAcceptedTotal(serverCart.total);
+        setCheckoutError(
+          `The total is now ${formatRupiah(serverCart.total)} (the prices were updated). Press Pay now again to continue.`
+        );
+        return;
+      }
+
+      const checkout = await api.checkout({
+        customerName: customerName.trim(),
+        pickupDate: orderDate,
+        pickupTime,
+      });
+
+      const orderPath = `/orders/${checkout.order.orderCode}`;
+      const goToOrder = () => navigate(orderPath);
+
+      onClearCart();
+
+      try {
+        await openPayment(checkout.paymentToken, {
+          onSuccess: goToOrder,
+          onPending: goToOrder,
+          onError: goToOrder,
+          onClose: goToOrder,
+        });
+      } catch {
+        // the order exists and waits for payment, the order page can open the payment again
+        goToOrder();
+      }
+    } catch (e) {
+      if (e instanceof ApiError && e.status === 401) {
+        setAuthOpen(true);
+      } else {
+        setCheckoutError(e instanceof Error ? e.message : "Something went wrong. Please try again.");
+      }
+    } finally {
+      setPaying(false);
+    }
   };
 
   const handleOrder = () => {
-  if (!customerName.trim()) {
-    alert("Please enter your name.");
-    return;
-  }
+    if (paying || authLoading || !isFormValid()) return;
 
-  if (!orderDate) {
-    alert("Please select a pickup date.");
-    return;
-  }
+    // login is only asked here, the customer can browse and fill the cart without an account
+    if (!user) {
+      setAuthOpen(true);
+      return;
+    }
 
-  if (orderDate < getMinDate()) {
-    alert("Please select a pickup date starting from tomorrow.");
-    return;
-  }
-
-  if (!isBakeryOpen()) {
-    alert(
-      "We're closed on Mondays and Tuesdays. Please select another pickup date."
-    );
-    return;
-  }
-
-  if (!pickupTime) {
-    alert("Please select a pickup time.");
-    return;
-  }
-
-
-  window.open(getWhatsAppLink(), "_blank");
-};
+    void startCheckout();
+  };
 
     // Add item animation
     const handleAddItem = (productId: string) => {
@@ -694,10 +731,36 @@ export default function Cart({
             </span>
           </button>
 
-          <div className="flex items-center gap-3">
-            <span className="text-sm tracking-[0.12em] uppercase" style={{ color: r(0.55) }}>
+          <div className="flex items-center gap-4">
+            <span className="hidden sm:inline text-sm tracking-[0.12em] uppercase" style={{ color: r(0.55) }}>
               Pre-order
             </span>
+            {user ? (
+              <>
+                <button
+                  onClick={() => navigate("/orders")}
+                  className="text-sm tracking-[0.12em] uppercase hover:opacity-60 transition-opacity"
+                  style={{ color: BRAND }}
+                >
+                  My orders
+                </button>
+                <button
+                  onClick={logout}
+                  className="text-sm tracking-[0.12em] uppercase hover:opacity-60 transition-opacity"
+                  style={{ color: r(0.55) }}
+                >
+                  Log out
+                </button>
+              </>
+            ) : (
+              <button
+                onClick={() => setAuthOpen(true)}
+                className="text-sm tracking-[0.12em] uppercase hover:opacity-60 transition-opacity"
+                style={{ color: BRAND }}
+              >
+                Log in
+              </button>
+            )}
           </div>
         </nav>
       </header>
@@ -958,19 +1021,26 @@ export default function Cart({
                   </div>
 
                   <p className="text-sm font-sans font-light leading-relaxed my-6" style={{ color: r(0.78) }}>
-                    <span style={{ fontWeight: 600, color: BRAND }}>Note:</span> A 10% tax is included in the total. Availability is subject to final confirmation. Pre-orders must be placed at least 1 day in advance (H-1). Don't worry, we will send you a confirmation message as soon as you place your order!
+                    <span style={{ fontWeight: 600, color: BRAND }}>Note:</span> A 10% tax is included in the total. Pre-orders must be placed at least 1 day in advance (H-1). Pay with QRIS, an e-wallet or a card. We hold your pastries for 15 minutes while you pay, and your order is confirmed once the payment is received.
                   </p>
 
                   <button
                     onClick={handleOrder}
+                    disabled={paying}
                     className="w-full rounded inline-flex items-center justify-center gap-2 px-8 py-4 text-sm tracking-[0.15em] uppercase transition-all duration-300 font-sans"
-                    style={{ backgroundColor: BRAND, color: BG }}
-                    onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.opacity = "0.85")}
-                    onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.opacity = "1")}
+                    style={{ backgroundColor: BRAND, color: BG, opacity: paying ? 0.6 : 1 }}
+                    onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.opacity = paying ? "0.6" : "0.85")}
+                    onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.opacity = paying ? "0.6" : "1")}
                   >
-                    Send Order via WhatsApp
-                    <ExternalLink size={14} style={{ opacity: 0.7 }} />
+                    {paying ? "Processing..." : "Pay now"}
+                    <CreditCard size={14} style={{ opacity: 0.7 }} />
                   </button>
+
+                  {checkoutError && (
+                    <p className="text-sm font-sans mt-4 text-center" style={{ color: ERROR }} role="alert">
+                      {checkoutError}
+                    </p>
+                  )}
 
                   <p className="text-sm font-sans text-center mt-5" style={{ color: r(0.65) }}>
                     For bulk orders & event inquiries, please contact us at{" "}
@@ -989,6 +1059,18 @@ export default function Cart({
           </div>
         </div>
       </div>
+
+      <AuthDialog
+        open={authOpen}
+        onClose={() => setAuthOpen(false)}
+        onSuccess={() => {
+          // a customer who logged in from the Pay button continues straight to the payment
+          if (items.length > 0 && customerName.trim() && orderDate && pickupTime) {
+            void startCheckout();
+          }
+        }}
+        message="Log in to pay for your pre-order. Your cart stays as it is."
+      />
 
       {/* Floating Notification */}
       {cartItems.length > 0 && showNotification && (

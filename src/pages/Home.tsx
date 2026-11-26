@@ -217,13 +217,13 @@ const ORDER_STEPS = [
   },
   {
     n: "02",
-    title: "Confirm on WhatsApp",
-    desc: "Your order continues to WhatsApp, where we check everything with you and send the payment options.",
+    title: "Pay online",
+    desc: "Pay with QRIS, an e-wallet or a card. We hold your pastries for you while you pay.",
   },
   {
     n: "03",
-    title: "Pay and pick up",
-    desc: "Your order is confirmed once payment has been received. Then just come by and skip the queue.",
+    title: "Pick up",
+    desc: "Your order is confirmed as soon as the payment is received. Then just come by and skip the queue.",
   },
 ];
 
@@ -290,7 +290,7 @@ const FAQS = [
   },
   {
     q: "Are you available on any delivery platforms?",
-    a: "Not at the moment. We're currently an in-store bakery, but we do take pre-orders through WhatsApp. As we're a small team, replies may take a little longer, especially during busy mornings. There may also be times when we temporarily pause online orders so we can focus on serving everyone in the bakery.",
+    a: "Not at the moment. We're currently an in-store bakery, but we do take pre-orders on this website and you pay for them online. There may also be times when we temporarily pause online orders so we can focus on serving everyone in the bakery.",
   },
   {
     q: "Are your pastries halal?",

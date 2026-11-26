@@ -2,6 +2,8 @@
 import { Routes, Route } from "react-router-dom";
 import Home from "@/pages/Home";
 import Cart, { CartItem } from "@/pages/Cart";
+import Orders from "@/pages/Orders";
+import OrderStatus from "@/pages/OrderStatus";
 
 export default function App() {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
@@ -41,6 +43,11 @@ export default function App() {
   }, []);
 
 
+  // the order is made, the server has its own copy of the cart now
+  const handleClearCart = useCallback(() => {
+    setCartItems([]);
+  }, []);
+
   return (
     <Routes>
       <Route
@@ -56,9 +63,12 @@ export default function App() {
             onRemoveItem={handleRemoveItem}
             onIncreaseQuantity={handleIncreaseQuantity}
             onDecreaseQuantity={handleDecreaseQuantity}
+            onClearCart={handleClearCart}
           />
         }
       />
+      <Route path="/orders" element={<Orders />} />
+      <Route path="/orders/:orderCode" element={<OrderStatus />} />
     </Routes>
   );
 }

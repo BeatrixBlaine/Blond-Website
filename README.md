@@ -169,3 +169,15 @@ The primary goal was to create a polished online presence while making it easy f
 **Irsyad**
 
 Built with React, TypeScript, Vite, and Tailwind CSS.
+
+## Backend connection
+
+This version talks to the Blond backend (login, cart, pre-order inventory and online payment).
+Copy `.env.example` to `.env` and fill in:
+
+* `VITE_API_URL` - address of the backend, for example `http://localhost:8080`
+* `VITE_GOOGLE_CLIENT_ID` - OAuth client id for "Continue with Google" (optional, the button is hidden when empty)
+
+The cart stays in the browser while the customer chooses. When "Pay now" is pressed the customer logs in
+if needed, the cart is sent to the server, the server works out every price again and holds the pastries,
+and the Midtrans payment window opens. The order page (`/orders/:orderCode`) follows the payment status.
